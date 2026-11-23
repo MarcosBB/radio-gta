@@ -6,6 +6,7 @@ Seletor de rádios no estilo da roda do jogo. Você não escolhe a música: cada
 - Mostra a música que está tocando, a partir da tracklist com timestamps da descrição de cada vídeo.
 - Áudio vem das transmissões completas publicadas no YouTube (player oculto).
 - Controles: clique, setas do teclado, rodinha do mouse, arrastar o dedo em volta da roda; `Espaço` desliga.
+- 6 memórias como no rádio do carro: toque para sintonizar, segure para salvar a rádio atual (teclas `1`–`6` também sintonizam).
 
 ## Rodar
 
