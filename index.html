@@ -9,7 +9,35 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<title>Rádio Wheel</title>
+<title>Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, San Andreas, Vice City, III)</title>
+<meta name="description" content="Ouça as 80 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.">
+<meta name="robots" content="index, follow">
+<link rel="alternate" hreflang="pt-BR" href="https://projetos.marcosbb.com/radio-gta/">
+<link rel="alternate" hreflang="en" href="https://projetos.marcosbb.com/radio-gta/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://projetos.marcosbb.com/radio-gta/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rádio Wheel">
+<meta property="og:title" content="Rádio Wheel — Rádios do GTA ao vivo">
+<meta property="og:description" content="As rádios de GTA VI, V, IV, San Andreas, Vice City e III tocando ao vivo, com a roda de rádio do jogo.">
+<meta property="og:url" content="https://projetos.marcosbb.com/radio-gta/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Rádio Wheel",
+  "alternateName": "GTA Radio Wheel",
+  "url": "https://projetos.marcosbb.com/radio-gta/",
+  "description": "Ouça as rádios de GTA VI, V, IV, San Andreas, Vice City e III ao vivo, com a roda de rádio do jogo. / Listen to the GTA VI, V, IV, San Andreas, Vice City and III radio stations live, with the in-game radio wheel.",
+  "inLanguage": ["pt-BR", "en"],
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -369,6 +397,14 @@
   }
   .start p { color: var(--muted); text-align: center; margin-top: 14px; font-size: 13px; }
   .start[hidden] { display: none; }
+  .langbtn {
+    position: fixed; z-index: 15;
+    top: max(12px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right));
+    font: 700 12px Oswald, sans-serif; letter-spacing: .1em; text-decoration: none;
+    color: var(--fg); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .langbtn:hover, .langbtn:focus-visible { background: rgba(255,255,255,.16); }
 
   /* celular estreito: memórias em 3 colunas, volume embaixo do transporte */
   @media (max-width: 480px) {
@@ -411,17 +447,18 @@
 </head>
 <body class="off">
 <div class="glow"></div>
+<a class="langbtn" id="langBtn" href="?lang=en" hreflang="en" lang="en" aria-label="English version">EN</a>
 <main>
   <header>
     <h1>Rádio <span>Wheel</span></h1>
     <div class="gamesel">
-      <button class="arrow" id="gPrev" aria-label="Jogo anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button class="gametitle" id="gTitle" aria-haspopup="dialog" aria-label="Escolher jogo">
+      <button class="arrow" id="gPrev" aria-label="Jogo anterior" data-i18n-aria="prevGame"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="gametitle" id="gTitle" aria-haspopup="dialog" aria-label="Escolher jogo" data-i18n-aria="pickGame">
         <img class="glogo" id="gLogo" alt="" hidden>
         <span class="mark" id="gMark"></span>
         <span class="txt"><span class="name" id="gName"></span><span class="meta" id="gMeta"></span></span>
       </button>
-      <button class="arrow" id="gNext" aria-label="Próximo jogo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button class="arrow" id="gNext" aria-label="Próximo jogo" data-i18n-aria="nextGame"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
     <div class="dots" id="gDots" aria-hidden="true"></div>
   </header>
@@ -429,19 +466,19 @@
   <div class="wheel" id="wheel">
     <div class="center">
       <img class="logo" id="stLogo" alt="" hidden>
-      <div class="name" id="stName">Rádio desligada</div>
-      <div class="genre" id="stGenre">Escolha uma estação</div>
+      <div class="name" id="stName" data-i18n="radioOff">Rádio desligada</div>
+      <div class="genre" id="stGenre" data-i18n="pickStation">Escolha uma estação</div>
       <div class="song" id="song"></div>
     </div>
   </div>
 
-  <section class="bar" aria-label="Controles">
+  <section class="bar" aria-label="Controles" data-i18n-aria="controls">
     <div class="deck">
       <div class="transport">
-        <button class="btn" id="prev" aria-label="Estação anterior"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
-        <button class="btn power" id="power" aria-label="Ligar/desligar rádio"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button>
-        <button class="btn" id="next" aria-label="Próxima estação"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
-        <a class="btn spotify" id="spotify" target="_blank" rel="noopener" aria-label="Abrir a música atual no Spotify para salvar" title="Abrir no Spotify para salvar" hidden>
+        <button class="btn" id="prev" aria-label="Estação anterior" data-i18n-aria="prevSt"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="btn power" id="power" aria-label="Ligar/desligar rádio" data-i18n-aria="power"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button>
+        <button class="btn" id="next" aria-label="Próxima estação" data-i18n-aria="nextSt"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        <a class="btn spotify" id="spotify" target="_blank" rel="noopener" aria-label="Abrir a música atual no Spotify para salvar" data-i18n-aria="spotifyAria" title="Abrir no Spotify para salvar" data-i18n-title="spotifyTitle" hidden>
           <svg viewBox="0 0 24 24"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm4.8 15.2a.65.65 0 0 1-.9.2c-2.5-1.5-5.6-1.9-9.3-1a.65.65 0 1 1-.3-1.3c4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.3-2.9a.8.8 0 0 1-1.1.3c-2.8-1.7-7.2-2.2-10.5-1.2a.8.8 0 1 1-.5-1.6c3.8-1.1 8.6-.6 11.8 1.4.4.2.5.7.3 1.1zm.1-3c-3.4-2-9-2.2-12.2-1.2a1 1 0 1 1-.6-1.9c3.7-1.1 9.9-.9 13.8 1.4a1 1 0 0 1-1 1.7z"/></svg>
         </a>
       </div>
@@ -451,9 +488,9 @@
         <span class="vol-val" id="volVal">80</span>
       </div>
     </div>
-    <div class="mem-head"><h2>Memórias</h2><span>toque sintoniza · segure salva</span></div>
+    <div class="mem-head"><h2 data-i18n="presets">Memórias</h2><span data-i18n="presetsHint">toque sintoniza · segure salva</span></div>
     <div class="presets" id="presets"></div>
-    <div class="yt" id="yt" data-size="mini" aria-label="Player do YouTube">
+    <div class="yt" id="yt" data-size="mini" aria-label="Player do YouTube" data-i18n-aria="ytPlayer">
       <div class="yt-frame"><div id="player"></div></div>
       <div class="yt-info">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15V9l5.5 3-5.5 3z"/></svg>
@@ -466,9 +503,9 @@
 
 </main>
 
-<div class="picker" id="picker" role="dialog" aria-modal="true" aria-label="Escolher jogo">
+<div class="picker" id="picker" role="dialog" aria-modal="true" aria-label="Escolher jogo" data-i18n-aria="pickGame">
   <div class="sheet">
-    <div class="head"><h2>Escolha o jogo</h2><button class="close" id="pClose" aria-label="Fechar">✕</button></div>
+    <div class="head"><h2 data-i18n="pickGameTitle">Escolha o jogo</h2><button class="close" id="pClose" aria-label="Fechar" data-i18n-aria="close">✕</button></div>
     <div class="covers" id="covers"></div>
   </div>
 </div>
@@ -476,8 +513,8 @@
 
 <div class="start" id="start">
   <div>
-    <button id="startBtn">Ligar o rádio</button>
-    <p>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.</p>
+    <button id="startBtn" data-i18n="start">Ligar o rádio</button>
+    <p data-i18n-html="startNote">Ouça as rádios de GTA VI, V, IV, San Andreas, Vice City e III ao vivo, como no carro.<br>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.</p>
   </div>
 </div>
 
@@ -491,6 +528,96 @@
     get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
   };
+
+  // ---------- idioma (pt / en) ----------
+  const I18N = {
+    pt: {
+      docTitle: 'Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, San Andreas, Vice City, III)',
+      docDesc: 'Ouça as 80 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.',
+      prevGame: 'Jogo anterior', pickGame: 'Escolher jogo', nextGame: 'Próximo jogo',
+      radioOff: 'Rádio desligada', pickStation: 'Escolha uma estação', controls: 'Controles',
+      prevSt: 'Estação anterior', power: 'Ligar/desligar rádio', nextSt: 'Próxima estação',
+      spotifyAria: 'Abrir a música atual no Spotify para salvar', spotifyTitle: 'Abrir no Spotify para salvar',
+      mute: 'Silenciar', unmute: 'Ativar som',
+      presets: 'Memórias', presetsHint: 'toque sintoniza · segure salva',
+      ytPlayer: 'Player do YouTube', expand: 'Expandir player', minimize: 'Minimizar player',
+      hideVideo: 'Ocultar vídeo', showVideo: 'Mostrar vídeo',
+      pickGameTitle: 'Escolha o jogo', close: 'Fechar', start: 'Ligar o rádio',
+      startNote: 'Ouça as rádios de GTA VI, V, IV, San Andreas, Vice City e III ao vivo, como no carro.<br>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.',
+      stations: (n) => `${n} rádios`,
+      unavailable: 'Transmissão indisponível agora',
+      needTune: 'Sintonize uma rádio antes de salvar',
+      saved: (name, k) => `${name} salva na memória ${k}`,
+      emptyRecall: (k) => `Memória ${k} vazia: segure para salvar`,
+      presetTitle: (k, name) => `${k}: ${name} (segure para trocar)`,
+      presetAria: (k, name) => `Memória ${k}: ${name}`,
+      presetEmptyTitle: (k) => `Memória ${k} vazia: segure para salvar a rádio atual`,
+      presetEmptyAria: (k) => `Memória ${k} vazia`,
+      langOther: 'en', langOtherLabel: 'EN', langOtherAria: 'English version',
+    },
+    en: {
+      docTitle: 'Rádio Wheel — GTA Radio Stations Live (GTA VI, V, IV, San Andreas, Vice City, III)',
+      docDesc: 'Listen to all 80 radio stations from GTA VI, GTA V, GTA IV, San Andreas, Vice City and GTA III in your browser, live and synced like in the game, with the radio wheel, presets and the name of the song playing.',
+      prevGame: 'Previous game', pickGame: 'Choose game', nextGame: 'Next game',
+      radioOff: 'Radio off', pickStation: 'Pick a station', controls: 'Controls',
+      prevSt: 'Previous station', power: 'Turn radio on/off', nextSt: 'Next station',
+      spotifyAria: 'Open the current song on Spotify to save it', spotifyTitle: 'Open on Spotify to save',
+      mute: 'Mute', unmute: 'Unmute',
+      presets: 'Presets', presetsHint: 'tap to tune · hold to save',
+      ytPlayer: 'YouTube player', expand: 'Expand player', minimize: 'Minimize player',
+      hideVideo: 'Hide video', showVideo: 'Show video',
+      pickGameTitle: 'Choose the game', close: 'Close', start: 'Turn on the radio',
+      startNote: 'Listen to the GTA VI, V, IV, San Andreas, Vice City and III radio stations live, just like in the car.<br>Audio from full station broadcasts published on YouTube.<br>Fan project, not affiliated with Rockstar Games.',
+      stations: (n) => `${n} stations`,
+      unavailable: 'Broadcast unavailable right now',
+      needTune: 'Tune in to a station before saving',
+      saved: (name, k) => `${name} saved to preset ${k}`,
+      emptyRecall: (k) => `Preset ${k} is empty: hold to save`,
+      presetTitle: (k, name) => `${k}: ${name} (hold to replace)`,
+      presetAria: (k, name) => `Preset ${k}: ${name}`,
+      presetEmptyTitle: (k) => `Preset ${k} is empty: hold to save the current station`,
+      presetEmptyAria: (k) => `Preset ${k} empty`,
+      langOther: 'pt', langOtherLabel: 'PT', langOtherAria: 'Versão em português',
+    },
+  };
+  // gêneros: as estações guardam o texto em português; aqui fica a versão em inglês
+  const GENRE_EN = {
+    'Pop & New Wave dos anos 80': '80s Pop & New Wave', 'Anos 80': '80s hits', 'Baladas dos anos 80': '80s ballads',
+    'Bem-estar (falada)': 'Wellness (talk)', 'Country clássico': 'Classic country', 'Disco & funk': 'Disco & funk',
+    'Eletrônica': 'Electronic', 'Funk & soul raro': 'Rare funk & soul', 'Hip-hop & eletrônica': 'Hip-hop & electronic',
+    'Hip-hop clássico': 'Classic hip-hop', 'Hip-hop da Costa Oeste': 'West Coast hip-hop', 'Hip-hop de NY': 'NY hip-hop',
+    'Hip-hop moderno': 'Modern hip-hop', 'IDM & hip-hop alternativo': 'IDM & alternative hip-hop',
+    'Indie & alternativo': 'Indie & alternative', 'Indie dance & eletrônica': 'Indie dance & electronic',
+    'Latina': 'Latin', 'Música mexicana': 'Mexican music', 'Música russa': 'Russian music',
+    'Rock alternativo & grunge': 'Alternative rock & grunge', 'Rock clássico': 'Classic rock', 'Rádio falada': 'Talk radio',
+    'Rádio pública (falada)': 'Public radio (talk)', 'Soft rock & baladas': 'Soft rock & ballads', 'Ópera & clássica': 'Opera & classical',
+  };
+  const BOT = /bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent);
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  let lang = urlLang === 'en' || urlLang === 'pt' ? urlLang
+    : LS.get('lang', null) || (!BOT && !(navigator.languages || [navigator.language]).some((l) => /^pt/i.test(l)) ? 'en' : 'pt');
+  if (!I18N[lang]) lang = 'pt';
+  const t = (k, ...a) => { const v = I18N[lang][k] ?? I18N.pt[k]; return typeof v === 'function' ? v(...a) : v; };
+  const genre = (st) => (lang === 'en' && GENRE_EN[st.genre]) || st.genre;
+  const pageUrl = (l) => { const u = new URL(location.href); u.hash = ''; if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang'); return u.href; };
+  function applyStaticLang() {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+    document.title = t('docTitle');
+    document.querySelector('meta[name="description"]').content = t('docDesc');
+    let canon = document.querySelector('link[rel="canonical"]');
+    if (!canon) { canon = document.createElement('link'); canon.rel = 'canonical'; document.head.appendChild(canon); }
+    canon.href = pageUrl(lang).replace(/\?$/, '');
+    document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+    document.querySelectorAll('[data-i18n-aria]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
+    const lb = $('langBtn'), other = t('langOther');
+    lb.textContent = t('langOtherLabel'); lb.lang = other === 'en' ? 'en' : 'pt-BR'; lb.hreflang = lb.lang;
+    lb.setAttribute('aria-label', t('langOtherAria'));
+    lb.href = pageUrl(other);
+  }
+  applyStaticLang();
+  if (urlLang !== lang && (lang === 'en' || urlLang)) history.replaceState(null, '', pageUrl(lang));
 
   const GAME_KEYS = Object.keys(window.GAMES);
   let game = LS.get('game', 'gta6');
@@ -598,7 +725,7 @@
       if (i >= 0 && sts[i].light) el.classList.add('light');
       if (i === -1) {
         el.textContent = '⏻';
-        el.title = 'Rádio desligada';
+        el.title = t('radioOff');
       } else {
         const st = sts[i];
         el.style.setProperty('--s1', st.c[0]);
@@ -636,8 +763,8 @@
 
   function showInfo(i) {
     const st = list()[i];
-    $('stName').textContent = st ? st.name : 'Rádio desligada';
-    $('stGenre').textContent = st ? st.genre : 'Escolha uma estação';
+    $('stName').textContent = st ? st.name : t('radioOff');
+    $('stGenre').textContent = st ? genre(st) : t('pickStation');
     const lg = $('stLogo');
     if (st && st.logo) { lg.src = st.logo; lg.hidden = false; } else lg.hidden = true;
     lg.classList.toggle('light', !!(st && st.light));
@@ -782,7 +909,7 @@
   function setPlayerSize(size) {
     $('yt').dataset.size = size;
     $('ytSizeIco').innerHTML = SIZE_ICO[size];
-    $('ytSize').setAttribute('aria-label', size === 'mini' ? 'Expandir player' : 'Minimizar player');
+    $('ytSize').setAttribute('aria-label', size === 'mini' ? t('expand') : t('minimize'));
     LS.set('ytSize', size);
   }
   setPlayerSize(LS.get('ytSize', 'mini'));
@@ -794,8 +921,8 @@
   function setPlayerHidden(hidden) {
     $('yt').dataset.hidden = hidden ? '1' : '0';
     $('ytHideIco').innerHTML = HIDE_ICO[hidden ? 'hidden' : 'shown'];
-    $('ytHide').setAttribute('aria-label', hidden ? 'Mostrar vídeo' : 'Ocultar vídeo');
-    $('ytHide').title = hidden ? 'Mostrar vídeo' : 'Ocultar vídeo';
+    $('ytHide').setAttribute('aria-label', hidden ? t('showVideo') : t('hideVideo'));
+    $('ytHide').title = hidden ? t('showVideo') : t('hideVideo');
     LS.set('ytHidden', hidden);
   }
   setPlayerHidden(LS.get('ytHidden', false));
@@ -819,7 +946,7 @@
           const st = list()[current];
           console.warn('Erro no player', e.data, st && st.name);
           stopStatic(0.2);
-          $('stGenre').textContent = 'Transmissão indisponível agora';
+          $('stGenre').textContent = t('unavailable');
           setLive('off');
         },
       },
@@ -903,7 +1030,7 @@
     r.value = volume; r.style.setProperty('--v', volume + '%');
     $('volVal').textContent = volume;
     $('volIcon').innerHTML = `<path d="${VOL_ICONS[volume === 0 ? 'mute' : volume < 50 ? 'low' : 'high']}"/>`;
-    $('mute').setAttribute('aria-label', volume === 0 ? 'Ativar som' : 'Silenciar');
+    $('mute').setAttribute('aria-label', volume === 0 ? t('unmute') : t('mute'));
     clearInterval(fadeTimer);
     if (playerReady && current >= 0 && !tuning) player.setVolume(volume);
   }
@@ -929,7 +1056,7 @@
     $('gLogo').hidden = !G.logo; $('gMark').hidden = !!G.logo;
     $('gMark').textContent = G.mark;
     $('gName').textContent = G.label;
-    $('gMeta').innerHTML = `${PIN}${G.place} · ${G.year} · ${window.STATIONS[game].length} rádios`;
+    $('gMeta').innerHTML = `${PIN}${G.place} · ${G.year} · ${t('stations', window.STATIONS[game].length)}`;
     $('gDots').innerHTML = GAME_KEYS.map((k) => `<i class="${k === game ? 'on' : ''}"></i>`).join('');
     document.querySelectorAll('.cover').forEach((c) => c.classList.toggle('on', c.dataset.game === game));
   }
@@ -941,6 +1068,8 @@
   $('gNext').addEventListener('click', () => cycleGame(1));
 
   // grade de "capas"
+  function buildCovers() {
+  $('covers').innerHTML = '';
   for (const k of GAME_KEYS) {
     const G = window.GAMES[k];
     const c = document.createElement('button');
@@ -948,11 +1077,13 @@
     c.style.setProperty('--gc1', G.color); c.style.setProperty('--gc2', G.color2);
     const logos = window.STATIONS[k].filter((s) => s.logo).slice(0, 3).map((s) => `<img src="${s.logo}" alt="" loading="lazy"${s.light ? ' class="light"' : ''}>`).join('');
     c.innerHTML = `${G.logo ? `<img class="big" src="${G.logo}" alt="">` : `<span class="bigtxt">${G.mark}</span>`}
-      <span class="foot"><span class="s">${G.place} · ${G.year}<br>${window.STATIONS[k].length} rádios</span><span class="logos">${logos}</span></span>`;
-    c.setAttribute('aria-label', `${G.full}, ${window.STATIONS[k].length} rádios`);
+      <span class="foot"><span class="s">${G.place} · ${G.year}<br>${t('stations', window.STATIONS[k].length)}</span><span class="logos">${logos}</span></span>`;
+    c.setAttribute('aria-label', `${G.full}, ${t('stations', window.STATIONS[k].length)}`);
     c.addEventListener('click', () => { closePicker(); if (k !== game) switchGame(k); });
     $('covers').appendChild(c);
   }
+  }
+  buildCovers();
   const openPicker = () => { $('picker').classList.add('open'); document.querySelector('.cover.on')?.focus(); };
   const closePicker = () => { $('picker').classList.remove('open'); };
   $('gTitle').addEventListener('click', openPicker);
@@ -994,13 +1125,13 @@
         b.insertAdjacentHTML('beforeend', `<span class="num">${k + 1}</span>`);
         if (f.st.logo) { const img = new Image(); img.src = f.st.logo; img.alt = ''; b.appendChild(img); if (f.st.light) b.classList.add('light'); }
         else { b.classList.add('badge'); b.style.background = `linear-gradient(135deg, ${f.st.c[0]}, ${f.st.c[1]})`; b.appendChild(document.createTextNode(f.st.short || shortName(f.st.name))); }
-        b.title = `${k + 1}: ${f.st.name} (segure para trocar)`;
-        b.setAttribute('aria-label', `Memória ${k + 1}: ${f.st.name}`);
+        b.title = t('presetTitle', k + 1, f.st.name);
+        b.setAttribute('aria-label', t('presetAria', k + 1, f.st.name));
       } else {
         b.classList.add('empty');
         b.appendChild(document.createTextNode(k + 1));
-        b.title = `Memória ${k + 1} vazia: segure para salvar a rádio atual`;
-        b.setAttribute('aria-label', `Memória ${k + 1} vazia`);
+        b.title = t('presetEmptyTitle', k + 1);
+        b.setAttribute('aria-label', t('presetEmptyAria', k + 1));
       }
       let holdT = null, held = false;
       const start = (e) => {
@@ -1029,19 +1160,19 @@
   }
   function save(k) {
     const st = list()[current];
-    if (!st) { toast('Sintonize uma rádio antes de salvar'); return; }
+    if (!st) { toast(t('needTune')); return; }
     presets[k] = { g: game, name: st.name };
     LS.set('presets', presets);
     renderPresets();
     const b = document.querySelector(`.preset[data-k="${k}"]`);
     b.classList.add('saved');
     if (navigator.vibrate) navigator.vibrate(30);
-    toast(`${st.name} salva na memória ${k + 1}`);
+    toast(t('saved', st.name, k + 1));
   }
   function recall(k) {
     if (!started) return;
     const f = findStation(presets[k]);
-    if (!f) { toast(`Memória ${k + 1} vazia: segure para salvar`); return; }
+    if (!f) { toast(t('emptyRecall', k + 1)); return; }
     if (f.g !== game) switchGame(f.g, f.i); else select(f.i);
   }
   document.addEventListener('keydown', (e) => {
@@ -1097,6 +1228,17 @@
   setInterval(updateSong, 1000);
 
   let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(buildWheel, 120); });
+
+  $('langBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    lang = t('langOther'); LS.set('lang', lang);
+    history.replaceState(null, '', pageUrl(lang));
+    applyStaticLang();
+    buildCovers(); renderGameSel(); buildWheel(); renderPresets();
+    showInfo(hover);
+    setPlayerSize($('yt').dataset.size); setPlayerHidden($('yt').dataset.hidden === '1');
+    $('mute').setAttribute('aria-label', volume === 0 ? t('unmute') : t('mute'));
+  });
 
   renderGameSel();
   buildWheel();

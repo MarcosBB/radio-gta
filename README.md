@@ -20,6 +20,7 @@ Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não esco
 - Troca de jogo pelas setas ‹ ›, deslizando o dedo no nome ou pela grade de capas.
 - Teclado: setas giram a roda, `1`–`6` chamam as memórias, `Espaço` liga/desliga.
 - Responsivo (celular, tablet, desktop) e instalável como app (PWA).
+- Português e inglês: detecta o idioma do navegador, botão PT/EN no canto e versão em inglês em `?lang=en`.
 
 ## Rodar
 
@@ -36,6 +37,7 @@ Abra http://localhost:5173 (precisa ser via http, não `file://`, por causa do p
 - `tracks.js` — tracklists, geradas por `tools/build_tracks.py` a partir das descrições dos vídeos.
 - `logos/` — logos das estações.
 - `logos/games/` — logos dos jogos.
+- `sitemap.xml` — sitemap com as versões em português e inglês (hreflang), para o Google.
 
 ## Licença
 
