@@ -81,7 +81,7 @@
     background: linear-gradient(135deg, var(--s1), var(--s2));
     color: #fff;
     display: grid; place-items: center;
-    font: 700 calc(var(--b) * .24) / 1 Oswald, sans-serif;
+    font: 700 calc(var(--b) * .2) / 1.05 Oswald, sans-serif;
     letter-spacing: .02em;
     text-shadow: 0 1px 3px rgba(0,0,0,.7);
     filter: grayscale(.75) brightness(.6);
@@ -338,7 +338,7 @@
         const st = sts[i];
         el.style.setProperty('--s1', st.c[0]);
         el.style.setProperty('--s2', st.c[1]);
-        el.textContent = shortName(st.name);
+        el.textContent = st.short || shortName(st.name);
         el.style.whiteSpace = 'pre';
         el.style.lineHeight = '1';
         el.title = st.name;
