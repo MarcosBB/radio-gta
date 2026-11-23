@@ -3,7 +3,14 @@
 const d = (s) => s.split(':').reduce((a, n) => a * 60 + Number(n), 0);
 
 // Ordem das chaves = ordem dos botões de jogo.
-window.GAMES = { gta6: 'GTA VI', gta5: 'GTA V', gta4: 'GTA IV', gtasa: 'San Andreas', gtavc: 'Vice City', gta3: 'GTA III' };
+window.GAMES = {
+  gta6:  { label: 'GTA VI',      mark: 'VI',  full: 'Grand Theft Auto VI',          place: 'Leonida',      year: 2026, color: '#ff3d8b', color2: '#ffb03a' },
+  gta5:  { label: 'GTA V',       mark: 'V',   full: 'Grand Theft Auto V',           place: 'Los Santos',   year: 2013, color: '#2bb673', color2: '#1f6fd1' },
+  gta4:  { label: 'GTA IV',      mark: 'IV',  full: 'Grand Theft Auto IV',          place: 'Liberty City', year: 2008, color: '#c9a14a', color2: '#5a6170' },
+  gtasa: { label: 'San Andreas', mark: 'SA',  full: 'GTA: San Andreas',             place: 'San Andreas',  year: 2004, color: '#3fbf3f', color2: '#e0b13a' },
+  gtavc: { label: 'Vice City',   mark: 'VC',  full: 'GTA: Vice City',               place: 'Vice City',    year: 2002, color: '#ff4fa3', color2: '#2ad1e0' },
+  gta3:  { label: 'GTA III',     mark: 'III', full: 'Grand Theft Auto III',         place: 'Liberty City', year: 2001, color: '#e8e8e8', color2: '#d32f2f' },
+};
 
 window.STATIONS = {
   gta6: [
@@ -43,12 +50,12 @@ window.STATIONS = {
     { name: 'The Lab', logo: 'logos/gta5-lab.svg', short: 'THE\nLAB',                genre: 'Hip-hop & eletrônica',      id: 'ZOR6_EtRg5I', dur: d('57:36'),   c: ['#39ff14', '#0a3d0a'] },
   ],
   gtasa: [
-    { name: 'Radio Los Santos', logo: 'logos/sa-rls.png', genre: 'Hip-hop da Costa Oeste', id: 'QBDj8DNx42Y', dur: d('1:07:10'), c: ['#3fbf3f', '#c8a040'] },
+    { name: 'Radio Los Santos', logo: 'logos/sa-rls.png', genre: 'Hip-hop da Costa Oeste', id: '5HayDCSiD4k', dur: d('1:11:23'), c: ['#3fbf3f', '#c8a040'] },
     { name: 'Playback FM', logo: 'logos/sa-playback.svg', genre: 'Hip-hop clássico', id: 'B0hXp0pALmA', dur: d('47:47'), c: ['#d93a3a', '#3aa04a'] },
     { name: 'K-DST', logo: 'logos/sa-kdst.png', genre: 'Rock clássico', id: 'B58OpZ6xe1k', dur: d('1:05:36'), c: ['#c0392b', '#1a1a1a'] },
     { name: 'Bounce FM', logo: 'logos/sa-bounce.png', genre: 'Funk', id: 'iqTrkEqjCEU', dur: d('1:03:03'), c: ['#2aa7e0', '#f2f2f2'] },
     { name: 'SF-UR', logo: 'logos/sa-sfur.png', genre: 'House', id: 'BKBGFzsmzW4', dur: d('2:33:06'), c: ['#2a7fff', '#d32f2f'] },
-    { name: 'Radio X', logo: 'logos/sa-radiox.png', genre: 'Rock alternativo & grunge', id: 'xVXZKW_Zyd4', dur: d('1:02:14'), c: ['#1e40ff', '#111111'] },
+    { name: 'Radio X', logo: 'logos/sa-radiox.png', genre: 'Rock alternativo & grunge', id: '7CxPY0pG8e4', dur: d('57:51'), c: ['#1e40ff', '#111111'] },
     { name: 'CSR 103.9', logo: 'logos/sa-csr.png', genre: 'New jack swing', id: 'E9hPnGYFsog', dur: d('2:25:00'), c: ['#ff3d9a', '#111111'] },
     { name: 'K-Jah West', logo: 'logos/sa-kjahwest.png', genre: 'Reggae & dub', id: 'SxuQlTk9ruk', dur: d('58:06'), c: ['#2ecc40', '#ffdc00'] },
     { name: 'Master Sounds 98.3', logo: 'logos/sa-mastersounds.png', genre: 'Funk & soul raro', id: 'wlG-3wYJO2I', dur: d('1:03:23'), c: ['#ff7a00', '#222222'] },
@@ -61,7 +68,7 @@ window.STATIONS = {
     { name: 'Vladivostok FM', logo: 'logos/iv-vladivostok.png', genre: 'Música russa', id: 'MCVPpfFeXRA', dur: d('2:44:40'), c: ['#2a5bd7', '#f28c28'] },
     { name: 'Electro-Choc', logo: 'logos/iv-electrochoc.png', genre: 'Electro', id: 'WUBN69zlapI', dur: d('28:23'), c: ['#ff3da5', '#111111'] },
     { name: 'Radio Broker', logo: 'logos/iv-broker.png', genre: 'Indie & alternativo', id: '4DZwPIDTcow', dur: d('1:57:56'), c: ['#e05a2a', '#1f2f4f'] },
-    { name: 'The Classics 104.1', logo: 'logos/iv-classics.svg', genre: 'Hip-hop clássico', id: 'fqzavF4DNXE', dur: d('28:56'), c: ['#d32f2f', '#f2f2f2'] },
+    { name: 'The Classics 104.1', logo: 'logos/iv-classics.svg', light: true, genre: 'Hip-hop clássico', id: 'fqzavF4DNXE', dur: d('28:56'), c: ['#d32f2f', '#f2f2f2'] },
     { name: 'The Journey', logo: 'logos/iv-journey.png', genre: 'Ambient', id: 'DeYE72NnaZo', dur: d('29:14'), c: ['#ffd23f', '#111111'] },
     { name: 'Fusion FM', logo: 'logos/iv-fusion.png', genre: 'Jazz fusion & funk', id: 'Yg3oTYNdFYE', dur: d('45:09'), c: ['#ff7ad1', '#3fbfff'] },
     { name: 'Jazz Nation Radio', logo: 'logos/iv-jazz.png', genre: 'Jazz', id: 'o5xpyNWM8wI', dur: d('39:20'), c: ['#f28c28', '#2aa75a'] },
@@ -77,25 +84,25 @@ window.STATIONS = {
     { name: 'WKTT', logo: 'logos/iv-wktt.png', genre: 'Rádio falada', id: 'eZD9d23m2g8', dur: d('56:23'), c: ['#e8312f', '#1e40ff'] },
   ],
   gtavc: [
-    { name: 'Flash FM', logo: 'logos/vc-flash.png', genre: 'Pop dos anos 80', id: 'kl2S4FzbMAo', dur: d('1:04:30'), c: ['#ffd23f', '#ff3d8b'] },
+    { name: 'Flash FM', logo: 'logos/vc-flash.png', genre: 'Pop dos anos 80', id: 'pF-a1W2fTtE', dur: d('1:03:04'), c: ['#ffd23f', '#ff3d8b'] },
     { name: 'V-Rock', logo: 'logos/vc-vrock.svg', genre: 'Heavy metal', id: 'wxaNN-hNcnM', dur: d('1:09:26'), c: ['#e8312f', '#f2f2f2'] },
     { name: 'Wildstyle', logo: 'logos/vc-wildstyle.png', genre: 'Electro & hip-hop', id: '0SXR99_ShJs', dur: d('1:08:28'), c: ['#ffd23f', '#555555'] },
     { name: 'Fever 105', logo: 'logos/vc-fever.png', genre: 'Disco & funk', id: 'B8wt7p9LHOw', dur: d('1:03:15'), c: ['#e8312f', '#ffb03a'] },
-    { name: 'Emotion 98.3', logo: 'logos/vc-emotion.svg', genre: 'Baladas dos anos 80', id: 'EXfZXC8L7Q4', dur: d('59:07'), c: ['#e8312f', '#111111'] },
-    { name: 'Wave 103', logo: 'logos/vc-wave.svg', genre: 'New wave', id: 'h89GrZ9ackg', dur: d('1:06:07'), c: ['#ff3d8b', '#2ecc40'] },
-    { name: 'Radio Espantoso', logo: 'logos/vc-espantoso.svg', genre: 'Latina', id: 'SE85hOYePOU', dur: d('1:01:39'), c: ['#e8312f', '#f2f2f2'] },
-    { name: 'VCPR', logo: 'logos/vc-vcpr.svg', genre: 'Rádio pública (falada)', id: 'OsDuQFfwnhg', dur: d('1:26:26'), c: ['#1f6f8b', '#f2f2f2'] },
-    { name: 'K-Chat', logo: 'logos/vc-kchat.svg', genre: 'Rádio falada', id: 'uL-Jh05sPSY', dur: d('1:43:56'), c: ['#3fbfff', '#111111'] },
+    { name: 'Emotion 98.3', logo: 'logos/vc-emotion.svg', light: true, genre: 'Baladas dos anos 80', id: 'EXfZXC8L7Q4', dur: d('59:07'), c: ['#e8312f', '#111111'] },
+    { name: 'Wave 103', logo: 'logos/vc-wave.svg', light: true, genre: 'New wave', id: 'h89GrZ9ackg', dur: d('1:06:07'), c: ['#ff3d8b', '#2ecc40'] },
+    { name: 'Radio Espantoso', logo: 'logos/vc-espantoso.svg', light: true, genre: 'Latina', id: 'SE85hOYePOU', dur: d('1:01:39'), c: ['#e8312f', '#f2f2f2'] },
+    { name: 'VCPR', logo: 'logos/vc-vcpr.svg', light: true, genre: 'Rádio pública (falada)', id: 'OsDuQFfwnhg', dur: d('1:26:26'), c: ['#1f6f8b', '#f2f2f2'] },
+    { name: 'K-Chat', logo: 'logos/vc-kchat.svg', light: true, genre: 'Rádio falada', id: 'uL-Jh05sPSY', dur: d('1:43:56'), c: ['#3fbfff', '#111111'] },
   ],
   gta3: [
     { name: 'Head Radio', logo: 'logos/iii-head.png', genre: 'Pop & rock', id: '7jHUddL3xfg', dur: d('23:26'), c: ['#2aa7a0', '#111111'] },
-    { name: 'Double Clef FM', logo: 'logos/iii-doubleclef.svg', genre: 'Ópera & clássica', id: 'sM3Yre0SUI4', dur: d('22:45'), c: ['#2a5b6b', '#f2f2f2'] },
+    { name: 'Double Clef FM', logo: 'logos/iii-doubleclef.svg', light: true, genre: 'Ópera & clássica', id: 'sM3Yre0SUI4', dur: d('22:45'), c: ['#2a5b6b', '#f2f2f2'] },
     { name: 'K-Jah', logo: 'logos/iii-kjah.svg', genre: 'Reggae & dub', id: '7waWcyCIYis', dur: d('19:04'), c: ['#2ecc40', '#ffdc00'] },
     { name: 'Rise FM', logo: 'logos/iii-rise.png', genre: 'Trance & house', id: '6b9m3PpgIHk', dur: d('26:09'), c: ['#9a9a9a', '#111111'] },
     { name: 'Lips 106', logo: 'logos/iii-lips.png', genre: 'Pop', id: '69IbON3B7lo', dur: d('21:55'), c: ['#e8312f', '#2a5bd7'] },
     { name: 'Game Radio FM', logo: 'logos/iii-game.png', genre: 'Hip-hop', id: 'HsU7Yi6qxe4', dur: d('15:45'), c: ['#2aa75a', '#f2f2f2'] },
-    { name: 'MSX FM', logo: 'logos/iii-msx.svg', genre: 'Drum and bass', id: 'EI3tV6EhUjU', dur: d('25:01'), c: ['#1f2f6f', '#f2f2f2'] },
+    { name: 'MSX FM', logo: 'logos/iii-msx.svg', light: true, genre: 'Drum and bass', id: 'EI3tV6EhUjU', dur: d('25:01'), c: ['#1f2f6f', '#f2f2f2'] },
     { name: 'Flashback 95.6', logo: 'logos/iii-flashback.png', genre: 'Pop dos anos 80', id: 'T-yh-XrefcE', dur: d('18:46'), c: ['#2a5bd7', '#ffd23f'] },
-    { name: 'Chatterbox FM', logo: 'logos/iii-chatterbox.svg', genre: 'Rádio falada', id: 'hufTHaezLps', dur: d('58:05'), c: ['#3a8f80', '#f2f2f2'] },
+    { name: 'Chatterbox FM', logo: 'logos/iii-chatterbox.svg', light: true, genre: 'Rádio falada', id: 'hufTHaezLps', dur: d('58:05'), c: ['#3a8f80', '#f2f2f2'] },
   ],
 };

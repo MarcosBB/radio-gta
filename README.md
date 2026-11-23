@@ -2,9 +2,10 @@
 
 Seletor de rádios no estilo da roda do jogo. Você não escolhe a música: cada estação está sempre "no ar" e você entra no ponto em que a programação está agora (a posição é calculada a partir do relógio, igual para todo mundo). Trocar de estação toca o chiado de sintonia.
 
-- 15 estações do GTA VI e 17 do GTA V, com logos oficiais.
+- 80 estações de 6 jogos (GTA VI, V, IV, San Andreas, Vice City e III), com logos oficiais.
 - Mostra a música que está tocando, a partir da tracklist com timestamps da descrição de cada vídeo.
 - Áudio vem das transmissões completas publicadas no YouTube (player oculto).
+- Troca de jogo pelas setas ‹ ›, deslizando o dedo no nome do jogo, ou tocando no nome para abrir a grade de capas.
 - Controles: clique, setas do teclado, rodinha do mouse, arrastar o dedo em volta da roda; `Espaço` desliga.
 - 6 memórias como no rádio do carro: toque para sintonizar, segure para salvar a rádio atual (teclas `1`–`6` também sintonizam).
 
