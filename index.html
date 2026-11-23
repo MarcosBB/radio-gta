@@ -272,8 +272,10 @@
     font: 700 clamp(52px, 10vw, 84px)/1 Oswald, sans-serif; color: rgba(255,255,255,.92);
     text-shadow: 0 6px 20px rgba(0,0,0,.35); letter-spacing: -.01em;
   }
-  .deck { display: flex; align-items: center; gap: 16px; }
-  .transport { display: flex; align-items: center; gap: 10px; flex: none; }
+  .deck { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+  .transport { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; flex: none; }
+  .transport .btn.spotify { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+  .transport .btn.spotify:active { transform: translateY(-50%) scale(.94); }
   .btn {
     width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ring);
     background: rgba(255,255,255,.07); color: var(--fg);
@@ -359,6 +361,7 @@
     background: rgba(5,5,8,.82); backdrop-filter: blur(8px);
   }
   .start button {
+    display: block; margin: 0 auto;
     font: 700 22px Oswald, sans-serif; letter-spacing: .1em; text-transform: uppercase;
     padding: 18px 34px; border-radius: 999px; border: 0; cursor: pointer;
     background: linear-gradient(135deg, var(--c1), var(--c2)); color: #111;
@@ -693,6 +696,7 @@
     if (i === current) { paint(); return; }
     current = i;
     LS.set('last_' + game, i);
+    if (i >= 0) LS.set('lastOn_' + game, i);
     paint();
     if (typeof markPresets === 'function') markPresets();
     showInfo(i);
@@ -704,10 +708,12 @@
     if (!st) { // desligar
       stopStatic(0.05);
       startStaticShort();
-      if (playerReady) player.stopVideo();
+      if (playerReady) { player.setVolume(0); player.pauseVideo(); }
+      keepAlive.pause();
       pendingId = null;
       setLive('off');
       updateMediaSession(null);
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
       return;
     }
 
@@ -722,6 +728,8 @@
     }, 120);
     select.tunedAt = tunedAt;
     updateMediaSession(st);
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+    if (started) keepPlay();
   }
   function startStaticShort() { startStatic(); setTimeout(() => stopStatic(0.2), 220); }
 
@@ -821,6 +829,32 @@
   tag.src = 'https://www.youtube.com/iframe_api';
   document.head.appendChild(tag);
 
+  // ---------- áudio silencioso: faz o Chrome mandar as teclas de mídia para a página ----------
+  // Sem isso, quem "toca" é o iframe do YouTube e as teclas vão para ele (que não tem próxima/anterior).
+  const keepAlive = (() => {
+    const rate = 8000, secs = 10, n = rate * secs; // > 5 s, senão o Chrome ignora para a media session
+    const buf = new Uint8Array(44 + n), dv = new DataView(buf.buffer);
+    const w = (o, str) => [...str].forEach((c, k) => buf[o + k] = c.charCodeAt(0));
+    w(0, 'RIFF'); dv.setUint32(4, 36 + n, true); w(8, 'WAVEfmt ');
+    dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+    dv.setUint32(24, rate, true); dv.setUint32(28, rate, true); dv.setUint16(32, 1, true); dv.setUint16(34, 8, true);
+    w(36, 'data'); dv.setUint32(40, n, true); buf.fill(128, 44); // 8 bits: 128 = silêncio
+    const a = new Audio(URL.createObjectURL(new Blob([buf], { type: 'audio/wav' })));
+    a.loop = true;
+    return a;
+  })();
+  const keepPlay = () => keepAlive.play().catch(() => {});
+
+  // ---------- ligar/desligar ----------
+  function powerOff() { if (started && current !== -1) select(-1); }
+  function powerOn() {
+    if (!started) { $('startBtn').click(); return; }
+    if (current !== -1) return;
+    const n = list().length;
+    const last = LS.get('lastOn_' + game, 0);
+    select(last >= 0 && last < n ? last : 0); // recarrega o vídeo em livePos(): ressincroniza o tempo
+  }
+
   // ---------- Media Session (fone/volante/tela de bloqueio) ----------
   function updateMediaSession(st) {
     if (!('mediaSession' in navigator)) return;
@@ -832,13 +866,20 @@
   if ('mediaSession' in navigator) {
     navigator.mediaSession.setActionHandler('nexttrack', () => step(1));
     navigator.mediaSession.setActionHandler('previoustrack', () => step(-1));
-    navigator.mediaSession.setActionHandler('pause', () => select(-1));
-    navigator.mediaSession.setActionHandler('play', () => select(LS.get('last_' + game, 0) >= 0 ? LS.get('last_' + game, 0) : 0));
+    // alguns teclados mandam avançar/retroceder em vez de próxima/anterior
+    for (const [act, dir] of [['seekforward', 1], ['seekbackward', -1]]) {
+      try { navigator.mediaSession.setActionHandler(act, () => step(dir)); } catch {}
+    }
+    // play/pause do teclado: desliga; ao dar play volta à última estação, já no ponto "ao vivo"
+    navigator.mediaSession.setActionHandler('pause', () => powerOff());
+    navigator.mediaSession.setActionHandler('stop', () => powerOff());
+    navigator.mediaSession.setActionHandler('play', () => powerOn());
   }
 
   // ---------- controles ----------
   $('startBtn').addEventListener('click', () => {
     started = true;
+    keepPlay();
     document.body.classList.add('started');
     initAudio();
     $('start').hidden = true;
@@ -847,7 +888,7 @@
   });
   $('prev').addEventListener('click', () => step(-1));
   $('next').addEventListener('click', () => step(1));
-  $('power').addEventListener('click', () => select(current === -1 ? Math.max(0, LS.get('lastOn_' + game, 0)) : -1));
+  $('power').addEventListener('click', () => (current === -1 ? powerOn() : powerOff()));
   const VOL_ICONS = {
     mute: 'M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z',
     low: 'M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z',
@@ -1049,6 +1090,8 @@
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); step(1); }
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); step(-1); }
     if (e.key === ' ') { e.preventDefault(); $('power').click(); }
+    if (e.key === 'MediaTrackNext') { e.preventDefault(); step(1); }
+    if (e.key === 'MediaTrackPrevious') { e.preventDefault(); step(-1); }
   });
 
   setInterval(updateSong, 1000);
