@@ -2,6 +2,8 @@
 
 Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não escolhe a música: cada estação está sempre "no ar" e você entra no ponto em que a programação está agora — a posição é calculada pelo relógio, igual para todo mundo. Trocar de estação toca o chiado de sintonia.
 
+**🎧 Ouça agora: https://projetos.marcosbb.com/radio-gta/**
+
 > **Projeto de fã, sem fins lucrativos e sem afiliação com a Rockstar Games ou a Take-Two Interactive.**
 > Nenhum áudio é hospedado aqui: as rádios tocam pelo player oficial do YouTube, a partir de vídeos públicos.
 > Grand Theft Auto, nomes e logos das estações são marcas de seus respectivos donos.
