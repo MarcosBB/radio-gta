@@ -14,7 +14,7 @@ Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não esco
 - Nome da música tocando agora (a partir das tracklists com tempo de cada vídeo).
 - Botão do Spotify: abre a música atual no Spotify para salvar nas Curtidas.
 - 6 memórias como no rádio do carro: toque sintoniza, segure salva.
-- Player do YouTube visível, minimizado por padrão (pode expandir).
+- Player do YouTube no rodapé do painel: miniatura por padrão, pode expandir ou ocultar o vídeo.
 - Troca de jogo pelas setas ‹ ›, deslizando o dedo no nome ou pela grade de capas.
 - Teclado: setas giram a roda, `1`–`6` chamam as memórias, `Espaço` liga/desliga.
 - Responsivo (celular, tablet, desktop) e instalável como app (PWA).

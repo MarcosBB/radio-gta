@@ -220,37 +220,36 @@
     box-shadow: 0 20px 60px rgba(0,0,0,.35);
     backdrop-filter: blur(10px);
   }
-  /* ---------- player do YouTube (visível, minimizado por padrão) ---------- */
+  /* ---------- player do YouTube: faixa discreta no rodapé do painel ---------- */
   .yt {
-    position: fixed; z-index: 15;
-    right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom));
-    width: 200px; border-radius: 14px; overflow: hidden;
-    background: #000; border: 1px solid var(--ring);
-    box-shadow: 0 16px 40px rgba(0,0,0,.55);
-    transition: width .25s ease, opacity .2s;
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+    padding-top: 12px; border-top: 1px solid var(--ring);
   }
-  .yt[data-size="big"] { width: min(560px, calc(100vw - 24px)); }
-  body.off .yt, body:not(.started) .yt { visibility: hidden; opacity: 0; }
-  .yt-head {
-    display: flex; align-items: center; gap: 8px;
-    padding: 6px 6px 6px 10px; background: #15151c;
-    font: 600 11px Inter, sans-serif; color: var(--muted);
+  body.off .yt, body:not(.started) .yt { display: none; }
+  .yt-frame {
+    width: 96px; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #000;
+    transition: width .25s ease;
   }
-  .yt-head svg.yt-ico { width: 14px; height: 14px; flex: none; fill: #ff0033; }
-  .yt-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .yt-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
+  .yt-info { min-width: 0; display: flex; align-items: center; gap: 6px; font: 600 11px Inter, sans-serif; color: var(--muted); }
+  .yt-info svg { width: 14px; height: 14px; flex: none; fill: #ff0033; }
+  .yt-title { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .yt-btn {
-    width: 28px; height: 28px; border: 0; border-radius: 8px; flex: none;
+    width: 30px; height: 30px; border: 0; border-radius: 8px; flex: none;
     background: rgba(255,255,255,.08); color: var(--fg); cursor: pointer; padding: 0;
     display: grid; place-items: center;
   }
   .yt-btn:hover { background: rgba(255,255,255,.16); }
   .yt-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-  .yt-frame { aspect-ratio: 16 / 9; }
-  .yt-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
-  /* no celular, deixa espaço para o mini player não cobrir as memórias */
-  @media (max-width: 899px) {
-    body.started:not(.off) main { padding-bottom: calc(160px + env(safe-area-inset-bottom)); }
-  }
+  /* expandido: o vídeo ocupa a largura do painel, embaixo da linha de título */
+  .yt[data-size="big"] { grid-template-columns: 1fr auto; }
+  .yt[data-size="big"] .yt-frame { grid-column: 1 / -1; grid-row: 2; width: 100%; border-radius: 12px; }
+  /* oculto: o vídeo sai da tela, mas continua tocando o áudio */
+  .yt { grid-template-columns: auto 1fr auto auto; }
+  .yt[data-size="big"] { grid-template-columns: 1fr auto auto; }
+  .yt[data-hidden="1"] { grid-template-columns: 1fr auto auto; }
+  .yt[data-hidden="1"] .yt-frame { position: fixed; left: -10000px; top: 0; width: 200px; }
+  .yt[data-hidden="1"] #ytSize { display: none; }
 
   /* ---------- selos próprios (quando não há logo oficial) ---------- */
   .slot.badge {
@@ -451,6 +450,15 @@
     </div>
     <div class="mem-head"><h2>Memórias</h2><span>toque sintoniza · segure salva</span></div>
     <div class="presets" id="presets"></div>
+    <div class="yt" id="yt" data-size="mini" aria-label="Player do YouTube">
+      <div class="yt-frame"><div id="player"></div></div>
+      <div class="yt-info">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15V9l5.5 3-5.5 3z"/></svg>
+        <span class="yt-title" id="ytTitle">YouTube</span>
+      </div>
+      <button class="yt-btn" id="ytSize" aria-label="Expandir player"><svg viewBox="0 0 24 24" id="ytSizeIco"></svg></button>
+      <button class="yt-btn" id="ytHide" aria-label="Ocultar vídeo"><svg viewBox="0 0 24 24" id="ytHideIco"></svg></button>
+    </div>
   </section>
 
 </main>
@@ -462,14 +470,6 @@
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
-<aside class="yt" id="yt" data-size="mini" aria-label="Player do YouTube">
-  <div class="yt-head">
-    <svg class="yt-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15V9l5.5 3-5.5 3z"/></svg>
-    <span class="yt-title" id="ytTitle">YouTube</span>
-    <button class="yt-btn" id="ytSize" aria-label="Expandir player"><svg viewBox="0 0 24 24" id="ytSizeIco"></svg></button>
-  </div>
-  <div class="yt-frame"><div id="player"></div></div>
-</aside>
 
 <div class="start" id="start">
   <div>
@@ -778,6 +778,20 @@
     LS.set('ytSize', size);
   }
   setPlayerSize(LS.get('ytSize', 'mini'));
+
+  const HIDE_ICO = {
+    shown: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/>', // ocultar
+    hidden: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',                  // mostrar
+  };
+  function setPlayerHidden(hidden) {
+    $('yt').dataset.hidden = hidden ? '1' : '0';
+    $('ytHideIco').innerHTML = HIDE_ICO[hidden ? 'hidden' : 'shown'];
+    $('ytHide').setAttribute('aria-label', hidden ? 'Mostrar vídeo' : 'Ocultar vídeo');
+    $('ytHide').title = hidden ? 'Mostrar vídeo' : 'Ocultar vídeo';
+    LS.set('ytHidden', hidden);
+  }
+  setPlayerHidden(LS.get('ytHidden', false));
+  $('ytHide').addEventListener('click', () => setPlayerHidden($('yt').dataset.hidden !== '1'));
   $('ytSize').addEventListener('click', () => setPlayerSize($('yt').dataset.size === 'mini' ? 'big' : 'mini'));
 
   // ---------- YouTube ----------
