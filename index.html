@@ -49,14 +49,21 @@
     padding: max(16px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom));
     min-height: 100dvh;
   }
-  header { display: flex; align-items: center; justify-content: space-between; width: min(640px, 100%); }
+  header { display: flex; flex-direction: column; align-items: center; gap: 12px; width: min(640px, 100%); }
   h1 { font-family: Oswald, sans-serif; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: 20px; margin: 0; }
   h1 span { color: var(--c1); transition: color .6s; }
-  .games { display: flex; background: rgba(255,255,255,.06); border-radius: 999px; padding: 4px; }
-  .games button {
-    font: 600 13px Inter, sans-serif; color: var(--muted); background: none; border: 0;
-    padding: 8px 14px; border-radius: 999px; cursor: pointer;
+  .games {
+    display: flex; gap: 2px; max-width: 100%;
+    background: rgba(255,255,255,.06); border-radius: 999px; padding: 4px;
+    overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity;
   }
+  .games::-webkit-scrollbar { display: none; }
+  .games button {
+    flex: none; scroll-snap-align: center;
+    font: 600 13px Inter, sans-serif; color: var(--muted); background: none; border: 0;
+    padding: 8px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+  }
+  .games button:hover { color: var(--fg); }
   .games button[aria-pressed="true"] { background: var(--fg); color: #111; }
 
   /* ---------- roda ---------- */
@@ -206,10 +213,7 @@
 <main>
   <header>
     <h1>Rádio <span>Wheel</span></h1>
-    <div class="games" role="group" aria-label="Jogo">
-      <button data-game="gta6" aria-pressed="true">GTA VI</button>
-      <button data-game="gta5" aria-pressed="false">GTA V</button>
-    </div>
+    <div class="games" id="games" role="group" aria-label="Jogo"></div>
   </header>
 
   <div class="wheel" id="wheel">
@@ -259,7 +263,14 @@
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
   };
 
+  // botões de jogo gerados a partir de window.GAMES
+  for (const [k, label] of Object.entries(window.GAMES)) {
+    const b = document.createElement('button');
+    b.dataset.game = k; b.textContent = label;
+    $('games').appendChild(b);
+  }
   let game = LS.get('game', 'gta6');
+  if (!window.STATIONS[game]) game = 'gta6';
   let current = -1;            // índice da estação tocando (-1 = desligada)
   let hover = -1;              // índice destacado (teclado/rodinha)
   let volume = LS.get('vol', 80);
@@ -433,7 +444,7 @@
     $('song').textContent = txt;
     if (st && 'mediaSession' in navigator && txt) {
       navigator.mediaSession.metadata = new MediaMetadata({
-        title: txt, artist: st.name, album: game === 'gta6' ? 'GTA VI' : 'GTA V',
+        title: txt, artist: st.name, album: window.GAMES[game],
         artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
       });
     }
@@ -557,7 +568,7 @@
   function updateMediaSession(st) {
     if (!('mediaSession' in navigator)) return;
     navigator.mediaSession.metadata = st ? new MediaMetadata({
-      title: st.name, artist: st.genre, album: game === 'gta6' ? 'GTA VI' : 'GTA V',
+      title: st.name, artist: st.genre, album: window.GAMES[game],
       artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
     }) : null;
   }
@@ -589,6 +600,7 @@
     if (current >= 0) LS.set('lastOn_' + game, current);
     game = g; LS.set('game', game);
     document.querySelectorAll('.games button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.game === g));
+    document.querySelector(`.games button[data-game="${g}"]`)?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
     current = -2; hover = -1;
     buildWheel();
     const last = idx ?? LS.get('last_' + game, 0);
@@ -725,6 +737,7 @@
   let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(buildWheel, 120); });
 
   document.querySelectorAll('.games button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.game === game));
+  document.querySelector('.games button[aria-pressed="true"]')?.scrollIntoView({ inline: 'center', block: 'nearest' });
   buildWheel();
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
 })();
