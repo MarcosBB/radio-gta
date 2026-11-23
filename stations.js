@@ -4,12 +4,12 @@ const d = (s) => s.split(':').reduce((a, n) => a * 60 + Number(n), 0);
 
 // Ordem das chaves = ordem dos botões de jogo.
 window.GAMES = {
-  gta6:  { label: 'GTA VI',      mark: 'VI',  full: 'Grand Theft Auto VI',          place: 'Leonida',      year: 2026, color: '#ff3d8b', color2: '#ffb03a' },
-  gta5:  { label: 'GTA V',       mark: 'V',   full: 'Grand Theft Auto V',           place: 'Los Santos',   year: 2013, color: '#2bb673', color2: '#1f6fd1' },
-  gta4:  { label: 'GTA IV',      mark: 'IV',  full: 'Grand Theft Auto IV',          place: 'Liberty City', year: 2008, color: '#c9a14a', color2: '#5a6170' },
-  gtasa: { label: 'San Andreas', mark: 'SA',  full: 'GTA: San Andreas',             place: 'San Andreas',  year: 2004, color: '#3fbf3f', color2: '#e0b13a' },
-  gtavc: { label: 'Vice City',   mark: 'VC',  full: 'GTA: Vice City',               place: 'Vice City',    year: 2002, color: '#ff4fa3', color2: '#2ad1e0' },
-  gta3:  { label: 'GTA III',     mark: 'III', full: 'Grand Theft Auto III',         place: 'Liberty City', year: 2001, color: '#e8e8e8', color2: '#d32f2f' },
+  gta6:  { logo: 'logos/games/gta6.png', label: 'GTA VI',      mark: 'VI',  full: 'Grand Theft Auto VI',          place: 'Leonida',      year: 2026, color: '#ff3d8b', color2: '#ffb03a' },
+  gta5:  { logo: 'logos/games/gta5.png', label: 'GTA V',       mark: 'V',   full: 'Grand Theft Auto V',           place: 'Los Santos',   year: 2013, color: '#2bb673', color2: '#1f6fd1' },
+  gta4:  { logo: 'logos/games/gta4.png', label: 'GTA IV',      mark: 'IV',  full: 'Grand Theft Auto IV',          place: 'Liberty City', year: 2008, color: '#c9a14a', color2: '#5a6170' },
+  gtasa: { logo: 'logos/games/gtasa.png', label: 'San Andreas', mark: 'SA',  full: 'GTA: San Andreas',             place: 'San Andreas',  year: 2004, color: '#3fbf3f', color2: '#e0b13a' },
+  gtavc: { logo: 'logos/games/gtavc.png', label: 'Vice City',   mark: 'VC',  full: 'GTA: Vice City',               place: 'Vice City',    year: 2002, color: '#ff4fa3', color2: '#2ad1e0' },
+  gta3:  { logo: 'logos/games/gta3.png', label: 'GTA III',     mark: 'III', full: 'Grand Theft Auto III',         place: 'Liberty City', year: 2001, color: '#e8e8e8', color2: '#d32f2f' },
 };
 
 window.STATIONS = {

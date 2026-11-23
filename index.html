@@ -73,12 +73,9 @@
     text-align: left;
   }
   .gametitle:hover { background: rgba(255,255,255,.06); }
-  .gametitle .mark {
-    font: 700 22px/1 Oswald, sans-serif; letter-spacing: .02em;
-    width: 52px; height: 52px; border-radius: 12px; flex: none;
-    display: grid; place-items: center; color: #111;
-    background: linear-gradient(135deg, var(--gc1), var(--gc2));
-    box-shadow: 0 6px 20px color-mix(in srgb, var(--gc1) 35%, transparent);
+  .gametitle .glogo {
+    width: 84px; height: 60px; flex: none; object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,.6));
   }
   .gametitle .txt { display: flex; flex-direction: column; min-width: 0; }
   .gametitle .name { font: 700 20px/1.1 Oswald, sans-serif; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
@@ -117,18 +114,23 @@
   .cover:hover { transform: translateY(-3px); }
   .cover.on { border-color: #fff; }
   .cover .big {
-    position: absolute; top: 6px; right: 10px;
-    font: 700 clamp(44px, 9vw, 72px)/1 Oswald, sans-serif; color: rgba(0,0,0,.28); letter-spacing: -.02em;
+    position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    width: 78%; height: 60%; object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,.45));
+    transition: transform .2s;
   }
+  .cover:hover .big { transform: translate(-50%, -50%) scale(1.04); }
+  .cover .foot { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+  .cover .logos { display: flex; gap: 3px; margin: 0; flex: none; }
   .cover .t { font: 700 clamp(15px, 2.4vw, 19px)/1.1 Oswald, sans-serif; text-transform: uppercase; letter-spacing: .03em; }
-  .cover .s { font-size: 11px; opacity: .85; margin-top: 4px; }
+  .cover .s { font-size: 11px; line-height: 1.35; opacity: .9; min-width: 0; }
   .cover .logos { display: flex; gap: 4px; margin-bottom: 10px; }
   .cover .logos img.light { background: #f2f2f5; }
-  .cover .logos img { width: 30px; height: 30px; object-fit: contain; background: rgba(0,0,0,.45); border-radius: 50%; padding: 3px; }
+  .cover .logos img { width: 24px; height: 24px; object-fit: contain; background: rgba(0,0,0,.45); border-radius: 50%; padding: 3px; }
   @media (max-width: 480px) {
     .covers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .cover { aspect-ratio: 1; padding: 12px; }
-    .gametitle .mark { width: 44px; height: 44px; font-size: 19px; }
+    .gametitle .glogo { width: 70px; height: 50px; }
     .gametitle .name { font-size: 17px; }
   }
 
@@ -338,7 +340,7 @@
   @media (orientation: landscape) and (max-height: 560px) {
     main { --wheel: clamp(220px, calc(100dvh - 100px), 460px); align-content: center; gap: 10px; padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: max(8px, env(safe-area-inset-bottom)); }
     .dots { display: none; }
-    .gametitle .mark { width: 40px; height: 40px; font-size: 17px; }
+    .gametitle .glogo { width: 56px; height: 40px; }
     .gamesel .arrow { width: 34px; height: 34px; }
     header { flex-direction: row; justify-content: center; gap: 16px; }
     .bar { padding: 12px; gap: 10px; }
@@ -359,7 +361,7 @@
     <div class="gamesel">
       <button class="arrow" id="gPrev" aria-label="Jogo anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="gametitle" id="gTitle" aria-haspopup="dialog" aria-label="Escolher jogo">
-        <span class="mark" id="gMark"></span>
+        <img class="glogo" id="gLogo" alt="">
         <span class="txt"><span class="name" id="gName"></span><span class="meta" id="gMeta"></span></span>
       </button>
       <button class="arrow" id="gNext" aria-label="Próximo jogo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -783,7 +785,7 @@
     const G = window.GAMES[game];
     const root = document.documentElement.style;
     root.setProperty('--gc1', G.color); root.setProperty('--gc2', G.color2);
-    $('gMark').textContent = G.mark;
+    $('gLogo').src = G.logo; $('gLogo').alt = G.full;
     $('gName').textContent = G.label;
     $('gMeta').innerHTML = `${PIN}${G.place} · ${G.year} · ${window.STATIONS[game].length} rádios`;
     $('gDots').innerHTML = GAME_KEYS.map((k) => `<i class="${k === game ? 'on' : ''}"></i>`).join('');
@@ -802,9 +804,9 @@
     const c = document.createElement('button');
     c.className = 'cover'; c.dataset.game = k;
     c.style.setProperty('--gc1', G.color); c.style.setProperty('--gc2', G.color2);
-    const logos = window.STATIONS[k].filter((s) => s.logo).slice(0, 4).map((s) => `<img src="${s.logo}" alt="" loading="lazy"${s.light ? ' class="light"' : ''}>`).join('');
-    c.innerHTML = `<span class="big">${G.mark}</span><span class="logos">${logos}</span>
-      <span class="t">${G.label}</span><span class="s">${G.place} · ${G.year} · ${window.STATIONS[k].length} rádios</span>`;
+    const logos = window.STATIONS[k].filter((s) => s.logo).slice(0, 3).map((s) => `<img src="${s.logo}" alt="" loading="lazy"${s.light ? ' class="light"' : ''}>`).join('');
+    c.innerHTML = `<img class="big" src="${G.logo}" alt="">
+      <span class="foot"><span class="s">${G.place} · ${G.year}<br>${window.STATIONS[k].length} rádios</span><span class="logos">${logos}</span></span>`;
     c.setAttribute('aria-label', `${G.full}, ${window.STATIONS[k].length} rádios`);
     c.addEventListener('click', () => { closePicker(); if (k !== game) switchGame(k); });
     $('covers').appendChild(c);

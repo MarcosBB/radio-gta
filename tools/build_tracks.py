@@ -32,6 +32,10 @@ for vid in ids:
         if not m:
             continue
         t, title = secs(m.group(1)), m.group(2).strip(' -–—')
+        # intervalos "0:20 - 2:53 Artista": descarta o tempo final
+        title = re.sub(r'^(?:\d{1,2}:)?\d{1,2}:\d{2}\s*[-–—|]?\s*', '', title)
+        # marcações do uploader que não são parte do nome
+        title = re.sub(r'\s*\[(?:BLOCKED|REMOVED|MUTED)\]\s*', ' ', title, flags=re.I).strip(' -–—')
         if t < last or not title:
             continue
         last = t
