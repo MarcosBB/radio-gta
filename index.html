@@ -78,13 +78,13 @@
     top: calc(50% + var(--y) - var(--b) / 2);
     border-radius: 50%;
     border: 0; padding: 0; cursor: pointer;
-    background: linear-gradient(135deg, var(--s1), var(--s2));
+    background: radial-gradient(circle at 50% 35%, #2a2a33, #0d0d12 75%);
     color: #fff;
     display: grid; place-items: center;
     font: 700 calc(var(--b) * .2) / 1.05 Oswald, sans-serif;
     letter-spacing: .02em;
     text-shadow: 0 1px 3px rgba(0,0,0,.7);
-    filter: grayscale(.75) brightness(.6);
+    filter: grayscale(.35) brightness(.75);
     transform: scale(.86);
     transition: transform .18s, filter .18s, box-shadow .18s;
     box-shadow: 0 4px 14px rgba(0,0,0,.5);
@@ -94,7 +94,10 @@
     filter: none; transform: scale(1.08);
     box-shadow: 0 0 0 3px #fff, 0 0 30px color-mix(in srgb, var(--s1) 70%, transparent);
   }
+  .slot img { width: 78%; height: 78%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
   .slot.offslot { background: #222; font-size: calc(var(--b) * .38); }
+  .center .logo { width: 40%; aspect-ratio: 1; object-fit: contain; margin-bottom: 6px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.6)); }
+  .center .logo[hidden] { display: none; }
   .pointer {
     position: absolute; left: 50%; top: 50%;
     width: 2px; height: calc(var(--size) * .17);
@@ -105,7 +108,7 @@
     pointer-events: none;
   }
   .center {
-    position: absolute; inset: 32%;
+    position: absolute; inset: 27%;
     border-radius: 50%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-align: center; padding: 6%;
@@ -116,27 +119,25 @@
     text-transform: uppercase; letter-spacing: .03em;
   }
   .center .genre { color: var(--muted); font-size: clamp(11px, calc(var(--size) * .024), 14px); margin-top: 6px; }
-  .live {
-    margin-top: 10px; font: 600 11px Inter, sans-serif; letter-spacing: .12em;
-    color: var(--muted); display: flex; align-items: center; gap: 6px; text-transform: uppercase;
+.song {
+    margin-top: 12px; font: 600 clamp(12px, calc(var(--size) * .028), 16px) / 1.3 Inter, sans-serif;
+    color: var(--fg); max-width: 100%;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    padding-bottom: 2px;
+    transition: opacity .25s;
   }
-  .live i { width: 7px; height: 7px; border-radius: 50%; background: #555; }
-  .live.on i { background: #ff2b2b; box-shadow: 0 0 8px #ff2b2b; animation: pulse 1.4s infinite; }
-  .live.tuning i { background: #ffb800; animation: pulse .3s infinite; }
-  @keyframes pulse { 50% { opacity: .35; } }
+  .song.tuning { opacity: .35; }
+  .song:empty { display: none; }
 
   /* ---------- barra inferior ---------- */
   .bar {
     width: min(640px, 100%);
-    display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center;
+    display: grid; grid-template-columns: 1fr; gap: 14px; align-items: center;
     background: rgba(255,255,255,.05); border: 1px solid var(--ring);
     border-radius: 18px; padding: 12px;
   }
-  .yt {
-    width: 200px; aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #000;
-    position: relative;
-  }
-  .yt iframe, .yt > div { width: 100%; height: 100%; display: block; }
+  /* o player do YouTube fica fora da tela: só o áudio interessa */
+  .yt { position: fixed; left: -10000px; top: 0; width: 200px; height: 200px; opacity: 0; pointer-events: none; }
   .ctrls { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
   .ctrls .row { display: flex; gap: 8px; align-items: center; }
   .btn {
@@ -146,8 +147,7 @@
   }
   .btn:hover { background: rgba(255,255,255,.16); }
   input[type=range] { width: 100%; accent-color: var(--c1); }
-  .clock { font: 600 12px Inter, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; }
-  .hint { color: var(--muted); font-size: 12px; text-align: center; max-width: 520px; line-height: 1.5; }
+    .hint { color: var(--muted); font-size: 12px; text-align: center; max-width: 520px; line-height: 1.5; }
   kbd { background: rgba(255,255,255,.1); border-radius: 4px; padding: 1px 5px; font-size: 11px; }
 
   /* ---------- tela inicial ---------- */
@@ -166,8 +166,6 @@
   .start[hidden] { display: none; }
 
   @media (max-width: 560px) {
-    .bar { grid-template-columns: 1fr; }
-    .yt { width: 100%; max-width: 320px; justify-self: center; }
     .hint .desk { display: none; }
   }
 </style>
@@ -184,22 +182,20 @@
   </header>
 
   <div class="wheel" id="wheel">
-    <div class="pointer" id="pointer"></div>
     <div class="center">
+      <img class="logo" id="stLogo" alt="" hidden>
       <div class="name" id="stName">Rádio desligada</div>
       <div class="genre" id="stGenre">Escolha uma estação</div>
-      <div class="live" id="live"><i></i><span id="liveTxt">Off</span></div>
+      <div class="song" id="song"></div>
     </div>
   </div>
 
   <div class="bar">
-    <div class="yt"><div id="player"></div></div>
     <div class="ctrls">
       <div class="row">
         <button class="btn" id="prev" aria-label="Estação anterior">⏮</button>
         <button class="btn" id="power" aria-label="Desligar rádio">⏻</button>
         <button class="btn" id="next" aria-label="Próxima estação">⏭</button>
-        <span class="clock" id="clock"></span>
       </div>
       <div class="row">
         <span aria-hidden="true">🔈</span>
@@ -209,10 +205,12 @@
   </div>
 
   <p class="hint">
-    As rádios estão sempre "no ar": você entra no ponto em que a transmissão está agora, como no jogo.
+    As rádios estão sempre no ar: você entra no meio da programação, como no jogo.
     <span class="desk">Use <kbd>←</kbd> <kbd>→</kbd> ou a rodinha do mouse para girar, <kbd>Espaço</kbd> para desligar.</span>
   </p>
 </main>
+
+<div class="yt" aria-hidden="true"><div id="player"></div></div>
 
 <div class="start" id="start">
   <div>
@@ -222,10 +220,11 @@
 </div>
 
 <script src="stations.js"></script>
+<script src="tracks.js"></script>
 <script>
 (() => {
   const $ = (id) => document.getElementById(id);
-  const wheel = $('wheel'), pointer = $('pointer');
+  const wheel = $('wheel');
   const LS = {
     get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
@@ -338,9 +337,13 @@
         const st = sts[i];
         el.style.setProperty('--s1', st.c[0]);
         el.style.setProperty('--s2', st.c[1]);
-        el.textContent = st.short || shortName(st.name);
-        el.style.whiteSpace = 'pre';
-        el.style.lineHeight = '1';
+        if (st.logo) {
+          const img = new Image(); img.src = st.logo; img.alt = ''; img.decoding = 'async';
+          el.appendChild(img);
+        } else {
+          el.textContent = st.short || shortName(st.name);
+          el.style.whiteSpace = 'pre';
+        }
         el.title = st.name;
         el.setAttribute('aria-label', st.name);
       }
@@ -357,11 +360,6 @@
       el.classList.toggle('active', i === current);
       el.classList.toggle('hover', i === hover && hover !== current);
     });
-    const target = wheel.querySelector(`.slot[data-i="${hover}"]`);
-    if (target) {
-      pointer.style.transform = `rotate(${+target.dataset.angle + 180}deg)`;
-      pointer.style.opacity = hover === -1 ? 0 : .35;
-    }
   }
 
   function preview(i) {
@@ -374,12 +372,42 @@
     const st = list()[i];
     $('stName').textContent = st ? st.name : 'Rádio desligada';
     $('stGenre').textContent = st ? st.genre : 'Escolha uma estação';
+    const lg = $('stLogo');
+    if (st && st.logo) { lg.src = st.logo; lg.hidden = false; } else lg.hidden = true;
+    $('stName').hidden = !!(st && st.logo);
   }
 
+  let tuning = false;
   function setLive(state) {
-    const el = $('live');
-    el.className = 'live ' + (state === 'on' ? 'on' : state === 'tuning' ? 'tuning' : '');
-    $('liveTxt').textContent = state === 'on' ? 'Ao vivo' : state === 'tuning' ? 'Sintonizando…' : 'Off';
+    tuning = state === 'tuning';
+    $('song').classList.toggle('tuning', tuning);
+    if (state === 'off') $('song').textContent = '';
+    updateSong();
+  }
+
+  // música atual = última faixa da tracklist cujo início já passou
+  let lastSong = '';
+  function currentTrack(st) {
+    const list = (window.TRACKS || {})[st.id] || [];
+    if (!list.length) return '';
+    let pos = livePos(st);
+    if (playerReady && !tuning && player.getPlayerState && player.getPlayerState() === 1) pos = player.getCurrentTime();
+    let t = list[0][1];
+    for (const [s, name] of list) { if (s <= pos) t = name; else break; }
+    return t;
+  }
+  function updateSong() {
+    const st = list()[current];
+    const txt = st ? currentTrack(st) : '';
+    if (txt === lastSong && $('song').textContent === txt) return;
+    lastSong = txt;
+    $('song').textContent = txt;
+    if (st && 'mediaSession' in navigator && txt) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: txt, artist: st.name, album: game === 'gta6' ? 'GTA VI' : 'GTA V',
+        artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
+      });
+    }
   }
 
   function applyTheme(st) {
@@ -500,7 +528,7 @@
     if (!('mediaSession' in navigator)) return;
     navigator.mediaSession.metadata = st ? new MediaMetadata({
       title: st.name, artist: st.genre, album: game === 'gta6' ? 'GTA VI' : 'GTA V',
-      artwork: [{ src: `https://i.ytimg.com/vi/${st.id}/hqdefault.jpg`, sizes: '480x360', type: 'image/jpeg' }],
+      artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
     }) : null;
   }
   if ('mediaSession' in navigator) {
@@ -580,14 +608,7 @@
     if (e.key === ' ') { e.preventDefault(); $('power').click(); }
   });
 
-  // relógio da transmissão
-  setInterval(() => {
-    const st = list()[current];
-    if (!st || !durOf(st)) { $('clock').textContent = ''; return; }
-    const p = Math.floor(livePos(st)), dur = durOf(st);
-    const f = (s) => [Math.floor(s / 3600), Math.floor(s / 60) % 60, s % 60].map((x) => String(x).padStart(2, '0')).join(':');
-    $('clock').textContent = `${f(p)} / ${f(dur)}`;
-  }, 1000);
+  setInterval(updateSong, 1000);
 
   let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(buildWheel, 120); });
 
