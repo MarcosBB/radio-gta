@@ -220,8 +220,59 @@
     box-shadow: 0 20px 60px rgba(0,0,0,.35);
     backdrop-filter: blur(10px);
   }
-  /* o player do YouTube fica fora da tela: só o áudio interessa */
-  .yt { position: fixed; left: -10000px; top: 0; width: 200px; height: 200px; opacity: 0; pointer-events: none; }
+  /* ---------- player do YouTube (visível, minimizado por padrão) ---------- */
+  .yt {
+    position: fixed; z-index: 15;
+    right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom));
+    width: 200px; border-radius: 14px; overflow: hidden;
+    background: #000; border: 1px solid var(--ring);
+    box-shadow: 0 16px 40px rgba(0,0,0,.55);
+    transition: width .25s ease, opacity .2s;
+  }
+  .yt[data-size="big"] { width: min(560px, calc(100vw - 24px)); }
+  body.off .yt, body:not(.started) .yt { visibility: hidden; opacity: 0; }
+  .yt-head {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 6px 6px 10px; background: #15151c;
+    font: 600 11px Inter, sans-serif; color: var(--muted);
+  }
+  .yt-head svg.yt-ico { width: 14px; height: 14px; flex: none; fill: #ff0033; }
+  .yt-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .yt-btn {
+    width: 28px; height: 28px; border: 0; border-radius: 8px; flex: none;
+    background: rgba(255,255,255,.08); color: var(--fg); cursor: pointer; padding: 0;
+    display: grid; place-items: center;
+  }
+  .yt-btn:hover { background: rgba(255,255,255,.16); }
+  .yt-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .yt-frame { aspect-ratio: 16 / 9; }
+  .yt-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
+  /* no celular, deixa espaço para o mini player não cobrir as memórias */
+  @media (max-width: 899px) {
+    body.started:not(.off) main { padding-bottom: calc(160px + env(safe-area-inset-bottom)); }
+  }
+
+  /* ---------- selos próprios (quando não há logo oficial) ---------- */
+  .slot.badge {
+    background: linear-gradient(135deg, var(--s1), var(--s2));
+    font: 700 calc(var(--b) * .2) / 1.05 Oswald, sans-serif; white-space: pre; text-align: center;
+    color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.65);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.18), 0 4px 14px rgba(0,0,0,.5);
+  }
+  .preset.badge { color: #fff; font: 700 13px/1.05 Oswald, sans-serif; white-space: pre; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+  .gametitle .mark {
+    font: 700 22px/1 Oswald, sans-serif; letter-spacing: .02em;
+    width: 52px; height: 52px; border-radius: 12px; flex: none;
+    display: grid; place-items: center; color: #111;
+    background: linear-gradient(135deg, var(--gc1), var(--gc2));
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--gc1) 35%, transparent);
+  }
+  .gametitle .mark[hidden], .gametitle .glogo[hidden] { display: none; }
+  .cover .bigtxt {
+    position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%);
+    font: 700 clamp(52px, 10vw, 84px)/1 Oswald, sans-serif; color: rgba(255,255,255,.92);
+    text-shadow: 0 6px 20px rgba(0,0,0,.35); letter-spacing: -.01em;
+  }
   .deck { display: flex; align-items: center; gap: 16px; }
   .transport { display: flex; align-items: center; gap: 10px; flex: none; }
   .btn {
@@ -234,6 +285,9 @@
   .btn:hover { background: rgba(255,255,255,.14); }
   .btn:active { transform: scale(.94); }
   .btn.power { width: 54px; height: 54px; background: color-mix(in srgb, var(--c1) 22%, transparent); border-color: color-mix(in srgb, var(--c1) 55%, transparent); }
+  .btn.spotify { color: #1ed760; text-decoration: none; }
+  .btn.spotify svg { width: 22px; height: 22px; }
+  .btn.spotify[hidden] { display: none; }
   .btn.power svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
   body.off .btn.power { background: rgba(255,255,255,.07); border-color: var(--ring); color: var(--muted); }
   .volume { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
@@ -361,7 +415,8 @@
     <div class="gamesel">
       <button class="arrow" id="gPrev" aria-label="Jogo anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="gametitle" id="gTitle" aria-haspopup="dialog" aria-label="Escolher jogo">
-        <img class="glogo" id="gLogo" alt="">
+        <img class="glogo" id="gLogo" alt="" hidden>
+        <span class="mark" id="gMark"></span>
         <span class="txt"><span class="name" id="gName"></span><span class="meta" id="gMeta"></span></span>
       </button>
       <button class="arrow" id="gNext" aria-label="Próximo jogo"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -384,6 +439,9 @@
         <button class="btn" id="prev" aria-label="Estação anterior"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
         <button class="btn power" id="power" aria-label="Ligar/desligar rádio"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button>
         <button class="btn" id="next" aria-label="Próxima estação"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        <a class="btn spotify" id="spotify" target="_blank" rel="noopener" aria-label="Abrir a música atual no Spotify para salvar" title="Abrir no Spotify para salvar" hidden>
+          <svg viewBox="0 0 24 24"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm4.8 15.2a.65.65 0 0 1-.9.2c-2.5-1.5-5.6-1.9-9.3-1a.65.65 0 1 1-.3-1.3c4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.3-2.9a.8.8 0 0 1-1.1.3c-2.8-1.7-7.2-2.2-10.5-1.2a.8.8 0 1 1-.5-1.6c3.8-1.1 8.6-.6 11.8 1.4.4.2.5.7.3 1.1zm.1-3c-3.4-2-9-2.2-12.2-1.2a1 1 0 1 1-.6-1.9c3.7-1.1 9.9-.9 13.8 1.4a1 1 0 0 1-1 1.7z"/></svg>
+        </a>
       </div>
       <div class="volume">
         <button class="mute" id="mute" aria-label="Silenciar"><svg viewBox="0 0 24 24" id="volIcon"></svg></button>
@@ -404,12 +462,19 @@
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
-<div class="yt" aria-hidden="true"><div id="player"></div></div>
+<aside class="yt" id="yt" data-size="mini" aria-label="Player do YouTube">
+  <div class="yt-head">
+    <svg class="yt-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15V9l5.5 3-5.5 3z"/></svg>
+    <span class="yt-title" id="ytTitle">YouTube</span>
+    <button class="yt-btn" id="ytSize" aria-label="Expandir player"><svg viewBox="0 0 24 24" id="ytSizeIco"></svg></button>
+  </div>
+  <div class="yt-frame"><div id="player"></div></div>
+</aside>
 
 <div class="start" id="start">
   <div>
     <button id="startBtn">Ligar o rádio</button>
-    <p>Áudio das transmissões completas publicadas no YouTube.</p>
+    <p>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.</p>
   </div>
 </div>
 
@@ -539,8 +604,8 @@
           const img = new Image(); img.src = st.logo; img.alt = ''; img.decoding = 'async';
           el.appendChild(img);
         } else {
+          el.classList.add('badge');
           el.textContent = st.short || shortName(st.name);
-          el.style.whiteSpace = 'pre';
         }
         el.title = st.name;
         el.setAttribute('aria-label', st.name);
@@ -601,6 +666,10 @@
     if (txt === lastSong && $('song').textContent === txt) return;
     lastSong = txt;
     $('song').textContent = txt;
+    // busca a música no Spotify (no celular, abre o app); lá é só tocar no coração para salvar
+    const q = txt.replace(/\(\d{4}\)|\[[^\]]*\]|["“”]/g, ' ').replace(/\s+[-–—]\s+/g, ' ').replace(/\s+/g, ' ').trim();
+    $('spotify').hidden = !q || /^(intro|ident|commercial|dj |news|ad )/i.test(q);
+    $('spotify').href = 'https://open.spotify.com/search/' + encodeURIComponent(q);
     if (st && 'mediaSession' in navigator && txt) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: txt, artist: st.name, album: window.GAMES[game].full,
@@ -629,6 +698,7 @@
     showInfo(i);
     const st = list()[i];
     applyTheme(st);
+    if (st) $('ytTitle').textContent = `${st.name} · ${window.GAMES[game].label}`;
     clearTimeout(tuneTimer); clearInterval(fadeTimer);
 
     if (!st) { // desligar
@@ -696,6 +766,20 @@
     step.t = setTimeout(() => select(i), 380);
   };
 
+  // ---------- player visível: minimizado por padrão ----------
+  const SIZE_ICO = {
+    mini: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',   // expandir
+    big: '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>',   // minimizar
+  };
+  function setPlayerSize(size) {
+    $('yt').dataset.size = size;
+    $('ytSizeIco').innerHTML = SIZE_ICO[size];
+    $('ytSize').setAttribute('aria-label', size === 'mini' ? 'Expandir player' : 'Minimizar player');
+    LS.set('ytSize', size);
+  }
+  setPlayerSize(LS.get('ytSize', 'mini'));
+  $('ytSize').addEventListener('click', () => setPlayerSize($('yt').dataset.size === 'mini' ? 'big' : 'mini'));
+
   // ---------- YouTube ----------
   window.onYouTubeIframeAPIReady = () => {
     player = new YT.Player('player', {
@@ -741,6 +825,7 @@
   // ---------- controles ----------
   $('startBtn').addEventListener('click', () => {
     started = true;
+    document.body.classList.add('started');
     initAudio();
     $('start').hidden = true;
     const last = LS.get('last_' + game, 0);
@@ -785,7 +870,9 @@
     const G = window.GAMES[game];
     const root = document.documentElement.style;
     root.setProperty('--gc1', G.color); root.setProperty('--gc2', G.color2);
-    $('gLogo').src = G.logo; $('gLogo').alt = G.full;
+    if (G.logo) { $('gLogo').src = G.logo; $('gLogo').alt = G.full; }
+    $('gLogo').hidden = !G.logo; $('gMark').hidden = !!G.logo;
+    $('gMark').textContent = G.mark;
     $('gName').textContent = G.label;
     $('gMeta').innerHTML = `${PIN}${G.place} · ${G.year} · ${window.STATIONS[game].length} rádios`;
     $('gDots').innerHTML = GAME_KEYS.map((k) => `<i class="${k === game ? 'on' : ''}"></i>`).join('');
@@ -805,7 +892,7 @@
     c.className = 'cover'; c.dataset.game = k;
     c.style.setProperty('--gc1', G.color); c.style.setProperty('--gc2', G.color2);
     const logos = window.STATIONS[k].filter((s) => s.logo).slice(0, 3).map((s) => `<img src="${s.logo}" alt="" loading="lazy"${s.light ? ' class="light"' : ''}>`).join('');
-    c.innerHTML = `<img class="big" src="${G.logo}" alt="">
+    c.innerHTML = `${G.logo ? `<img class="big" src="${G.logo}" alt="">` : `<span class="bigtxt">${G.mark}</span>`}
       <span class="foot"><span class="s">${G.place} · ${G.year}<br>${window.STATIONS[k].length} rádios</span><span class="logos">${logos}</span></span>`;
     c.setAttribute('aria-label', `${G.full}, ${window.STATIONS[k].length} rádios`);
     c.addEventListener('click', () => { closePicker(); if (k !== game) switchGame(k); });
@@ -851,7 +938,7 @@
       if (f) {
         b.insertAdjacentHTML('beforeend', `<span class="num">${k + 1}</span>`);
         if (f.st.logo) { const img = new Image(); img.src = f.st.logo; img.alt = ''; b.appendChild(img); if (f.st.light) b.classList.add('light'); }
-        else b.appendChild(document.createTextNode(f.st.short || f.st.name));
+        else { b.classList.add('badge'); b.style.background = `linear-gradient(135deg, ${f.st.c[0]}, ${f.st.c[1]})`; b.appendChild(document.createTextNode(f.st.short || shortName(f.st.name))); }
         b.title = `${k + 1}: ${f.st.name} (segure para trocar)`;
         b.setAttribute('aria-label', `Memória ${k + 1}: ${f.st.name}`);
       } else {
