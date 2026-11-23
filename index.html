@@ -147,9 +147,7 @@
   }
   .btn:hover { background: rgba(255,255,255,.16); }
   input[type=range] { width: 100%; accent-color: var(--c1); }
-    .hint { color: var(--muted); font-size: 12px; text-align: center; max-width: 520px; line-height: 1.5; }
-  kbd { background: rgba(255,255,255,.1); border-radius: 4px; padding: 1px 5px; font-size: 11px; }
-
+  
   /* ---------- tela inicial ---------- */
   .start {
     position: fixed; inset: 0; z-index: 10;
@@ -166,7 +164,6 @@
   .start[hidden] { display: none; }
 
   @media (max-width: 560px) {
-    .hint .desk { display: none; }
   }
 </style>
 </head>
@@ -204,10 +201,6 @@
     </div>
   </div>
 
-  <p class="hint">
-    As rádios estão sempre no ar: você entra no meio da programação, como no jogo.
-    <span class="desk">Use <kbd>←</kbd> <kbd>→</kbd> ou a rodinha do mouse para girar, <kbd>Espaço</kbd> para desligar.</span>
-  </p>
 </main>
 
 <div class="yt" aria-hidden="true"><div id="player"></div></div>
