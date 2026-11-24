@@ -1,10 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3d8b"/><stop offset="1" stop-color="#ffb03a"/></linearGradient></defs>
-  <rect width="512" height="512" rx="112" fill="#0b0b10"/>
-  <circle cx="256" cy="256" r="170" fill="none" stroke="url(#g)" stroke-width="34"/>
-  <g fill="url(#g)">
-    <circle cx="256" cy="86" r="30"/><circle cx="426" cy="256" r="30"/><circle cx="256" cy="426" r="30"/><circle cx="86" cy="256" r="30"/>
-  </g>
-  <path d="M256 256 L330 182" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
-  <circle cx="256" cy="256" r="26" fill="#fff"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff3d8b"/><stop offset="1" stop-color="#ffb03a"/></linearGradient></defs><rect width="512" height="512" rx="112" fill="#0b0b10"/>
+<g fill="none" stroke="url(#g)" stroke-width="44" stroke-linecap="round">
+<path d="M176 176a113 113 0 0 0 0 160M336 176a113 113 0 0 1 0 160"/>
+<path d="M112 112a204 204 0 0 0 0 288M400 112a204 204 0 0 1 0 288"/></g>
+<circle cx="256" cy="256" r="48" fill="#fff"/></svg>
