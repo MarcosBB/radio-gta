@@ -2,7 +2,7 @@
 
 Situação em 25/11/2026: o app tem **93 rádios** de 6 jogos.
 
-Nos jogos que o app já cobre faltam **7 rádios**, todas deixadas de fora de propósito. Outras **5 rádios** estão no app, mas incompletas. Os jogos que ainda não estão no app ficam no fim.
+Nos jogos que o app já cobre faltam **7 rádios**, todas deixadas de fora de propósito. Outras **5 rádios** estão no app, mas incompletas. Os jogos que ainda não estão no app ficam no fim, com o que existe deles no YouTube.
 
 | Jogo | No app | Faltam |
 |---|---|---|
@@ -41,14 +41,58 @@ Nos jogos que o app já cobre faltam **7 rádios**, todas deixadas de fora de pr
 
 ## Jogos que ainda não estão no app
 
-| Jogo | Rádios | Observação |
-|---|---|---|
-| Liberty City Stories (2005) | Head Radio, Double Clef FM, K-Jah, Rise FM, Lips 106, Radio Del Mundo, MSX 98, Flashback FM, The Liberty Jam, LCFR (falada) | 10 rádios (9 musicais). Seria o próximo jogo mais fácil de adicionar. |
-| Vice City Stories (2006) | Flash FM, V-Rock, Paradise FM, Fresh 105 FM, Emotion 98.3, Wave 103, Radio Espantoso, VCFL (falada), VCPR (falada) | 9 rádios (7 musicais). |
-| GTA (1997), GTA London (1999), GTA 2 (1999) | Várias rádios curtas por jogo | Poucas faixas cada. Rende pouco no formato "ao vivo". |
-| GTA Chinatown Wars (2009) | — | Não tem rádio de verdade, só faixas instrumentais. |
+Pesquisa no YouTube em 25/11/2026: para cada rádio, procurei um vídeo da estação completa e conferi se ele pode tocar embutido no site, que é o que o app usa. A lista de rádios de cada jogo foi conferida na gta.wiki.
 
-Escrevi as listas de LCS e VCS de memória e não as conferi numa fonte. Antes de adicionar esses jogos, vale confirmar na gta.wiki.
+| Jogo | Rádios musicais | No YouTube | Duração por rádio | Vale adicionar? |
+|---|---|---|---|---|
+| Liberty City Stories (2005) | 9 | 9 de 9 | 26–48 min | **Sim** |
+| Vice City Stories (2006) | 7 | 7 de 7 | 30–69 min | **Sim** |
+| GTA 2 (1999) | 11 | 11 de 11 | 12 min (Head Radio: 24) | Talvez. Todas existem, mas são curtas e repetem logo. |
+| GTA (1997) | 7 | 7 de 7 | 3–11 min | Não. São curtas demais para tocar como rádio ao vivo. |
+| GTA London 1969/1961 | 9 | 9 de 9 | 2–7 min | Não. São curtas demais para tocar como rádio ao vivo. |
+| GTA Chinatown Wars (2009) | — | — | — | Não. O jogo não tem rádio de verdade. |
+
+### Liberty City Stories: as 9 rádios têm vídeo
+
+Usa os nomes das rádios do GTA III, mas com outras músicas. Todos os vídeos podem tocar embutidos.
+
+| Rádio | Vídeo | Duração | Tracklist com tempos |
+|---|---|---|---|
+| Head Radio | `birGWVDfQ74` | 26:37 | sim |
+| Double Clef FM | `4ArVN_C6ac8` | 26:33 | sim |
+| K-Jah | `95OGLvqstGI` | 28:48 | sim |
+| Rise FM | `QmtD4z6Oo2Y` | 42:19 | não |
+| Lips 106 | `M2Xw4fXTL0c` | 27:59 | sim |
+| Radio Del Mundo | `_CgRA14tgwI` | 33:36 | sim |
+| MSX 98 | `PQiuB-0gSv4` | 38:47 | sim |
+| Flashback FM | `HaLOIiZBAlg` | 28:57 | sim |
+| The Liberty Jam | `ClnjMBaFUKE` | 47:43 | não |
+
+Ficariam de fora as faladas: Liberty City Free Radio (LCFR) e Liberty News.
+
+### Vice City Stories: as 7 rádios têm vídeo
+
+Usa os nomes das rádios do Vice City, mas com outras músicas, porque se passa em 1984. Todos os vídeos podem tocar embutidos.
+
+| Rádio | Vídeo | Duração | Tracklist com tempos |
+|---|---|---|---|
+| Flash FM | `lcktJMlVx1I` | 1:04:50 | sim |
+| V-Rock | `L0ejZEUwSeg` | 59:40 | não |
+| Paradise FM | `zHWQii6yE-w` | 41:17 | sim |
+| Wave 103 | `NDnVROj95lM` | 1:00:00 | não |
+| Fresh 105 FM | `ox3ktu9mbdo` | 29:45 | sim (capítulos) |
+| Radio Espantoso | `DIJ_3iN_Uzg` | 30:32 | sim |
+| Emotion 98.3 | `nlwauathOI0` | 1:09:07 | sim |
+
+Ficariam de fora as faladas: VCPR e VCFL.
+
+### GTA 2, GTA 1 e London: têm vídeo, mas são curtas
+
+- **GTA 2:** Head Radio, Rockstar Radio, KREZ, Lo-Fi FM, Futuro FM, Funami FM, Lithium FM, King 130.7, Osmosis FM, Heavenly Radio e KGBH. Todas têm vídeo completo de uns 12 min (a Head Radio tem 24).
+- **GTA (1997):** Head Radio, N-CT FM, Radio '76 FM, The Fix FM, It's Unleashed FM, The Fergus Buckner Show FM e Brooklyn Underground FM. Cada vídeo tem de 3 a 11 min.
+- **GTA London 1969/1961:** Heavy Heavy Monster Sound, Blow Up Radio, Kaleidoscope, Sound of Soho, Radio Penelope, Radio Andorra, Westminster Wireless, Radio 7 e Bush Sounds. Cada vídeo tem de 2 a 7 min.
+
+Nesses três jogos não conferi se os vídeos podem tocar embutidos. Se o GTA 2 for entrar, isso precisa ser conferido antes.
 
 ---
 
