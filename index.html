@@ -13,7 +13,7 @@
 <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, San Andreas, Vice City, III)</title>
-<meta name="description" content="Ouça as 80 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.">
+<meta name="description" content="Ouça as 93 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://radio-wheel.marcosbb.com/">
 <link rel="alternate" hreflang="pt-BR" href="https://radio-wheel.marcosbb.com/">
@@ -579,7 +579,7 @@
   const I18N = {
     pt: {
       docTitle: 'Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, San Andreas, Vice City, III)',
-      docDesc: 'Ouça as 80 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.',
+      docDesc: 'Ouça as 93 rádios de GTA VI, GTA V, GTA IV, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.',
       prevGame: 'Jogo anterior', pickGame: 'Escolher jogo', nextGame: 'Próximo jogo',
       radioOff: 'Rádio desligada', pickStation: 'Escolha uma estação', controls: 'Controles',
       prevSt: 'Estação anterior', power: 'Ligar/desligar rádio', nextSt: 'Próxima estação',
@@ -603,7 +603,7 @@
     },
     en: {
       docTitle: 'Rádio Wheel — GTA Radio Stations Live (GTA VI, V, IV, San Andreas, Vice City, III)',
-      docDesc: 'Listen to all 80 radio stations from GTA VI, GTA V, GTA IV, San Andreas, Vice City and GTA III in your browser, live and synced like in the game, with the radio wheel, presets and the name of the song playing.',
+      docDesc: 'Listen to all 93 radio stations from GTA VI, GTA V, GTA IV, San Andreas, Vice City and GTA III in your browser, live and synced like in the game, with the radio wheel, presets and the name of the song playing.',
       prevGame: 'Previous game', pickGame: 'Choose game', nextGame: 'Next game',
       radioOff: 'Radio off', pickStation: 'Pick a station', controls: 'Controls',
       prevSt: 'Previous station', power: 'Turn radio on/off', nextSt: 'Next station',
@@ -636,6 +636,9 @@
     'Indie & alternativo': 'Indie & alternative', 'Indie dance & eletrônica': 'Indie dance & electronic',
     'Latina': 'Latin', 'Música mexicana': 'Mexican music', 'Música russa': 'Russian music',
     'Rock alternativo & grunge': 'Alternative rock & grunge', 'Rock clássico': 'Classic rock', 'Rádio falada': 'Talk radio',
+    'Afrobeats & música africana': 'Afrobeats & African music', 'Música clássica': 'Classical music',
+    'House & eletrônica': 'House & electronic', 'Rock experimental': 'Experimental rock',
+    'Pop experimental & reggaeton': 'Experimental pop & reggaeton',
     'Rádio pública (falada)': 'Public radio (talk)', 'Soft rock & baladas': 'Soft rock & ballads', 'Ópera & clássica': 'Opera & classical',
   };
   const BOT = /bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent);
@@ -1127,9 +1130,11 @@
 
   // ---------- memórias: toque sintoniza, segurar ~0,7 s salva a estação atual ----------
   let presets = LS.get('presets', [null, null, null, null, null, null]);
+  const RENAMED = { 'VCRR': 'Vice City Rap Radio', 'Radio La Ola': 'La Ola' };
   const findStation = (p) => {
     if (!p) return null;
-    const i = (window.STATIONS[p.g] || []).findIndex((s) => s.name === p.name);
+    const name = RENAMED[p.name] || p.name;
+    const i = (window.STATIONS[p.g] || []).findIndex((s) => s.name === name);
     return i < 0 ? null : { g: p.g, i, st: window.STATIONS[p.g][i] };
   };
   let toastT;
