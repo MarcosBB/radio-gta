@@ -19,3 +19,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+THIRD-PARTY MATERIAL — NOT COVERED BY THIS LICENSE
+
+The MIT License above applies only to the original source code of this
+project. It does not apply to, and grants no rights over:
+
+- the station and game logos in `logos/` and `logos/games/`;
+- the names "Grand Theft Auto", "GTA" and the names of the radio stations;
+- the music, videos and other content played through the YouTube player.
+
+These belong to their respective owners (including Rockstar Games and
+Take-Two Interactive) and are used here in a non-commercial fan project,
+without affiliation or endorsement. If you own any of this material and want
+it removed, please open an issue.
