@@ -11,7 +11,7 @@ Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não esco
 
 ## Recursos
 
-- 93 estações de GTA VI, V, IV, San Andreas, Vice City e III.
+- 109 estações de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III.
 - Rádio "ao vivo" sincronizada pelo relógio, com chiado de sintonia ao trocar.
 - Nome da música tocando agora (a partir das tracklists com tempo de cada vídeo).
 - Botão do Spotify: abre a música atual no Spotify para salvar nas Curtidas.
