@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://radio-wheel.marcosbb.com/sitemap.xml

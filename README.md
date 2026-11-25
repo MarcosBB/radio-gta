@@ -2,7 +2,7 @@
 
 Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não escolhe a música: cada estação está sempre "no ar" e você entra no ponto em que a programação está agora — a posição é calculada pelo relógio, igual para todo mundo. Trocar de estação toca o chiado de sintonia.
 
-**🎧 Ouça agora: https://projetos.marcosbb.com/radio-gta/**
+**🎧 Ouça agora: https://radio-wheel.marcosbb.com/**
 
 > **Projeto de fã, sem fins lucrativos e sem afiliação com a Rockstar Games ou a Take-Two Interactive.**
 > Nenhum áudio é hospedado aqui: as rádios tocam pelo player oficial do YouTube, a partir de vídeos públicos.
@@ -41,4 +41,12 @@ Abra http://localhost:5173 (precisa ser via http, não `file://`, por causa do p
 
 ## Licença
 
-Código sob a licença MIT (veja `LICENSE`). A licença vale só para o código deste repositório, não para músicas, vídeos, marcas ou logos de terceiros.
+O código-fonte original deste projeto está sob a licença MIT (veja `LICENSE`).
+
+A licença **não** cobre material de terceiros, que pertence aos respectivos donos (incluindo a Rockstar Games e a Take-Two Interactive):
+
+- os logos das estações e dos jogos em `logos/` e `logos/games/`;
+- os nomes "Grand Theft Auto", "GTA" e os nomes das estações;
+- as músicas e os vídeos, que tocam pelo player do YouTube e não são hospedados aqui.
+
+Esse material é usado num projeto de fã sem fins lucrativos, sem afiliação nem endosso. Quem quiser reaproveitar o código deve substituir os logos ou obter permissão dos donos.
