@@ -1,6 +1,6 @@
 // Service worker simples: guarda a "casca" do app para abrir rápido / instalar como PWA.
-const CACHE = 'radio-wheel-v12';
-const SHELL = ['./', 'index.html', 'stations.js', 'manifest.json', 'icon.svg', 'tracks.js', 'sounds/sintonia.m4a'];
+const CACHE = 'radio-wheel-v13';
+const SHELL = ['./', 'index.html', 'stations.js', 'manifest.json', 'icon.svg', 'icon-192.png', 'tracks.js', 'sounds/sintonia.m4a'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL))); self.skipWaiting(); });
 self.addEventListener('activate', (e) => {
   e.waitUntil(caches.keys().then((ks) => Promise.all(ks.filter((k) => k !== CACHE).map((k) => caches.delete(k)))));
