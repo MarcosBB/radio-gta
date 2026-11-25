@@ -1129,12 +1129,9 @@
   });
 
   // ---------- memórias: toque sintoniza, segurar ~0,7 s salva a estação atual ----------
-  let presets = LS.get('presets', [null, null, null, null, null, null]);
-  const RENAMED = { 'VCRR': 'Vice City Rap Radio', 'Radio La Ola': 'La Ola' };
-  const findStation = (p) => {
+  let presets = LS.get('presets', [null, null, null, null, null, null]);  const findStation = (p) => {
     if (!p) return null;
-    const name = RENAMED[p.name] || p.name;
-    const i = (window.STATIONS[p.g] || []).findIndex((s) => s.name === name);
+    const i = (window.STATIONS[p.g] || []).findIndex((s) => s.name === p.name);
     return i < 0 ? null : { g: p.g, i, st: window.STATIONS[p.g][i] };
   };
   let toastT;
