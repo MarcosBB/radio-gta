@@ -13,3 +13,4 @@ __pycache__/
 *.pyc
 dist/
 fallback-report.md
+.spotify-blocked-until

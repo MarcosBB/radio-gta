@@ -17,6 +17,8 @@ import argparse, base64, difflib, json, pathlib, re, sys, time, unicodedata, url
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SONGS = ROOT / 'contents' / 'songs.json'
 REPORT = ROOT / 'spotify-report.md'
+# Requests sent during a block seem to restart it, so the end of a block is remembered here.
+BLOCKED_UNTIL = ROOT / '.spotify-blocked-until'
 
 
 def env():
@@ -72,10 +74,14 @@ class Spotify:
             except urllib.error.HTTPError as e:
                 if e.code == 429:
                     wait = int(e.headers.get('Retry-After', '5')) + 1
-                    if wait > 300:
-                        raise QuotaExhausted(wait)
+                    reason = reason_of(e)
+                    # Development-mode apps have a quota separate from the 30-second rate limit;
+                    # Spotify marks it with reason QUOTA_EXCEEDED and does not publish its size.
+                    if reason == 'QUOTA_EXCEEDED' or wait > 300:
+                        raise QuotaExhausted(wait, reason, self.sent)
                     self.interval *= 2
-                    print(f'  rate limited: waiting {wait}s, now one request every {self.interval:.0f}s', flush=True)
+                    print(f'  rate limit (30-second window, reason {reason or "none"}) after {self.sent} requests: '
+                          f'waiting {wait}s, now one request every {self.interval:.0f}s', flush=True)
                     time.sleep(wait)
                 elif e.code >= 500:
                     time.sleep(2 ** attempt)
@@ -86,6 +92,15 @@ class Spotify:
             except (urllib.error.URLError, TimeoutError):
                 time.sleep(2 ** attempt)
         return []
+
+
+def reason_of(error):
+    try:
+        body = json.loads(error.read().decode() or '{}')
+    except (ValueError, OSError):
+        return None
+    err = body.get('error')
+    return (err.get('reason') if isinstance(err, dict) else None) or body.get('reason')
 
 
 def norm(s):
@@ -164,11 +179,14 @@ def main():
     keys = env()
     if not keys.get('SPOTIFY_CLIENT_ID') or not keys.get('SPOTIFY_CLIENT_SECRET'):
         sys.exit('SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET are missing in .env')
+    if BLOCKED_UNTIL.exists() and time.time() < float(BLOCKED_UNTIL.read_text()):
+        left = (float(BLOCKED_UNTIL.read_text()) - time.time()) / 3600
+        sys.exit(f'Spotify is still blocking the app for about {left:.1f} h. Not sending any request.')
     sp = Spotify(keys['SPOTIFY_CLIENT_ID'], keys['SPOTIFY_CLIENT_SECRET'], args.interval, args.max_requests)
     songs = json.loads(SONGS.read_text())
     todo = [s for s in songs if s['kind'] == 'song' and not s.get('spotify_checked') and not s.get('spotify_id')
             and (args.retry or not s.get('spotify_tried'))]
-    if args.limit:
+    if args.limit is not None:
         todo = todo[:args.limit]
     print(f'{len(todo)} songs to look up', flush=True)
     for n, s in enumerate(todo, 1):
@@ -184,8 +202,11 @@ def main():
         except QuotaExhausted as e:
             SONGS.write_text(json.dumps(songs, ensure_ascii=False, indent=2) + '\n')
             write_report(songs)
-            hours = e.args[0] / 3600
-            sys.exit(f'Spotify quota used up after {n - 1} songs. Run the script again in about {hours:.0f} h; it resumes where it stopped.')
+            wait, reason, sent = e.args
+            BLOCKED_UNTIL.write_text(str(time.time() + wait))
+            kind = 'development-mode quota (QUOTA_EXCEEDED)' if reason == 'QUOTA_EXCEEDED' else f'rate limit (reason {reason or "none"})'
+            sys.exit(f'Spotify blocked the app: {kind}, after {sent} requests and {n - 1} songs in this run. '
+                     f'Retry-After is {wait}s (about {wait / 3600:.1f} h). Run it again then; it resumes where it stopped.')
         tr, t, a = max([found, swapped], key=lambda x: x[1] + x[2])
         s['spotify_tried'] = True
         s.pop('spotify_doubt', None)
