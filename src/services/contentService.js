@@ -61,11 +61,11 @@ export function loadSongsData() {
     for (const list of tl.default) {
       byVideo.set(list.id, list.tracks.map((t) => {
         const s = songs[t.song]
-        // Spotify's names when the song was matched, otherwise the ones read from the YouTube tracklist.
-        const title = s.spotify_title || s.youtube_title || s.raw
-        const artist = s.spotify_title ? s.spotify_artist : s.youtube_artist
-        const hasNames = !!(s.spotify_title || (s.youtube_title && s.youtube_artist))
-        return { start: t.start, title, artist, hasNames, spotifyId: s.spotify_id, isSong: s.kind === 'song', raw: s.raw }
+        // Spotify's names when the song was matched. Otherwise the tracklist line as written: uploaders
+        // put title and artist in either order, so splitting it would often swap them.
+        const title = s.spotify_title || s.raw
+        const artist = s.spotify_title ? s.spotify_artist : ''
+        return { start: t.start, title, artist, spotifyId: s.spotify_id, isSong: s.kind === 'song', raw: s.raw }
       }))
     }
     return byVideo
@@ -76,8 +76,6 @@ export function loadSongsData() {
 export const spotifyUrl = (track) => {
   if (!track?.isSong) return null
   if (track.spotifyId) return `https://open.spotify.com/track/${track.spotifyId}`
-  // Without a title and an artist a search would only guess, so there is no button.
-  if (!track.hasNames) return null
-  const q = `${track.title} ${track.artist}`.replace(/\(\d{4}\)|\[[^\]]*\]|["“”]/g, ' ').replace(/\s+/g, ' ').trim()
+  const q = `${track.title} ${track.artist}`.replace(/\(\d{4}\)|\[[^\]]*\]|["“”]/g, ' ').replace(/\s+[-–—]\s+/g, ' ').replace(/\s+/g, ' ').trim()
   return q ? `https://open.spotify.com/search/${encodeURIComponent(q)}` : null
 }
