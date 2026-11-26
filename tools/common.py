@@ -113,7 +113,7 @@ def clean_line(raw):
 
 
 def new_song(raw, song_id, talk=False, station_names=()):
-    """A songs.json entry from a tracklist line: a first guess of title and artist."""
+    """A songs.json entry from a tracklist line, with title and artist guessed from the line."""
     text = clean_line(raw)
     m = BY.match(text)
     if m:
@@ -124,5 +124,6 @@ def new_song(raw, song_id, talk=False, station_names=()):
             parts = SEP_LOOSE.split(text, maxsplit=1)
     title, artist = (parts + [''])[:2]
     other = talk or OTHER.match(text) or PLACEHOLDER.match(text) or text.lower() in station_names
-    return {'id': song_id, 'raw': raw, 'kind': 'other' if other else 'song', 'title': title.strip(), 'artist': artist.strip(),
-            'spotify_id': None, 'spotify_checked': False}
+    return {'id': song_id, 'raw': raw, 'kind': 'other' if other else 'song',
+            'youtube_title': title.strip(), 'youtube_artist': artist.strip(),
+            'spotify_id': None, 'spotify_title': None, 'spotify_artist': None, 'spotify_checked': False}

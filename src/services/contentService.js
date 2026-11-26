@@ -61,7 +61,10 @@ export function loadSongsData() {
     for (const list of tl.default) {
       byVideo.set(list.id, list.tracks.map((t) => {
         const s = songs[t.song]
-        return { start: t.start, title: s.title, artist: s.artist, spotifyId: s.spotify_id, isSong: s.kind === 'song', raw: s.raw }
+        // Spotify's names when the song was matched, otherwise the ones read from the YouTube tracklist.
+        const title = s.spotify_title || s.youtube_title || s.raw
+        const artist = s.spotify_title ? s.spotify_artist : s.youtube_artist
+        return { start: t.start, title, artist, spotifyId: s.spotify_id, isSong: s.kind === 'song', raw: s.raw }
       }))
     }
     return byVideo
