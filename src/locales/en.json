@@ -20,7 +20,6 @@
   },
   "wheel": {
     "label": "Station wheel",
-    "dialHint": "drag up or down",
     "turnOff": "Turn the radio off"
   },
   "controls": {
@@ -31,8 +30,7 @@
     "spotify": "Open the song on Spotify",
     "mute": "Mute",
     "unmute": "Unmute",
-    "volume": "Volume",
-    "keyboard": "← → turn the wheel · 1–6 presets · Space turns the radio on and off"
+    "volume": "Volume"
   },
   "game": {
     "label": "Game",

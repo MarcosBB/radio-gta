@@ -20,7 +20,6 @@
   },
   "wheel": {
     "label": "Roda de rádios",
-    "dialHint": "arraste para cima ou para baixo",
     "turnOff": "Desligar o rádio"
   },
   "controls": {
@@ -31,8 +30,7 @@
     "spotify": "Abrir a música no Spotify",
     "mute": "Silenciar",
     "unmute": "Ativar som",
-    "volume": "Volume",
-    "keyboard": "← → giram a roda · 1–6 memórias · Espaço liga e desliga"
+    "volume": "Volume"
   },
   "game": {
     "label": "Jogo",

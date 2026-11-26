@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next'
 import { useIsDesktop } from '@/hooks/useMediaQuery'
 import { useRadio } from '@/pages/Radio/RadioProvider'
 import { useKeyboardShortcuts } from '@/pages/Radio/useKeyboardShortcuts'
@@ -9,7 +8,6 @@ import ControlPanel from './sections/controlPanel'
 import StartScreen from './sections/startScreen'
 
 export default function Radio() {
-  const { t } = useTranslation()
   const { toastMsg, currentStation } = useRadio()
   const isDesktop = useIsDesktop()
   useKeyboardShortcuts()
@@ -29,9 +27,6 @@ export default function Radio() {
           <Wheel key={isDesktop ? 'full' : 'dial'} variant={isDesktop ? 'full' : 'dial'} />
         </div>
         <ControlPanel isDesktop={isDesktop} />
-        {isDesktop && (
-          <p className="pointer-events-none absolute bottom-2 end-8 m-0 w-[400px] text-center text-xs text-muted">{t('controls.keyboard')}</p>
-        )}
       </main>
       <Toast toast={toastMsg} />
       <StartScreen />

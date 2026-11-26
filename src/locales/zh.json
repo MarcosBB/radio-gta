@@ -20,7 +20,6 @@
   },
   "wheel": {
     "label": "电台轮盘",
-    "dialHint": "上下拖动",
     "turnOff": "关闭收音机"
   },
   "controls": {
@@ -31,8 +30,7 @@
     "spotify": "在 Spotify 中打开这首歌",
     "mute": "静音",
     "unmute": "取消静音",
-    "volume": "音量",
-    "keyboard": "← → 转动轮盘 · 1–6 预设 · 空格键开关收音机"
+    "volume": "音量"
   },
   "game": {
     "label": "游戏",

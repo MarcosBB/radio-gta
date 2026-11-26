@@ -20,7 +20,6 @@
   },
   "wheel": {
     "label": "Roue des stations",
-    "dialHint": "faites glisser vers le haut ou le bas",
     "turnOff": "Éteindre la radio"
   },
   "controls": {
@@ -31,8 +30,7 @@
     "spotify": "Ouvrir le titre sur Spotify",
     "mute": "Couper le son",
     "unmute": "Activer le son",
-    "volume": "Volume",
-    "keyboard": "← → tournent la roue · 1–6 présélections · Espace allume et éteint"
+    "volume": "Volume"
   },
   "game": {
     "label": "Jeu",

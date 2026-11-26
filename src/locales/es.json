@@ -20,7 +20,6 @@
   },
   "wheel": {
     "label": "Rueda de emisoras",
-    "dialHint": "arrastra hacia arriba o hacia abajo",
     "turnOff": "Apagar la radio"
   },
   "controls": {
@@ -31,8 +30,7 @@
     "spotify": "Abrir la canción en Spotify",
     "mute": "Silenciar",
     "unmute": "Activar sonido",
-    "volume": "Volumen",
-    "keyboard": "← → giran la rueda · 1–6 presintonías · Espacio enciende y apaga"
+    "volume": "Volumen"
   },
   "game": {
     "label": "Juego",

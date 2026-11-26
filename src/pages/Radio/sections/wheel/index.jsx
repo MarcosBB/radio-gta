@@ -130,9 +130,7 @@ export default function Wheel({ variant }) {
             className="pointer-events-none absolute rounded-full border border-dashed border-white/10"
             style={{ left: geo.cx - geo.R, top: geo.cy - geo.R, width: geo.R * 2, height: geo.R * 2 }}
           />
-          {variant === 'dial' ? (
-            <p className="pointer-events-none absolute top-2 left-4 m-0 text-xs tracking-wide text-muted">{t('wheel.dialHint')}</p>
-          ) : (
+          {variant !== 'dial' && (
             <svg
               aria-hidden="true"
               viewBox="0 0 18 12"
