@@ -49,10 +49,10 @@ export default function WheelCenter({ variant, geo, station, isCurrent, status, 
         />
         <div className="pointer-events-none absolute left-4 flex flex-col gap-1" style={{ bottom: `calc(100% - ${geo.cy - 10}px)`, width }}>
           <p className="m-0 text-left text-[13px] text-muted" dir="auto">{genre}</p>
-          <div className="flex items-end gap-0.5">
-            <h2 className="m-0 text-left font-display text-[clamp(22px,7.4vw,30px)] leading-[1.02] font-bold uppercase" dir="auto">{name}</h2>
-            {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -mb-2" />}
-          </div>
+          <h2 className="m-0 text-left font-display text-[clamp(22px,7.4vw,30px)] leading-[1.02] font-bold uppercase" dir="auto">
+            {name}
+            {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-0.5 align-middle" />}
+          </h2>
         </div>
         {song && (
           <div className="pointer-events-none absolute left-4" style={{ top: geo.cy + 14, width }}>
@@ -77,10 +77,10 @@ export default function WheelCenter({ variant, geo, station, isCurrent, status, 
           style={{ width: Math.min(120, inner * 0.3) }}
         />
       )}
-      <div className="flex items-center gap-1.5">
-        <h2 className="m-0 font-display text-[clamp(22px,3.2vw,42px)] leading-[1.04] font-bold tracking-[0.02em] uppercase" dir="auto">{name}</h2>
-        {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} />}
-      </div>
+      <h2 className="m-0 font-display text-[clamp(22px,3.2vw,42px)] leading-[1.04] font-bold tracking-[0.02em] uppercase" dir="auto">
+        {name}
+        {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-1 align-middle" />}
+      </h2>
       <p className="m-0 text-[15px] text-muted" dir="auto">{genre}</p>
       {song && <Song track={song} tuning={status === 'tuning'} className="mt-2 text-[17px]" />}
     </div>
