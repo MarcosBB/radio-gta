@@ -112,18 +112,23 @@ def clean_line(raw):
     return re.sub(r'https?://\S+', '', re.sub(r'^\s*(\(x\)|\|)\s*', '', raw)).strip()
 
 
-def new_song(raw, song_id, talk=False, station_names=()):
-    """A songs.json entry from a tracklist line, with title and artist guessed from the line."""
+def split_line(raw):
+    """A guess of (title, artist) from a tracklist line. The order is not reliable: uploaders write
+    either "Title - Artist" or "Artist - Title", so callers must try both."""
     text = clean_line(raw)
     m = BY.match(text)
     if m:
-        parts = [m.group(1), m.group(2)]
-    else:
-        parts = SEP.split(text, maxsplit=1)
-        if len(parts) == 1:
-            parts = SEP_LOOSE.split(text, maxsplit=1)
+        return m.group(1).strip(), m.group(2).strip()
+    parts = SEP.split(text, maxsplit=1)
+    if len(parts) == 1:
+        parts = SEP_LOOSE.split(text, maxsplit=1)
     title, artist = (parts + [''])[:2]
+    return title.strip(), artist.strip()
+
+
+def new_song(raw, song_id, talk=False, station_names=()):
+    """A songs.json entry for a new tracklist line."""
+    text = clean_line(raw)
     other = talk or OTHER.match(text) or PLACEHOLDER.match(text) or text.lower() in station_names
     return {'id': song_id, 'raw': raw, 'kind': 'other' if other else 'song',
-            'youtube_title': title.strip(), 'youtube_artist': artist.strip(),
             'spotify_id': None, 'spotify_title': None, 'spotify_artist': None, 'spotify_checked': False}

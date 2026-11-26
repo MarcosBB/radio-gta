@@ -14,6 +14,8 @@ Low-confidence matches and misses are listed in spotify-report.md.
 """
 import argparse, base64, difflib, json, pathlib, re, sys, time, unicodedata, urllib.error, urllib.parse, urllib.request
 
+from common import split_line
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SONGS = ROOT / 'contents' / 'songs.json'
 REPORT = ROOT / 'spotify-report.md'
@@ -191,9 +193,10 @@ def main():
     print(f'{len(todo)} songs to look up', flush=True)
     for n, s in enumerate(todo, 1):
         try:
-            found = best(sp, s['youtube_title'], s['youtube_artist'])
+            title, artist = split_line(s['raw'])
+            found = best(sp, title, artist)
             good = found[0] and found[1] >= 0.85 and found[2] >= 0.85
-            swapped = (None, 0, 0) if good else best(sp, s['youtube_artist'], s['youtube_title'])
+            swapped = (None, 0, 0) if good else best(sp, artist, title)
         except BudgetUsed:
             SONGS.write_text(json.dumps(songs, ensure_ascii=False, indent=2) + '\n')
             write_report(songs)
