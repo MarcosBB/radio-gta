@@ -18,6 +18,21 @@ function FavoriteButton({ favorite, onToggle, size = 'size-11' }) {
   )
 }
 
+// The star sticks to the last word, so it never wraps to a line of its own.
+function NameWithStar({ name, star }) {
+  if (!star) return name
+  const cut = name.lastIndexOf(' ')
+  return (
+    <>
+      {cut > 0 ? `${name.slice(0, cut)} ` : ''}
+      <span className="whitespace-nowrap">
+        {name.slice(cut + 1)}
+        {star}
+      </span>
+    </>
+  )
+}
+
 function Song({ track, tuning, className }) {
   if (!track) return null
   return (
@@ -50,8 +65,7 @@ export default function WheelCenter({ variant, geo, station, isCurrent, status, 
         <div className="pointer-events-none absolute left-4 flex flex-col gap-1" style={{ bottom: `calc(100% - ${geo.cy - 10}px)`, width }}>
           <p className="m-0 text-left text-[13px] text-muted" dir="auto">{genre}</p>
           <h2 className="m-0 text-left font-display text-[clamp(22px,7.4vw,30px)] leading-[1.02] font-bold uppercase" dir="auto">
-            {name}
-            {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-0.5 align-middle" />}
+            <NameWithStar name={name} star={station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-0.5 align-middle" />} />
           </h2>
         </div>
         {song && (
@@ -78,8 +92,7 @@ export default function WheelCenter({ variant, geo, station, isCurrent, status, 
         />
       )}
       <h2 className="m-0 font-display text-[clamp(22px,3.2vw,42px)] leading-[1.04] font-bold tracking-[0.02em] uppercase" dir="auto">
-        {name}
-        {station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-1 align-middle" />}
+        <NameWithStar name={name} star={station && <FavoriteButton favorite={favorite} onToggle={onToggleFavorite} size="size-11 -my-2 ms-1 align-middle" />} />
       </h2>
       <p className="m-0 text-[15px] text-muted" dir="auto">{genre}</p>
       {song && <Song track={song} tuning={status === 'tuning'} className="mt-2 text-[17px]" />}
