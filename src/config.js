@@ -19,6 +19,8 @@ export const langPath = (code) => (code === DEFAULT_LANG ? '/' : `/${code}/`)
 
 export const PRESET_COUNT = 6
 export const HOLD_TO_SAVE_MS = 700
+// A quick tap never shows the save bar: it only starts filling after this delay.
+export const HOLD_FILL_DELAY_MS = 150
 export const DEFAULT_VOLUME = 80
 export const DEFAULT_GAME = 'gta6'
 

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { useTranslation } from 'react-i18next'
-import { HOLD_TO_SAVE_MS } from '@/config'
+import { HOLD_FILL_DELAY_MS, HOLD_TO_SAVE_MS } from '@/config'
 import StationBadge from '@/components/StationBadge'
 
 // Tap recalls the preset, holding saves the current station into it, like a car radio.
@@ -53,7 +53,7 @@ export default function PresetButton({ n, station, active, onRecall, onSave }) {
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 origin-left bg-[color-mix(in_srgb,var(--c1)_45%,transparent)] rtl:origin-right"
-        style={{ transform: holding ? 'scaleX(1)' : 'scaleX(0)', transition: holding ? `transform ${HOLD_TO_SAVE_MS}ms linear` : 'none' }}
+        style={{ transform: holding ? 'scaleX(1)' : 'scaleX(0)', transition: holding ? `transform ${HOLD_TO_SAVE_MS - HOLD_FILL_DELAY_MS}ms linear ${HOLD_FILL_DELAY_MS}ms` : 'none' }}
       />
       {savedKey > 0 && (
         <motion.span
