@@ -2,49 +2,50 @@
 # requires-python = ">=3.10"
 # dependencies = ["rich>=13"]
 # ///
-"""Confere se os vídeos de todas as rádios ainda tocam no player embutido.
+"""Check that both videos of every station still play in the embedded player.
 
-Uso: uv run tools/check_videos.py                 (na raiz do projeto)
-     uv run tools/check_videos.py --paginas       (força o modo sem chave)
-     uv run tools/check_videos.py --paginas -j 2  (2 páginas ao mesmo tempo; padrão 4)
+Usage: uv run tools/check_videos.py                (from the project root)
+       uv run tools/check_videos.py --pages        (force the mode without an API key)
+       uv run tools/check_videos.py --pages -j 2   (2 pages at a time; default 4)
 
-Para cada vídeo de stations.js, avisa se:
-  - foi removido, ficou privado ou indisponível;
-  - tem restrição de idade: não toca embutido;
-  - o dono bloqueou a incorporação em outros sites;
-  - está bloqueado no Brasil;
-  - a duração mudou (a posição "ao vivo" usa o dur de stations.js).
+Every station has two videos: the primary and a fallback the site switches to when the first
+fails. Each video is checked for being removed, private or unavailable, age-restricted (does not
+play embedded), embedding disabled by the owner, blocked in Brazil, or a changed duration (the
+live position uses the duration in contents/stations.json).
 
-Dois modos:
-  - YouTube Data API v3 (padrão quando há chave): 50 vídeos por requisição, então todas as
-    rádios saem em poucas chamadas, sem risco de bloqueio. A chave vem de YOUTUBE_API_KEY
-    (variável de ambiente ou linha YOUTUBE_API_KEY=... no .env da raiz, que não vai pro git).
-  - Páginas (sem chave): abre a página de cada vídeo e lê o playabilityStatus. Se o YouTube
-    limitar (429/captcha), espera e tenta de novo; se continuar, o resto fica "não verificado".
-No fim grava relatorio-videos.md na raiz. Código de saída: 0 tudo OK, 1 alguma rádio com
-problema, 2 sem problemas mas com rádios não verificadas.
+Per station:
+  - OK: both videos play.
+  - Warning: one video fails (the station still plays, but needs a new video), the duration of
+    a video changed, or the station has no fallback video yet.
+  - Error: both videos fail and the station is silent.
+
+Two modes:
+  - YouTube Data API v3 (default when there is a key): 50 videos per request. The key comes from
+    YOUTUBE_API_KEY (environment variable or a YOUTUBE_API_KEY=... line in the .env at the root).
+  - Pages (no key): opens each video page and reads playabilityStatus. If YouTube rate limits,
+    it waits and retries; if it keeps failing, the rest is reported as unverified.
+Writes video-report.md at the root. Exit code: 0 all OK, 1 some station with an error,
+2 no errors but unverified videos, 3 only warnings.
 """
-import argparse, json, os, re, sys, pathlib, threading, time, urllib.error, urllib.parse, urllib.request
+import argparse, json, os, pathlib, re, sys, threading, time, urllib.error, urllib.parse, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
-from rich.console import Console, Group
-from rich.live import Live
+from rich.console import Console
 from rich.progress import BarColumn, MofNCompleteColumn, Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
-from rich.spinner import Spinner
 from rich.table import Table
-from rich.text import Text
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-RELATORIO = ROOT / 'relatorio-videos.md'
-TOLERANCIA_DUR = 5  # segundos
-ESPERAS_429 = [5, 15, 30]  # segundos entre as tentativas quando o YouTube limita
-LOTE_API = 50  # máximo de ids por chamada do videos.list
-OK, PROBLEMA, NAO_VERIFICADO = 'ok', 'problema', 'não verificado'
+REPORT = ROOT / 'video-report.md'
+DURATION_TOLERANCE = 5
+RETRY_WAITS = [5, 15, 30]
+API_BATCH = 50
+OK, FAILED, CHANGED, UNVERIFIED = 'ok', 'failed', 'changed', 'unverified'
+STATION_OK, STATION_WARNING, STATION_ERROR, STATION_UNVERIFIED = 'ok', 'warning', 'error', 'unverified'
 console = Console()
 
 
-class Bloqueado(Exception):
+class Blocked(Exception):
     pass
 
 
@@ -60,58 +61,60 @@ def fmt(s):
     return f'{h}:{r // 60:02}:{r % 60:02}' if h else f'{r // 60}:{r % 60:02}'
 
 
-def estacoes():
-    jogo, out = None, []
-    for line in (ROOT / 'stations.js').read_text().splitlines():
-        m = re.match(r"\s*(\w+): \[\s*$", line)
-        if m:
-            jogo = m.group(1)
-        m = re.search(r"name: '((?:[^'\\]|\\.)*)'.*?id: '([\w-]{11})', dur: d\('([\d:]+)'\)", line)
-        if m:
-            out.append(dict(jogo=jogo, nome=m.group(1).replace("\\'", "'"), vid=m.group(2), dur=secs(m.group(3))))
-    return out
+def load_stations():
+    stations = json.loads((ROOT / 'contents' / 'stations.json').read_text())
+    for st in stations:
+        st['checks'] = [{'station': st, 'slot': 'primary' if i == 0 else 'fallback', 'vid': v['youtube_id'],
+                         'dur': secs(v['duration'])} for i, v in enumerate(st['videos'])]
+    return stations
 
 
-def baixar(vid):
+def fetch_page(vid):
     req = urllib.request.Request(f'https://www.youtube.com/watch?v={vid}&hl=en',
-        headers={'User-Agent': 'Mozilla/5.0', 'Accept-Language': 'en', 'Cookie': 'CONSENT=YES+1'})
+                                 headers={'User-Agent': 'Mozilla/5.0', 'Accept-Language': 'en', 'Cookie': 'CONSENT=YES+1'})
     try:
         r = urllib.request.urlopen(req, timeout=30)
     except urllib.error.HTTPError as ex:
         if ex.code == 429:
-            raise Bloqueado('YouTube limitou as requisições (429)')
+            raise Blocked('YouTube rate limited the requests (429)')
         raise
     if 'google.com/sorry' in r.geturl():
-        raise Bloqueado('YouTube pediu captcha')
+        raise Blocked('YouTube asked for a captcha')
     return r.read().decode('utf-8', 'replace')
 
 
-def checar(e):
-    """Devolve a lista de problemas do vídeo (vazia = tudo certo)."""
-    html = baixar(e['vid'])
+def duration_problem(video, real):
+    if real and abs(real - video['dur']) > DURATION_TOLERANCE:
+        return f"duration changed: stations.json {fmt(video['dur'])}, video {fmt(real)} → \"duration\": \"{fmt(real)}\""
+    return None
+
+
+def check_page(video):
+    html = fetch_page(video['vid'])
     m = re.search(r'var ytInitialPlayerResponse = (\{.*?\});(?:var |</script>)', html)
     if not m:
-        return ['página sem dados do player (YouTube mudou o formato?)']
+        return UNVERIFIED, ['page without player data (did YouTube change the format?)']
     p = json.loads(m.group(1))
     ps = p.get('playabilityStatus', {})
-    status, motivo = ps.get('status'), ps.get('reason') or ''
-    probs = []
+    status, reason = ps.get('status'), ps.get('reason') or ''
+    fails = []
     if status == 'LOGIN_REQUIRED':
-        probs.append(f'pede login: {motivo}' if motivo else 'pede login')
+        fails.append(f'login required: {reason}' if reason else 'login required')
     elif status != 'OK':
-        probs.append(f'{status}: {motivo}'.rstrip(': '))
+        fails.append(f'{status}: {reason}'.rstrip(': '))
     elif not ps.get('playableInEmbed'):
-        probs.append('incorporação desativada pelo dono')
-    paises = p.get('microformat', {}).get('playerMicroformatRenderer', {}).get('availableCountries')
-    if paises and 'BR' not in paises:
-        probs.append('bloqueado no Brasil')
+        fails.append('embedding disabled by the owner')
+    countries = p.get('microformat', {}).get('playerMicroformatRenderer', {}).get('availableCountries')
+    if countries and 'BR' not in countries:
+        fails.append('blocked in Brazil')
+    if fails:
+        return FAILED, fails
     real = p.get('videoDetails', {}).get('lengthSeconds')
-    if real and abs(int(real) - e['dur']) > TOLERANCIA_DUR:
-        probs.append(f"duração mudou: stations.js {fmt(e['dur'])}, vídeo {fmt(int(real))} → dur: d('{fmt(int(real))}')")
-    return probs
+    changed = duration_problem(video, int(real) if real else None)
+    return (CHANGED, [changed]) if changed else (OK, [])
 
 
-def chave_api():
+def api_key():
     if os.environ.get('YOUTUBE_API_KEY'):
         return os.environ['YOUTUBE_API_KEY'].strip()
     env = ROOT / '.env'
@@ -124,7 +127,6 @@ def chave_api():
 
 
 def iso_secs(d):
-    """PT1H34M26S -> 5666"""
     m = re.fullmatch(r'P(?:(\d+)D)?T?(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', d or '')
     if not m:
         return None
@@ -132,230 +134,174 @@ def iso_secs(d):
     return ((dd * 24 + h) * 60 + mi) * 60 + se
 
 
-def checar_lote_api(lote, chave):
-    """Consulta até 50 vídeos numa chamada. Devolve [(estação, estado, mensagens)]."""
-    qs = urllib.parse.urlencode({'part': 'status,contentDetails', 'id': ','.join(e['vid'] for e in lote),
-                                 'maxResults': LOTE_API, 'key': chave})
+def check_api_batch(batch, key):
+    qs = urllib.parse.urlencode({'part': 'status,contentDetails', 'id': ','.join(v['vid'] for v in batch),
+                                 'maxResults': API_BATCH, 'key': key})
     try:
         r = urllib.request.urlopen(f'https://www.googleapis.com/youtube/v3/videos?{qs}', timeout=30)
-        itens = {it['id']: it for it in json.load(r).get('items', [])}
+        items = {it['id']: it for it in json.load(r).get('items', [])}
     except urllib.error.HTTPError as ex:
         try:
-            erro = json.load(ex)['error']
-            motivo = (erro.get('errors') or [{}])[0].get('reason', '')
-            msg = f"API do YouTube: {erro.get('message', ex)}" + (f' ({motivo})' if motivo else '')
+            err = json.load(ex)['error']
+            msg = f"YouTube API: {err.get('message', ex)}"
         except Exception:
-            msg = f'API do YouTube: {ex}'
-        return [(e, NAO_VERIFICADO, [msg]) for e in lote]
+            msg = f'YouTube API: {ex}'
+        return [(v, UNVERIFIED, [msg]) for v in batch]
     except Exception as ex:
-        return [(e, NAO_VERIFICADO, [f'erro ao consultar a API: {ex}']) for e in lote]
+        return [(v, UNVERIFIED, [f'API request failed: {ex}']) for v in batch]
 
     out = []
-    for e in lote:
-        it = itens.get(e['vid'])
+    for v in batch:
+        it = items.get(v['vid'])
         if not it:
-            out.append((e, PROBLEMA, ['removido ou indisponível']))
+            out.append((v, FAILED, ['removed or unavailable']))
             continue
-        st, cd, probs = it.get('status', {}), it.get('contentDetails', {}), []
+        st, cd, fails = it.get('status', {}), it.get('contentDetails', {}), []
         if st.get('privacyStatus') == 'private':
-            probs.append('vídeo privado')
+            fails.append('private video')
         if st.get('uploadStatus') not in (None, 'processed'):
-            motivo = st.get('rejectionReason') or st.get('failureReason') or ''
-            probs.append(f"upload {st['uploadStatus']}" + (f': {motivo}' if motivo else ''))
+            fails.append(f"upload {st['uploadStatus']}")
         if cd.get('contentRating', {}).get('ytRating') == 'ytAgeRestricted':
-            probs.append('restrição de idade (não toca embutido)')
+            fails.append('age-restricted (does not play embedded)')
         if st.get('embeddable') is False:
-            probs.append('incorporação desativada pelo dono')
+            fails.append('embedding disabled by the owner')
         reg = cd.get('regionRestriction', {})
         if 'BR' in reg.get('blocked', []) or ('allowed' in reg and 'BR' not in reg['allowed']):
-            probs.append('bloqueado no Brasil')
-        real = iso_secs(cd.get('duration'))
-        if real and abs(real - e['dur']) > TOLERANCIA_DUR:
-            probs.append(f"duração mudou: stations.js {fmt(e['dur'])}, vídeo {fmt(real)} → dur: d('{fmt(real)}')")
-        out.append((e, PROBLEMA if probs else OK, probs))
+            fails.append('blocked in Brazil')
+        if fails:
+            out.append((v, FAILED, fails))
+            continue
+        changed = duration_problem(v, iso_secs(cd.get('duration')))
+        out.append((v, CHANGED, [changed]) if changed else (v, OK, []))
     return out
 
 
-class Painel:
-    """Parte que fica se atualizando: barra de progresso + o que está sendo testado agora."""
-
-    def __init__(self, total, titulo):
-        self.lock = threading.Lock()
-        self.testando = {}  # vid -> (estação, início, aviso)
-        self.parar = threading.Event()  # YouTube bloqueou de vez: não insiste nos que faltam
-        self.fila = total
-        self.progresso = Progress(SpinnerColumn(), TextColumn(f'[bold]{titulo}'), BarColumn(),
-                                  MofNCompleteColumn(), TextColumn('[green]{task.fields[ok]} ok'),
-                                  TextColumn('[red]{task.fields[ruins]} com problema'),
-                                  TextColumn('[yellow]{task.fields[nv]} não verificadas'), TimeElapsedColumn())
-        self.tarefa = self.progresso.add_task('', total=total, ok=0, ruins=0, nv=0)
-
-    def comecou(self, e):
-        with self.lock:
-            self.fila -= 1
-            self.testando[e['vid']] = (e, time.monotonic(), '')
-
-    def avisar(self, e, aviso):
-        with self.lock:
-            ent, ini, _ = self.testando[e['vid']]
-            self.testando[e['vid']] = (ent, ini, aviso)
-
-    def terminou(self, e, estado):
-        with self.lock:
-            self.testando.pop(e['vid'], None)
-        f = self.progresso.tasks[0].fields
-        self.progresso.update(self.tarefa, advance=1, ok=f['ok'] + (estado == OK),
-                              ruins=f['ruins'] + (estado == PROBLEMA), nv=f['nv'] + (estado == NAO_VERIFICADO))
-
-    def __rich__(self):
-        tab = Table(box=None, show_header=False, padding=(0, 1))
-        with self.lock:
-            agora = list(self.testando.values())
-            fila = self.fila
-        for e, ini, aviso in agora:
-            tab.add_row(Spinner('dots', style='yellow'), f"[dim]{e['jogo']}", e['nome'],
-                        f"[dim]{time.monotonic() - ini:.1f}s", f'[yellow]{aviso}')
-        rodape = Text(f'  {fila} na fila', style='dim') if fila else Text('')
-        return Group(self.progresso, tab, rodape)
+def station_state(st, results):
+    states = [results[v['vid']][0] for v in st['checks']]
+    working = [s for s in states if s in (OK, CHANGED)]
+    if len(st['checks']) and states.count(FAILED) == len(states):
+        return STATION_ERROR
+    if UNVERIFIED in states and not working:
+        return STATION_UNVERIFIED
+    if FAILED in states or CHANGED in states or len(st['checks']) < 2:
+        return STATION_WARNING
+    if UNVERIFIED in states:
+        return STATION_UNVERIFIED
+    return STATION_OK
 
 
-MARCA = {OK: '[green]✓[/]', PROBLEMA: '[red]✗[/]', NAO_VERIFICADO: '[yellow]?[/]'}
-COR = {PROBLEMA: 'red', NAO_VERIFICADO: 'yellow'}
-EMOJI = {OK: '✅', PROBLEMA: '❌', NAO_VERIFICADO: '❔'}
+def station_notes(st, results):
+    notes = []
+    for v in st['checks']:
+        state, msgs = results[v['vid']]
+        if state != OK:
+            notes += [f"{v['slot']} [{v['vid']}](https://youtu.be/{v['vid']}): {m}" for m in msgs]
+    if len(st['checks']) < 2:
+        notes.append('no fallback video yet')
+    return notes
 
 
-def linha(e, estado, msgs):
-    if estado == OK:
-        return f"{MARCA[OK]} [dim]{e['jogo']:7}[/] {e['nome']}"
-    detalhe = '\n'.join(f'          [{COR[estado]}]{m}[/]' for m in msgs)
-    return (f"{MARCA[estado]} [dim]{e['jogo']:7}[/] [bold]{e['nome']}[/]  "
-            f"[link=https://youtu.be/{e['vid']}]youtu.be/{e['vid']}[/]\n{detalhe}")
+ICON = {STATION_OK: '✅', STATION_WARNING: '⚠️', STATION_ERROR: '❌', STATION_UNVERIFIED: '❔'}
+COLOR = {STATION_OK: 'green', STATION_WARNING: 'yellow', STATION_ERROR: 'red', STATION_UNVERIFIED: 'magenta'}
 
 
-def contagem(lista, resultado):
-    c = {OK: 0, PROBLEMA: 0, NAO_VERIFICADO: 0}
-    for e in lista:
-        c[resultado[e['vid']][0]] += 1
-    return c
-
-
-def frase(lista, c, md=False):
-    b = '**' if md else ''
-    s = f"{b}{c[OK]}/{len(lista)} rádios OK{b}"
-    if c[PROBLEMA]:
-        s += f', {c[PROBLEMA]} com problema'
-    if c[NAO_VERIFICADO]:
-        s += f', {c[NAO_VERIFICADO]} não verificadas'
-    return s
-
-
-def gravar_relatorio(lista, resultado, duracao):
-    c = contagem(lista, resultado)
-    md = ['# Relatório dos vídeos das rádios', '',
-          f'Gerado por `tools/check_videos.py` em {datetime.now():%d/%m/%Y %H:%M} ({duracao:.0f}s).', '',
-          frase(lista, c, md=True) + '.', '']
-    for estado, titulo, col in [(PROBLEMA, 'Com problema', 'Problema'),
-                                (NAO_VERIFICADO, 'Não verificadas (rodar de novo mais tarde)', 'Motivo')]:
-        sel = [e for e in lista if resultado[e['vid']][0] == estado]
+def write_report(stations, results, states, elapsed):
+    count = {s: sum(1 for x in states.values() if x == s) for s in ICON}
+    md = ['# Video report', '', f'Generated by `tools/check_videos.py` on {datetime.now():%Y-%m-%d %H:%M} ({elapsed:.0f}s).', '',
+          f"**{count[STATION_OK]}/{len(stations)} stations OK**, {count[STATION_WARNING]} with warnings, "
+          f"{count[STATION_ERROR]} with errors, {count[STATION_UNVERIFIED]} unverified.", '']
+    for state, title in [(STATION_ERROR, 'Errors: both videos fail, the station is silent'),
+                         (STATION_WARNING, 'Warnings: the station plays, but a video needs attention'),
+                         (STATION_UNVERIFIED, 'Unverified (run again later)')]:
+        sel = [st for st in stations if states[st['id']] == state]
         if not sel:
             continue
-        md += [f'## {titulo}', '', f'| Jogo | Rádio | Vídeo | {col} |', '|---|---|---|---|']
-        for e in sel:
-            md.append(f"| {e['jogo']} | {e['nome']} | [{e['vid']}](https://youtu.be/{e['vid']}) | "
-                      f"{'<br>'.join(resultado[e['vid']][1])} |")
+        md += [f'## {title}', '', '| Game | Station | Notes |', '|---|---|---|']
+        md += [f"| {st['game']} | {st['name']} | {'<br>'.join(station_notes(st, results))} |" for st in sel]
         md.append('')
-    md += ['## Todas as rádios', '']
-    jogo = None
-    for e in lista:
-        if e['jogo'] != jogo:
-            jogo = e['jogo']
-            md += ['', f'### {jogo}', '', '| | Rádio | Vídeo | Duração |', '|---|---|---|---|']
-        md.append(f"| {EMOJI[resultado[e['vid']][0]]} | {e['nome']} | "
-                  f"[{e['vid']}](https://youtu.be/{e['vid']}) | {fmt(e['dur'])} |")
-    RELATORIO.write_text('\n'.join(md) + '\n')
-
-
-def resumo(lista, resultado):
-    tab = Table(title='Resumo por jogo', title_justify='left')
-    tab.add_column('Jogo')
-    tab.add_column('OK', justify='right', style='green')
-    tab.add_column('Problema', justify='right', style='red')
-    tab.add_column('Não verif.', justify='right', style='yellow')
-    jogos = {}
-    for e in lista:
-        j = jogos.setdefault(e['jogo'], {OK: 0, PROBLEMA: 0, NAO_VERIFICADO: 0})
-        j[resultado[e['vid']][0]] += 1
-    for jogo, j in jogos.items():
-        tab.add_row(jogo, *(str(n) if n else '[dim]0' for n in j.values()))
-    return tab
+    md += ['## All stations', '']
+    game = None
+    for st in stations:
+        if st['game'] != game:
+            game = st['game']
+            md += ['', f'### {game}', '', '| | Station | Primary | Fallback |', '|---|---|---|---|']
+        cols = [f"[{v['vid']}](https://youtu.be/{v['vid']}) {fmt(v['dur'])}" for v in st['checks']] + ['—', '—']
+        md.append(f"| {ICON[states[st['id']]]} | {st['name']} | {cols[0]} | {cols[1]} |")
+    REPORT.write_text('\n'.join(md) + '\n')
+    return count
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument('--paginas', action='store_true', help='não usar a API; abrir a página de cada vídeo')
-    ap.add_argument('-j', '--jobs', type=int, default=4, help='no modo páginas: quantas ao mesmo tempo')
+    ap.add_argument('--pages', action='store_true', help='do not use the API; open each video page')
+    ap.add_argument('-j', '--jobs', type=int, default=4, help='pages mode: how many at a time')
     args = ap.parse_args()
 
-    lista = estacoes()
-    chave = None if args.paginas else chave_api()
-    if chave:
-        lotes = [lista[i:i + LOTE_API] for i in range(0, len(lista), LOTE_API)]
-        painel = Painel(len(lista), f'Consultando a API ({len(lotes)} chamadas)')
-        trabalhadores = len(lotes)
-    else:
-        if not args.paginas:
-            console.print('[yellow]Sem YOUTUBE_API_KEY: abrindo a página de cada vídeo '
-                          '(mais lento e o YouTube pode bloquear).[/]')
-        lotes = [[e] for e in lista]
-        painel = Painel(len(lista), 'Testando páginas')
-        trabalhadores = args.jobs
-    resultado = {}
+    stations = load_stations()
+    videos = [v for st in stations for v in st['checks']]
+    key = None if args.pages else api_key()
+    if not key and not args.pages:
+        console.print('[yellow]No YOUTUBE_API_KEY: opening each video page (slower, and YouTube may block).[/]')
+    stop = threading.Event()
+    results = {}
 
-    def pagina(e):
-        for espera in ESPERAS_429 + [None]:
-            if painel.parar.is_set():
-                return e, NAO_VERIFICADO, ['YouTube bloqueou as requisições']
+    def page(v):
+        for wait in RETRY_WAITS + [None]:
+            if stop.is_set():
+                return v, UNVERIFIED, ['YouTube blocked the requests']
             try:
-                probs = checar(e)
-                return e, (PROBLEMA if probs else OK), probs
-            except Bloqueado as ex:
-                if espera is None:
-                    painel.parar.set()
-                    return e, NAO_VERIFICADO, [str(ex)]
-                for falta in range(espera, 0, -1):
-                    painel.avisar(e, f'{ex}, tentando de novo em {falta}s')
-                    if painel.parar.wait(1):
-                        break
-                painel.avisar(e, '')
+                state, msgs = check_page(v)
+                return v, state, msgs
+            except Blocked as ex:
+                if wait is None:
+                    stop.set()
+                    return v, UNVERIFIED, [str(ex)]
+                stop.wait(wait)
             except Exception as ex:
-                return e, NAO_VERIFICADO, [f'erro ao consultar: {ex}']
+                return v, UNVERIFIED, [f'request failed: {ex}']
 
-    def tarefa(lote):
-        for e in lote:
-            painel.comecou(e)
-        return checar_lote_api(lote, chave) if chave else [pagina(lote[0])]
+    batches = [videos[i:i + API_BATCH] for i in range(0, len(videos), API_BATCH)] if key else [[v] for v in videos]
+    start = time.monotonic()
+    progress = Progress(SpinnerColumn(), TextColumn('[bold]Checking videos'), BarColumn(), MofNCompleteColumn(), TimeElapsedColumn(),
+                        console=console, transient=True)
+    with progress, ThreadPoolExecutor(len(batches) if key else args.jobs) as pool:
+        task = progress.add_task('', total=len(videos))
+        futures = [pool.submit(check_api_batch, b, key) if key else pool.submit(lambda b: [page(b[0])], b) for b in batches]
+        for fut in as_completed(futures):
+            for v, state, msgs in fut.result():
+                results[v['vid']] = (state, msgs)
+                progress.advance(task)
+    elapsed = time.monotonic() - start
 
-    ini = time.monotonic()
-    with Live(painel, console=console, refresh_per_second=12, transient=True), \
-         ThreadPoolExecutor(trabalhadores) as pool:
-        for fut in as_completed([pool.submit(tarefa, l) for l in lotes]):
-            for e, estado, msgs in fut.result():
-                resultado[e['vid']] = (estado, msgs)
-                painel.terminou(e, estado)
-                console.print(linha(e, estado, msgs), highlight=False)
-    duracao = time.monotonic() - ini
+    states = {st['id']: station_state(st, results) for st in stations}
+    for st in stations:
+        state = states[st['id']]
+        if state != STATION_OK:
+            console.print(f"[{COLOR[state]}]{ICON[state]} {st['game']:7} {st['name']}[/]")
+            for note in station_notes(st, results):
+                console.print(f'          [dim]{note}[/]', highlight=False)
 
-    c = contagem(lista, resultado)
+    table = Table(title='Summary by game', title_justify='left')
+    table.add_column('Game')
+    for s in ICON:
+        table.add_column(s.capitalize(), justify='right', style=COLOR[s])
+    games = {}
+    for st in stations:
+        games.setdefault(st['game'], {s: 0 for s in ICON})[states[st['id']]] += 1
+    for game, c in games.items():
+        table.add_row(game, *(str(n) if n else '[dim]0' for n in c.values()))
     console.print()
-    console.print(resumo(lista, resultado))
-    cor = 'red' if c[PROBLEMA] else 'yellow' if c[NAO_VERIFICADO] else 'green'
-    console.print(f'\n[bold {cor}]{frase(lista, c)}[/] [dim]({duracao:.0f}s)[/]')
-    if c[NAO_VERIFICADO] and not chave:
-        console.print('[yellow]O YouTube limitou as requisições. Espere um pouco e rode de novo, use -j 2 '
-                      'ou configure YOUTUBE_API_KEY.[/]')
-    gravar_relatorio(lista, resultado, duracao)
-    console.print(f'[dim]Relatório salvo em {RELATORIO.relative_to(ROOT)}[/]')
-    sys.exit(1 if c[PROBLEMA] else 2 if c[NAO_VERIFICADO] else 0)
+    console.print(table)
+
+    count = write_report(stations, results, states, elapsed)
+    console.print(f"\n[bold]{count[STATION_OK]}/{len(stations)} OK[/], [yellow]{count[STATION_WARNING]} warnings[/], "
+                  f"[red]{count[STATION_ERROR]} errors[/], [magenta]{count[STATION_UNVERIFIED]} unverified[/] [dim]({elapsed:.0f}s)[/]")
+    console.print(f'[dim]Report saved to {REPORT.relative_to(ROOT)}[/]')
+    if count[STATION_ERROR]:
+        sys.exit(1)
+    if count[STATION_UNVERIFIED]:
+        sys.exit(2)
+    sys.exit(3 if count[STATION_WARNING] else 0)
 
 
 if __name__ == '__main__':

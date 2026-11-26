@@ -55,4 +55,10 @@ i18n.use(initReactI18next).init({
 })
 applyDocumentLanguage(i18n.language)
 
+window.addEventListener('popstate', () => {
+  const seg = location.pathname.split('/')[1]
+  const code = LANG_CODES.includes(seg) ? seg : DEFAULT_LANG
+  if (code !== i18n.language) i18n.changeLanguage(code).then(() => applyDocumentLanguage(code))
+})
+
 export default i18n

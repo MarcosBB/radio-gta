@@ -1,48 +1,60 @@
-"""Baixa a descrição de cada vídeo e extrai a tracklist (timestamps) para tracks.js.
+"""Rebuild contents/tracklists.json (and new entries of contents/songs.json) from the video descriptions.
 
-Uso: python3 tools/build_tracks.py   (na raiz do projeto)
+Usage: python3 tools/build_tracks.py            (from the project root)
+       python3 tools/build_tracks.py --missing  (only videos that have no tracklist yet)
+
+Reads every video of contents/stations.json (primary and fallback) through the YouTube Data API
+(YOUTUBE_API_KEY in .env) and parses the timestamps in its description. Existing songs keep their
+Spotify data; songs no tracklist uses any more are removed.
 """
-import json, re, urllib.request, pathlib
+import argparse, sys
+from common import env, new_song, parse_tracklist, read_json, slug, write_json, youtube_videos
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
-src = (ROOT / 'stations.js').read_text()
-ids = re.findall(r"id: '([\w-]{11})'", src)
 
-TS = re.compile(r"^\s*[\(\[]?((?:\d{1,2}:)?\d{1,2}:\d{2})[\)\]]?\s*[-–—|:.]?\s*(.+?)\s*$")
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--missing', action='store_true', help='only fetch videos without a tracklist')
+    args = ap.parse_args()
+    key = env().get('YOUTUBE_API_KEY')
+    if not key:
+        sys.exit('YOUTUBE_API_KEY is missing in .env')
 
-def secs(t):
-    n = 0
-    for p in t.split(':'):
-        n = n * 60 + int(p)
-    return n
+    stations = read_json('stations.json')
+    old_lists = {t['id']: t for t in read_json('tracklists.json')}
+    songs = read_json('songs.json')
+    by_raw = {s['raw']: s for s in songs}
+    used_ids = {s['id'] for s in songs}
+    station_names = {s['name'].lower() for s in stations}
+    talk_videos = {v['youtube_id'] for s in stations if 'talk' in s['genre'] for v in s['videos']}
 
-def fetch(vid):
-    req = urllib.request.Request(f'https://www.youtube.com/watch?v={vid}&hl=en',
-        headers={'User-Agent': 'Mozilla/5.0', 'Accept-Language': 'en', 'Cookie': 'CONSENT=YES+1'})
-    html = urllib.request.urlopen(req, timeout=30).read().decode('utf-8', 'replace')
-    m = re.search(r'"shortDescription":"((?:[^"\\]|\\.)*)"', html)
-    return json.loads('"' + m.group(1) + '"') if m else ''
+    all_videos = [v['youtube_id'] for s in stations for v in s['videos']]
+    fetch = [v for v in all_videos if not (args.missing and old_lists.get(v, {}).get('tracks'))]
+    items = youtube_videos(fetch, key, parts='snippet')
 
-out = {}
-for vid in ids:
-    desc = fetch(vid)
-    tracks, last = [], -1
-    for line in desc.splitlines():
-        m = TS.match(line)
-        if not m:
+    lists = []
+    for vid in dict.fromkeys(all_videos):
+        if vid not in items:
+            lists.append(old_lists.get(vid, {'id': vid, 'tracks': []}))
             continue
-        t, title = secs(m.group(1)), m.group(2).strip(' -–—')
-        # intervalos "0:20 - 2:53 Artista": descarta o tempo final
-        title = re.sub(r'^(?:\d{1,2}:)?\d{1,2}:\d{2}\s*[-–—|]?\s*', '', title)
-        # marcações do uploader que não são parte do nome
-        title = re.sub(r'\s*\[(?:BLOCKED|REMOVED|MUTED)\]\s*', ' ', title, flags=re.I).strip(' -–—')
-        if t < last or not title:
-            continue
-        last = t
-        tracks.append([t, title])
-    out[vid] = tracks
-    print(f'{vid}: {len(tracks)} faixas')
+        tracks = []
+        for start, raw in parse_tracklist(items[vid]['snippet'].get('description', '')):
+            raw = raw.strip()
+            if raw not in by_raw:
+                base = slug(raw)[:80].strip('-') or 'song'
+                song_id, n = base, 2
+                while song_id in used_ids:
+                    song_id, n = f'{base}-{n}', n + 1
+                used_ids.add(song_id)
+                by_raw[raw] = new_song(raw, song_id, talk=vid in talk_videos, station_names=station_names)
+            tracks.append({'start': start, 'song': by_raw[raw]['id']})
+        lists.append({'id': vid, 'tracks': tracks})
+        print(f'{vid}: {len(tracks)} tracks')
 
-(ROOT / 'tracks.js').write_text(
-    '// Gerado por tools/build_tracks.py a partir das descrições dos vídeos. Não editar à mão.\n'
-    'window.TRACKS = ' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';\n')
+    referenced = {t['song'] for tl in lists for t in tl['tracks']}
+    write_json('tracklists.json', lists)
+    write_json('songs.json', [s for s in by_raw.values() if s['id'] in referenced])
+    print(f'{len(lists)} tracklists, {len(referenced)} songs')
+
+
+if __name__ == '__main__':
+    main()

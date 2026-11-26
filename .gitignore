@@ -7,8 +7,9 @@ local.properties
 build/
 .idea/
 
-relatorio-videos.md
+video-report.md
 .env
 __pycache__/
 *.pyc
 dist/
+fallback-report.md

@@ -27,8 +27,11 @@ export default function Player({ className = '' }) {
         <span className="truncate" dir="auto">
           {currentStation ? `${currentStation.name} · ${game.label}` : 'YouTube'}
         </span>
-        <span className="shrink-0 rounded-full bg-white/8 px-1.5 py-0.5 text-[10px] tracking-wide text-soft uppercase">
-          {usingFallback ? t('station.fallback') : t('player.live')}
+        <span
+          title={usingFallback ? t('station.fallback') : undefined}
+          className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] tracking-wide uppercase ${usingFallback ? 'bg-amber-400/15 text-amber-300' : 'bg-white/8 text-soft'}`}
+        >
+          {t('player.live')}
         </span>
       </div>
       {!ytHidden && (

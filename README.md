@@ -1,52 +1,63 @@
-# Rádio Wheel
+# Radio Wheel
 
-Seletor de rádios no estilo da roda dos jogos Grand Theft Auto. Você não escolhe a música: cada estação está sempre "no ar" e você entra no ponto em que a programação está agora — a posição é calculada pelo relógio, igual para todo mundo. Trocar de estação toca o chiado de sintonia.
+A radio picker in the style of the Grand Theft Auto radio wheel. You don't pick the song: every station is always "on air" and you join it at the point its programme is at right now. The position comes from the clock, so it is the same for everyone. Switching stations plays the tuning static.
 
-**🎧 Ouça agora: https://radio-wheel.marcosbb.com/**
+**🎧 Listen now: https://radio-wheel.marcosbb.com/**
 
-> **Projeto de fã, sem fins lucrativos e sem afiliação com a Rockstar Games ou a Take-Two Interactive.**
-> Nenhum áudio é hospedado aqui: as rádios tocam pelo player oficial do YouTube, a partir de vídeos públicos.
-> Grand Theft Auto, nomes e logos das estações são marcas de seus respectivos donos.
-> Se você é dono de algum conteúdo e quer que ele seja removido, abra uma issue.
+> **Fan project, non-profit, not affiliated with Rockstar Games or Take-Two Interactive.**
+> No audio is hosted here: the stations play through the official YouTube player, from public videos.
+> Grand Theft Auto and the station names and logos are trademarks of their respective owners.
+> If you own any of this content and want it removed, open an issue.
 
-## Recursos
+## Features
 
-- 109 estações de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III.
-- Rádio "ao vivo" sincronizada pelo relógio, com chiado de sintonia ao trocar.
-- Nome da música tocando agora (a partir das tracklists com tempo de cada vídeo).
-- Botão do Spotify: abre a música atual no Spotify para salvar nas Curtidas.
-- 6 memórias como no rádio do carro: toque sintoniza, segure salva.
-- Player do YouTube no rodapé do painel: miniatura por padrão, pode expandir ou ocultar o vídeo.
-- Troca de jogo pelas setas ‹ ›, deslizando o dedo no nome ou pela grade de capas.
-- Teclado: setas giram a roda, `1`–`6` chamam as memórias, `Espaço` liga/desliga.
-- Responsivo (celular, tablet, desktop) e instalável como app (PWA).
-- Português e inglês: detecta o idioma do navegador, botão PT/EN no canto e versão em inglês em `?lang=en`.
+- 109 stations from GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and III.
+- "Live" radio synced to the clock, with tuning static when switching.
+- A wheel you drag to tune: on phones only part of it is on screen, like a dial; on desktop it takes most of the window.
+- The name of the song playing now (from the timestamped tracklist of each video), with title and artist from Spotify.
+- Spotify button: opens the current song straight on Spotify (or a search when the song was not matched).
+- Two videos per station: if the first one fails, the site switches to the fallback.
+- Favorite stations, marked with a star on the wheel.
+- 6 presets like a car radio: tap to tune, hold to save.
+- YouTube player in the panel: small by default, can be expanded or hidden.
+- On phones, the control panel is a bottom sheet: collapsed it shows only the controls, pulled up it shows presets, game selector and player.
+- Keyboard: arrows turn the wheel, `1`–`6` recall presets, `Space` turns the radio on and off.
+- 8 languages: Portuguese (Brazil), English, Spanish, French, Chinese, Hindi, Arabic and Russian, each at its own URL (`/`, `/en/`, `/es/`, …).
+- Installable as an app (PWA).
 
-## Rodar
+## Running
 
 ```bash
-python3 -m http.server 5173
+npm install
+npm run dev -- --host   # http://localhost:5173, or the LAN IP on a phone
+npm run build && npm run preview
 ```
 
-Abra http://localhost:5173 (precisa ser via http, não `file://`, por causa do player do YouTube).
+Enable the pre-commit check once per clone:
 
-## Estrutura
+```bash
+git config core.hooksPath .githooks
+```
 
-- `index.html` — interface e lógica.
-- `stations.js` — jogos e estações (vídeo, duração, logo, cores).
-- `tracks.js` — tracklists, geradas por `tools/build_tracks.py` a partir das descrições dos vídeos.
-- `logos/` — logos das estações.
-- `logos/games/` — logos dos jogos.
-- `sitemap.xml` — sitemap com as versões em português e inglês (hreflang), para o Google.
+## Structure
 
-## Licença
+React 19 + Vite, Tailwind CSS v4 and Motion. See `CLAUDE.md` for the architecture and conventions.
 
-O código-fonte original deste projeto está sob a licença MIT (veja `LICENSE`).
+- `contents/` — the data, as JSON: games, stations, genres (translated), tracklists and songs.
+- `public/logos/` — station and game logos.
+- `src/` — the app (`pages/Radio/` and its sections, shared `components/`, `hooks/`, `services/contentService.js`).
+- `src/locales/` — UI strings, one file per language.
+- `tools/` — data tooling: `check_videos.py`, `build_tracks.py`, `build_spotify.py`, `find_fallback_videos.py`.
+- `stations-report.md` — stations that are missing and why.
 
-A licença **não** cobre material de terceiros, que pertence aos respectivos donos (incluindo a Rockstar Games e a Take-Two Interactive):
+## License
 
-- os logos das estações e dos jogos em `logos/` e `logos/games/`;
-- os nomes "Grand Theft Auto", "GTA" e os nomes das estações;
-- as músicas e os vídeos, que tocam pelo player do YouTube e não são hospedados aqui.
+The original source code of this project is under the MIT license (see `LICENSE`).
 
-Esse material é usado num projeto de fã sem fins lucrativos, sem afiliação nem endosso. Quem quiser reaproveitar o código deve substituir os logos ou obter permissão dos donos.
+The license does **not** cover third-party material, which belongs to its owners (including Rockstar Games and Take-Two Interactive):
+
+- the station and game logos in `public/logos/`;
+- the names "Grand Theft Auto", "GTA" and the station names;
+- the songs and videos, which play through the YouTube player and are not hosted here.
+
+This material is used in a non-profit fan project, without affiliation or endorsement. Anyone reusing the code should replace the logos or get permission from the owners.

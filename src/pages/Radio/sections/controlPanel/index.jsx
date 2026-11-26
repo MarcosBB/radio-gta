@@ -48,17 +48,19 @@ export default function ControlPanel({ isDesktop }) {
     history.pushState({ sheet: true }, '')
     const onPop = () => setOpen(false)
     window.addEventListener('popstate', onPop)
-    return () => {
-      window.removeEventListener('popstate', onPop)
-      if (history.state?.sheet) history.back()
-    }
+    return () => window.removeEventListener('popstate', onPop)
   }, [open, isDesktop])
+
+  const setSheet = useCallback((next) => {
+    if (!next && history.state?.sheet) history.back()
+    setOpen(next)
+  }, [])
 
   const onDragEnd = (_, info) => {
     dragged.current = true
     const next = info.velocity.y < -300 || (info.velocity.y <= 300 && y.get() < closedOffset / 2)
     if (next === open) animate(y, next ? 0 : closedOffset, SPRING)
-    setOpen(next)
+    else setSheet(next)
   }
 
   const toggle = useCallback(() => {
@@ -66,13 +68,13 @@ export default function ControlPanel({ isDesktop }) {
       dragged.current = false
       return
     }
-    setOpen((o) => !o)
-  }, [])
+    setSheet(!open)
+  }, [open, setSheet])
 
   return (
     <>
       {!isDesktop && open && (
-        <button type="button" aria-label={t('sheet.close')} onClick={() => setOpen(false)} className="fixed inset-0 z-20 cursor-pointer border-0 bg-black/45" />
+        <button type="button" aria-label={t('sheet.close')} onClick={() => setSheet(false)} className="fixed inset-0 z-20 cursor-pointer border-0 bg-black/45" />
       )}
       <motion.section
         ref={sheet}
