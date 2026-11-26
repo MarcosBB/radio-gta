@@ -71,7 +71,7 @@ export default function PresetButton({ n, station, active, onRecall, onSave }) {
           className="relative grid size-full place-items-center"
           style={!station.logo ? { background: `linear-gradient(135deg, ${station.colors[0]}, ${station.colors[1]})` } : undefined}
         >
-          <StationBadge station={station} className="max-h-[62%] max-w-[66%] translate-y-[6%]" textClass="text-[12px]" />
+          <StationBadge station={station} className="max-h-[70%] max-w-[72%]" textClass="text-[12px]" />
         </span>
       ) : (
         <span className="relative">{n}</span>
