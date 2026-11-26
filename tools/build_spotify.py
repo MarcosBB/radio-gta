@@ -6,6 +6,10 @@ Usage: python3 tools/build_spotify.py            (from the project root)
 Needs SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET in .env (client credentials flow; the app owner
 must have Spotify Premium). Songs with spotify_checked: true are never touched, so fix a wrong match
 by hand and set that flag. Progress is saved as it goes, so the script can be stopped and resumed.
+
+Requests are paced (one every 2 s by default) and a run stops after 600 requests, because
+Spotify answers bursts with a block of up to a day. If it still gets rate limited, it waits
+the time Spotify asks and halves its pace.
 Low-confidence matches and misses are listed in spotify-report.md.
 """
 import argparse, base64, difflib, json, pathlib, re, sys, time, unicodedata, urllib.error, urllib.parse, urllib.request
@@ -28,10 +32,26 @@ class QuotaExhausted(Exception):
     pass
 
 
+class BudgetUsed(Exception):
+    pass
+
+
 class Spotify:
-    def __init__(self, cid, secret):
+    # Spotify counts requests in a rolling 30-second window and answers bursts with a
+    # Retry-After that can be a whole day, so requests are paced instead of retried.
+    def __init__(self, cid, secret, interval, budget):
         self.auth = base64.b64encode(f'{cid}:{secret}'.encode()).decode()
         self.token, self.expires = None, 0
+        self.interval, self.budget, self.sent, self.last = interval, budget, 0, 0.0
+
+    def _pace(self):
+        if self.sent >= self.budget:
+            raise BudgetUsed()
+        wait = self.last + self.interval - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        self.last = time.monotonic()
+        self.sent += 1
 
     def _token(self):
         if time.time() < self.expires - 60:
@@ -45,6 +65,7 @@ class Spotify:
     def search(self, q):
         url = 'https://api.spotify.com/v1/search?' + urllib.parse.urlencode({'q': q, 'type': 'track', 'limit': 10})
         for attempt in range(6):
+            self._pace()
             req = urllib.request.Request(url, headers={'Authorization': 'Bearer ' + self._token()})
             try:
                 return json.load(urllib.request.urlopen(req, timeout=30))['tracks']['items']
@@ -53,7 +74,8 @@ class Spotify:
                     wait = int(e.headers.get('Retry-After', '5')) + 1
                     if wait > 300:
                         raise QuotaExhausted(wait)
-                    print(f'  rate limited, waiting {wait}s', flush=True)
+                    self.interval *= 2
+                    print(f'  rate limited: waiting {wait}s, now one request every {self.interval:.0f}s', flush=True)
                     time.sleep(wait)
                 elif e.code >= 500:
                     time.sleep(2 ** attempt)
@@ -136,11 +158,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--retry', action='store_true', help='retry songs already tried without a match')
     ap.add_argument('--limit', type=int, help='stop after this many songs')
+    ap.add_argument('--interval', type=float, default=2.0, help='seconds between requests (default 2)')
+    ap.add_argument('--max-requests', type=int, default=600, help='requests per run (default 600)')
     args = ap.parse_args()
     keys = env()
     if not keys.get('SPOTIFY_CLIENT_ID') or not keys.get('SPOTIFY_CLIENT_SECRET'):
         sys.exit('SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET are missing in .env')
-    sp = Spotify(keys['SPOTIFY_CLIENT_ID'], keys['SPOTIFY_CLIENT_SECRET'])
+    sp = Spotify(keys['SPOTIFY_CLIENT_ID'], keys['SPOTIFY_CLIENT_SECRET'], args.interval, args.max_requests)
     songs = json.loads(SONGS.read_text())
     todo = [s for s in songs if s['kind'] == 'song' and not s.get('spotify_checked') and not s.get('spotify_id')
             and (args.retry or not s.get('spotify_tried'))]
@@ -152,6 +176,11 @@ def main():
             found = best(sp, s['title'], s['artist'])
             good = found[0] and found[1] >= 0.85 and found[2] >= 0.85
             swapped = (None, 0, 0) if good else best(sp, s['artist'], s['title'])
+        except BudgetUsed:
+            SONGS.write_text(json.dumps(songs, ensure_ascii=False, indent=2) + '\n')
+            write_report(songs)
+            left = len(todo) - n + 1
+            sys.exit(f'Stopped after {sp.sent} requests ({n - 1} songs), {left} left. Run it again later; it resumes where it stopped.')
         except QuotaExhausted as e:
             SONGS.write_text(json.dumps(songs, ensure_ascii=False, indent=2) + '\n')
             write_report(songs)
@@ -169,7 +198,6 @@ def main():
         if n % 25 == 0 or n == len(todo):
             SONGS.write_text(json.dumps(songs, ensure_ascii=False, indent=2) + '\n')
             print(f'{n}/{len(todo)}', flush=True)
-        time.sleep(0.5)
     write_report(songs)
 
 
