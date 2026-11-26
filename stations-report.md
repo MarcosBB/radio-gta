@@ -45,6 +45,16 @@ The games the site already covers are missing **7 stations**, all left out on pu
 
 **Possible fix:** write timestamped tracklists by hand, from the wiki lists and by listening to the videos. That needs a manual entry that `tools/build_tracks.py` does not overwrite when it runs again.
 
+## Fallback videos
+
+Since 2026-11-26 every station has a second video that the site plays when the first one fails (`tools/find_fallback_videos.py`). **108 of 109** stations have one.
+
+| Station | Game | Reason |
+|---|---|---|
+| Kult FM 99.1 | GTA V | No other full video of the station plays embedded. |
+
+When a fallback video has a tracklist and the primary does not (iFruit Radio, Kult FM, The Music Locker, MOTOMAMI, Rise FM, The Liberty Jam, V-Rock, Wave 103), the song name only shows while the fallback is playing. Swapping primary and fallback in `contents/stations.json` would show it all the time; check that the fallback is the in-game station first.
+
 ## Games added on 2026-11-25
 
 ### Liberty City Stories
