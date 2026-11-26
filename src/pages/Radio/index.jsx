@@ -23,7 +23,7 @@ export default function Radio() {
       />
       <Header />
       <main className={`relative flex min-h-0 flex-1 ${isDesktop ? 'gap-8 px-8 pb-6' : 'flex-col pb-[150px]'}`}>
-        <div className={`relative min-h-0 min-w-0 flex-1 overflow-hidden ${isDesktop ? '' : 'mt-1'}`}>
+        <div className={`relative min-h-0 min-w-0 flex-1 [clip-path:inset(0_-100vw_-100vh_-100vw)] ${isDesktop ? '' : 'mt-1'}`}>
           <Wheel key={isDesktop ? 'full' : 'dial'} variant={isDesktop ? 'full' : 'dial'} />
         </div>
         <ControlPanel isDesktop={isDesktop} />
