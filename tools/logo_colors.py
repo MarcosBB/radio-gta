@@ -63,11 +63,18 @@ def logo_colors(img):
     swatch.putdata(pixels)
     pal = swatch.quantize(colors=6, method=Image.Quantize.MEDIANCUT)
     palette = pal.getpalette()
-    counts = sorted(pal.getcolors(), reverse=True)
-    out = []
-    for count, idx in counts:
+    # Rank by share, but favour vivid mid-tone colors over dark or washed-out shades of the logo.
+    ranked = []
+    for count, idx in pal.getcolors():
         c = tuple(palette[idx * 3: idx * 3 + 3])
-        if count / len(pixels) < 0.04 or any(dist(c, o) < 45 for o in out):
+        share = count / len(pixels)
+        if share < 0.04:
+            continue
+        _, l, sat = colorsys.rgb_to_hls(*(v / 255 for v in c))
+        ranked.append((share * sat ** 1.5 * (1 - abs(l - 0.55)), c))
+    out = []
+    for _, c in sorted(ranked, reverse=True):
+        if any(dist(c, o) < 45 for o in out):
             continue
         out.append(c)
     return out[:3]

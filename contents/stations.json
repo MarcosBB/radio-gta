@@ -54,8 +54,8 @@
     "light": false,
     "genre": "soft-rock-ballads",
     "colors": [
-      "#f06bd8",
-      "#7b5cff"
+      "#e0303c",
+      "#7a1020"
     ],
     "videos": [
       {
@@ -77,8 +77,8 @@
     "light": false,
     "genre": "classic-rock",
     "colors": [
-      "#e8e8e8",
-      "#d11f2a"
+      "#d4232f",
+      "#1e2d6b"
     ],
     "videos": [
       {
@@ -123,8 +123,8 @@
     "light": false,
     "genre": "reggaeton-latin",
     "colors": [
-      "#2bd9a5",
-      "#ffde59"
+      "#f2a7c3",
+      "#7a4a2c"
     ],
     "videos": [
       {
@@ -146,8 +146,8 @@
     "light": false,
     "genre": "latin",
     "colors": [
-      "#1fb6ff",
-      "#ff4d6d"
+      "#ee2a8c",
+      "#2f6fd8"
     ],
     "videos": [
       {
@@ -215,7 +215,7 @@
     "light": false,
     "genre": "house-techno",
     "colors": [
-      "#ffffff",
+      "#d6392b",
       "#111111"
     ],
     "videos": [
@@ -238,8 +238,8 @@
     "light": false,
     "genre": "pop-indie-dance",
     "colors": [
-      "#ff9ec7",
-      "#3a2bd9"
+      "#3f94c4",
+      "#0f2a3a"
     ],
     "videos": [
       {
@@ -261,7 +261,7 @@
     "light": false,
     "genre": "metal",
     "colors": [
-      "#9a9a9a",
+      "#ff1a2e",
       "#3d0000"
     ],
     "videos": [
@@ -307,8 +307,8 @@
     "light": false,
     "genre": "hip-hop",
     "colors": [
-      "#00e5ff",
-      "#ff2bd6"
+      "#f0a323",
+      "#1b6f8a"
     ],
     "videos": [
       {
@@ -330,8 +330,8 @@
     "light": false,
     "genre": "gilles-peterson",
     "colors": [
-      "#f5f5f5",
-      "#ff6a00"
+      "#f25c1b",
+      "#4a0f5c"
     ],
     "videos": [
       {
@@ -605,8 +605,8 @@
     "light": false,
     "genre": "punk",
     "colors": [
-      "#ffffff",
-      "#e0001b"
+      "#e0201f",
+      "#f2f2f2"
     ],
     "videos": [
       {
@@ -628,8 +628,8 @@
     "light": false,
     "genre": "classic-country",
     "colors": [
-      "#c8a165",
-      "#5b2a12"
+      "#d01e3c",
+      "#f2efe6"
     ],
     "videos": [
       {
@@ -674,8 +674,8 @@
     "light": false,
     "genre": "mexican-music",
     "colors": [
-      "#2bbf5a",
-      "#e8312f"
+      "#fbcc34",
+      "#2a2410"
     ],
     "videos": [
       {
@@ -720,8 +720,8 @@
     "light": false,
     "genre": "idm-alternative-hip-hop",
     "colors": [
-      "#ff3d3d",
-      "#ffd23f"
+      "#b8a06a",
+      "#5c4f2e"
     ],
     "videos": [
       {
@@ -766,8 +766,8 @@
     "light": false,
     "genre": "indie-synthpop",
     "colors": [
-      "#7ae0ff",
-      "#ff7ad1"
+      "#f06a25",
+      "#ffb08a"
     ],
     "videos": [
       {
@@ -789,8 +789,8 @@
     "light": false,
     "genre": "funk-boogie",
     "colors": [
-      "#b45cff",
-      "#ff4f9a"
+      "#ff3f77",
+      "#22c5f0"
     ],
     "videos": [
       {
@@ -835,8 +835,8 @@
     "light": false,
     "genre": "frank-ocean",
     "colors": [
-      "#f2f2f2",
-      "#ff8a00"
+      "#ffef00",
+      "#222222"
     ],
     "videos": [
       {
