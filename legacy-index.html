@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b10">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)</title>
+<meta name="description" content="Ouça as 109 rádios de GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://radio-wheel.marcosbb.com/">
+<link rel="alternate" hreflang="pt-BR" href="https://radio-wheel.marcosbb.com/">
+<link rel="alternate" hreflang="en" href="https://radio-wheel.marcosbb.com/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://radio-wheel.marcosbb.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rádio Wheel">
+<meta property="og:title" content="Rádio Wheel — Rádios do GTA ao vivo">
+<meta property="og:description" content="As rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III tocando ao vivo, com a roda de rádio do jogo.">
+<meta property="og:url" content="https://radio-wheel.marcosbb.com/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://radio-wheel.marcosbb.com/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Roda de rádio do Rádio Wheel com as estações do GTA VI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://radio-wheel.marcosbb.com/og.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Rádio Wheel",
+  "alternateName": ["GTA Radio Wheel", "Radio Wheel"],
+  "url": "https://radio-wheel.marcosbb.com/"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Rádio Wheel",
+  "alternateName": "GTA Radio Wheel",
+  "url": "https://radio-wheel.marcosbb.com/",
+  "image": "https://radio-wheel.marcosbb.com/og.jpg",
+  "description": "Ouça as rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III ao vivo, com a roda de rádio do jogo. / Listen to the GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and III radio stations live, with the in-game radio wheel.",
+  "inLanguage": ["pt-BR", "en"],
+  "applicationCategory": "MultimediaApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b10;
+    --fg: #f4f4f6;
+    --muted: #9a9aa8;
+    --ring: rgba(255,255,255,.08);
+    --c1: #ff3d8b;
+    --c2: #ffb03a;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: Inter, system-ui, sans-serif;
+    overflow-x: hidden;
+    min-height: 100dvh;
+  }
+  .glow {
+    position: fixed; inset: -20%;
+    background:
+      radial-gradient(40% 40% at 30% 30%, color-mix(in srgb, var(--c1) 45%, transparent), transparent 70%),
+      radial-gradient(45% 45% at 70% 70%, color-mix(in srgb, var(--c2) 40%, transparent), transparent 70%);
+    filter: blur(60px);
+    opacity: .55;
+    transition: background 1s;
+    pointer-events: none;
+    z-index: 0;
+  }
+  body.off .glow { opacity: .12; }
+  /* Layout: uma coluna (retrato) ou roda + painel lado a lado (telas largas / paisagem). */
+  main {
+    position: relative; z-index: 1;
+    /* cabeçalho preso no topo; roda + painel centralizados no espaço que sobra (linhas vazias 1fr em volta) */
+    display: grid; justify-items: center; align-content: stretch;
+    grid-template-areas: "header" "." "wheel" "panel" ".";
+    grid-template-rows: auto 1fr auto auto 1fr;
+    --gap: clamp(14px, 2.5vh, 24px);
+    row-gap: 0; column-gap: var(--gap);
+    padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    min-height: 100dvh;
+    --panel-w: min(560px, 100%);
+    --wheel: clamp(260px, min(calc(100vw - 32px), calc(100dvh - 475px)), 560px);
+  }
+  header {
+    grid-area: header; width: 100%; min-width: 0;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px;
+    grid-template-areas: "title . lang" "sel sel sel" "dots dots dots";
+  }
+  header h1 { grid-area: title; justify-self: start; }
+  header .gamesel { grid-area: sel; justify-self: center; }
+  header .dots { grid-area: dots; }
+  header .langbtn { grid-area: lang; justify-self: end; }
+  .wheel { grid-area: wheel; }
+  header, main > .wheel { margin-bottom: var(--gap); }
+  .bar { grid-area: panel; }
+  h1 { font-family: Oswald, sans-serif; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-size: clamp(18px, 2.4vw, 24px); margin: 0; }
+  h1 span { color: var(--c1); transition: color .6s; }
+  /* ---------- seletor de jogo: ‹ título › + grade de capas ---------- */
+  .gamesel { display: flex; align-items: center; gap: 6px; max-width: 100%; min-width: 0; }
+  .gamesel .arrow {
+    width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--ring);
+    background: rgba(255,255,255,.05); color: var(--fg); cursor: pointer; padding: 0;
+    display: grid; place-items: center; flex: none;
+  }
+  .gamesel .arrow:hover { background: rgba(255,255,255,.12); }
+  .gamesel .arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .gametitle {
+    display: flex; align-items: center; gap: 12px; min-width: 0;
+    background: none; border: 0; color: var(--fg); cursor: pointer; padding: 6px 12px; border-radius: 14px;
+    text-align: left;
+  }
+  .gametitle:hover { background: rgba(255,255,255,.06); }
+  .gametitle .glogo {
+    width: 84px; height: 60px; flex: none; object-fit: contain;
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,.6));
+  }
+  .gametitle .txt { display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+  .gametitle .name { font: 700 20px/1.1 Oswald, sans-serif; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .gametitle .meta { font-size: 12px; color: var(--muted); margin-top: 3px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .gametitle .meta svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2.4; }
+  .dots { display: flex; justify-content: center; gap: 6px; margin-top: 2px; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.2); transition: width .2s, background .2s; }
+  .dots i.on { width: 18px; border-radius: 3px; background: var(--fg); }
+
+  .picker {
+    position: fixed; inset: 0; z-index: 30;
+    background: rgba(5,5,8,.78); backdrop-filter: blur(10px);
+    display: grid; place-items: center; padding: 16px;
+    opacity: 0; pointer-events: none; transition: opacity .2s;
+  }
+  .picker.open { opacity: 1; pointer-events: auto; }
+  .picker .sheet {
+    width: min(720px, 100%); max-height: calc(100dvh - 32px); overflow: auto;
+    background: #14141b; border: 1px solid var(--ring); border-radius: 22px; padding: 18px;
+    transform: translateY(12px); transition: transform .2s;
+  }
+  .picker.open .sheet { transform: none; }
+  .picker .head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .picker h2 { margin: 0; font: 700 16px Oswald, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+  .picker .close { width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.08); color: var(--fg); font-size: 18px; cursor: pointer; }
+  .covers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .cover {
+    position: relative; overflow: hidden; aspect-ratio: 4 / 3; border-radius: 16px; cursor: pointer;
+    border: 2px solid transparent; padding: 14px; text-align: left; color: #fff;
+    background:
+      linear-gradient(180deg, transparent 35%, rgba(0,0,0,.75)),
+      linear-gradient(140deg, var(--gc1), var(--gc2));
+    display: flex; flex-direction: column; justify-content: flex-end;
+    transition: transform .15s, border-color .15s;
+  }
+  .cover:hover { transform: translateY(-3px); }
+  .cover.on { border-color: #fff; }
+  .cover .big {
+    position: absolute; left: 50%; top: 35%; transform: translate(-50%, -50%);
+    width: 78%; height: 48%; object-fit: contain;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,.45));
+    transition: transform .2s;
+  }
+  .cover:hover .big { transform: translate(-50%, -50%) scale(1.04); }
+  .cover .foot { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .cover .logos { display: flex; gap: 3px; margin: 0; flex: none; }
+  .cover .t { font: 700 clamp(15px, 2.4vw, 19px)/1.1 Oswald, sans-serif; text-transform: uppercase; letter-spacing: .03em; }
+  .cover .s { font-size: 11px; line-height: 1.35; opacity: .9; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cover .logos { display: flex; gap: 4px; order: -1; }
+  .cover .logos img.light { background: #f2f2f5; }
+  .cover .logos img { width: 24px; height: 24px; object-fit: contain; background: rgba(0,0,0,.45); border-radius: 50%; padding: 3px; }
+  @media (max-width: 480px) {
+    .covers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .cover { aspect-ratio: 1; padding: 12px; }
+    .cover .big { top: 33%; height: 42%; }
+    .cover .bigtxt { top: 33%; }
+    .cover .logos img { width: 22px; height: 22px; }
+    .gametitle .glogo { width: 70px; height: 50px; }
+    .gametitle .name { font-size: 17px; }
+  }
+  @media (max-width: 360px) {
+    .gamesel { gap: 2px; }
+    .gamesel .arrow { width: 34px; height: 34px; }
+    .gametitle { gap: 8px; padding: 6px; }
+    .gametitle .glogo { width: 52px; height: 38px; }
+    .gametitle .meta { font-size: 11px; }
+  }
+
+  /* ---------- roda ---------- */
+  .wheel {
+    --size: var(--wheel);
+    width: var(--size); height: var(--size);
+    position: relative;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,0,0,.65) 0 34%, rgba(0,0,0,.45) 34.5% 100%);
+    box-shadow: inset 0 0 0 1px var(--ring), 0 30px 80px rgba(0,0,0,.5);
+    touch-action: none;
+    user-select: none;
+  }
+  .slot {
+    position: absolute;
+    width: var(--b); height: var(--b);
+    left: calc(50% + var(--x) - var(--b) / 2);
+    top: calc(50% + var(--y) - var(--b) / 2);
+    border-radius: 50%;
+    border: 0; padding: 0; cursor: pointer;
+    background: radial-gradient(circle at 50% 35%, #2a2a33, #0d0d12 75%);
+    color: #fff;
+    display: grid; place-items: center;
+    font: 700 calc(var(--b) * .2) / 1.05 Oswald, sans-serif;
+    letter-spacing: .02em;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+    filter: grayscale(.35) brightness(.75);
+    transform: scale(.86);
+    transition: transform .18s, filter .18s, box-shadow .18s;
+    box-shadow: 0 4px 14px rgba(0,0,0,.5);
+  }
+  .slot:hover, .slot.hover { filter: none; transform: scale(.98); }
+  .slot.active {
+    filter: none; transform: scale(1.08);
+    box-shadow: 0 0 0 3px #fff, 0 0 30px color-mix(in srgb, var(--s1) 70%, transparent);
+  }
+  .slot img { width: 78%; height: 78%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+  .slot.light { background: radial-gradient(circle at 50% 35%, #ffffff, #d9d9e0 80%); }
+  .slot.offslot { background: #222; color: var(--fg); }
+  .slot.offslot svg { width: 42%; height: 42%; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; pointer-events: none; }
+  .center .logo { width: 40%; aspect-ratio: 1; object-fit: contain; margin-bottom: 6px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.6)); }
+  .center .logo[hidden] { display: none; }
+  .center .logo.light { background: #f2f2f5; border-radius: 18%; padding: 6%; }
+  .pointer {
+    position: absolute; left: 50%; top: 50%;
+    width: 2px; height: calc(var(--size) * .17);
+    transform-origin: 50% 0;
+    background: linear-gradient(var(--fg), transparent);
+    opacity: .0;
+    transition: transform .25s cubic-bezier(.3,1.4,.5,1), opacity .3s;
+    pointer-events: none;
+  }
+  .center {
+    position: absolute; inset: 27%;
+    border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 6%;
+    pointer-events: none;
+  }
+  .center .name {
+    font: 700 clamp(18px, calc(var(--size) * .055), 34px) / 1.05 Oswald, sans-serif;
+    text-transform: uppercase; letter-spacing: .03em;
+  }
+  .center .genre { color: var(--muted); font-size: clamp(11px, calc(var(--size) * .024), 14px); margin-top: 6px; }
+.song {
+    margin-top: 12px; font: 600 clamp(12px, calc(var(--size) * .028), 16px) / 1.3 Inter, sans-serif;
+    color: var(--fg); max-width: 100%;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    padding-bottom: 2px;
+    transition: opacity .25s;
+  }
+  .song.tuning { opacity: .35; }
+  /* roda pequena: centro enxuto para a música caber */
+  .wheel.compact .center { inset: 25%; padding: 4%; }
+  .wheel.compact .center .logo { width: 44%; margin-bottom: 2px; }
+  .wheel.compact .center .genre { display: none; }
+  .wheel.compact .song { margin-top: 4px; font-size: 12px; line-height: 1.25; }
+  .song:empty { display: none; }
+
+  /* ---------- painel de controle (estilo rádio de carro) ---------- */
+  .bar {
+    width: var(--panel-w);
+    display: flex; flex-direction: column; gap: 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    border: 1px solid var(--ring);
+    border-radius: 22px; padding: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    backdrop-filter: blur(10px);
+  }
+  /* ---------- player do YouTube: faixa discreta no rodapé do painel ---------- */
+  .yt {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px;
+    padding-top: 12px; border-top: 1px solid var(--ring);
+  }
+  body.off .yt, body:not(.started) .yt { display: none; }
+  .yt-frame {
+    width: 96px; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; background: #000;
+    transition: width .25s ease;
+  }
+  .yt-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
+  .yt-info { min-width: 0; display: flex; align-items: center; gap: 6px; font: 600 11px Inter, sans-serif; color: var(--muted); }
+  .yt-info svg { width: 14px; height: 14px; flex: none; fill: #ff0033; }
+  .yt-title { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .yt-btn {
+    width: 30px; height: 30px; border: 0; border-radius: 8px; flex: none;
+    background: rgba(255,255,255,.08); color: var(--fg); cursor: pointer; padding: 0;
+    display: grid; place-items: center;
+  }
+  .yt-btn:hover { background: rgba(255,255,255,.16); }
+  .yt-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  /* expandido: o vídeo ocupa a largura do painel, embaixo da linha de título */
+  .yt[data-size="big"] { grid-template-columns: 1fr auto; }
+  .yt[data-size="big"] .yt-frame { grid-column: 1 / -1; grid-row: 2; width: 100%; border-radius: 12px; }
+  /* oculto: o vídeo sai da tela, mas continua tocando o áudio */
+  .yt { grid-template-columns: auto 1fr auto auto; }
+  .yt[data-size="big"] { grid-template-columns: 1fr auto auto; }
+  .yt[data-hidden="1"] { grid-template-columns: 1fr auto auto; }
+  .yt[data-hidden="1"] .yt-frame { position: fixed; left: -10000px; top: 0; width: 200px; }
+  .yt[data-hidden="1"] #ytSize { display: none; }
+
+  /* ---------- selos próprios (quando não há logo oficial) ---------- */
+  .slot.badge {
+    background: linear-gradient(135deg, var(--s1), var(--s2));
+    font: 700 calc(var(--b) * .2) / 1.05 Oswald, sans-serif; white-space: pre; text-align: center;
+    color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.65);
+    box-shadow: inset 0 0 0 2px rgba(255,255,255,.18), 0 4px 14px rgba(0,0,0,.5);
+  }
+  .preset.badge { color: #fff; font: 700 13px/1.05 Oswald, sans-serif; white-space: pre; text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+  .gametitle .mark {
+    font: 700 22px/1 Oswald, sans-serif; letter-spacing: .02em;
+    width: 52px; height: 52px; border-radius: 12px; flex: none;
+    display: grid; place-items: center; color: #111;
+    background: linear-gradient(135deg, var(--gc1), var(--gc2));
+    box-shadow: 0 6px 20px color-mix(in srgb, var(--gc1) 35%, transparent);
+  }
+  .gametitle .mark[hidden], .gametitle .glogo[hidden] { display: none; }
+  .cover .bigtxt {
+    position: absolute; left: 50%; top: 35%; transform: translate(-50%, -50%);
+    font: 700 clamp(52px, 10vw, 84px)/1 Oswald, sans-serif; color: rgba(255,255,255,.92);
+    text-shadow: 0 6px 20px rgba(0,0,0,.35); letter-spacing: -.01em;
+  }
+  .deck { display: flex; flex-direction: column; align-items: stretch; gap: 12px; }
+  .transport { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; flex: none; }
+  .transport .btn.spotify { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+  .transport .btn.spotify:active { transform: translateY(-50%) scale(.94); }
+  .btn {
+    width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ring);
+    background: rgba(255,255,255,.07); color: var(--fg);
+    cursor: pointer; display: grid; place-items: center; padding: 0;
+    transition: background .15s, transform .1s;
+  }
+  .btn svg { width: 20px; height: 20px; fill: currentColor; }
+  .btn:hover { background: rgba(255,255,255,.14); }
+  .btn:active { transform: scale(.94); }
+  .btn.power { width: 54px; height: 54px; background: color-mix(in srgb, var(--c1) 22%, transparent); border-color: color-mix(in srgb, var(--c1) 55%, transparent); }
+  .btn.spotify { color: #1ed760; text-decoration: none; }
+  .btn.spotify svg { width: 22px; height: 22px; }
+  .btn.spotify[hidden] { display: none; }
+  .btn.power svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; }
+  body.off .btn.power { background: rgba(255,255,255,.07); border-color: var(--ring); color: var(--muted); }
+  .volume { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; }
+  .mute { width: 36px; height: 36px; border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0; display: grid; place-items: center; flex: none; }
+  .mute svg { width: 22px; height: 22px; fill: currentColor; }
+  .mute:hover { color: var(--fg); }
+  input[type=range] {
+    --v: 80%;
+    -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: none; cursor: pointer; margin: 0;
+  }
+  input[type=range]::-webkit-slider-runnable-track {
+    height: 6px; border-radius: 99px;
+    background: linear-gradient(90deg, var(--c1) var(--v), rgba(255,255,255,.14) var(--v));
+  }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 99px; background: rgba(255,255,255,.14); }
+  input[type=range]::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--c1); }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; margin-top: -6px;
+    background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,.5);
+  }
+  input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: #fff; }
+  .vol-val { font: 600 12px Inter, sans-serif; color: var(--muted); width: 30px; text-align: right; font-variant-numeric: tabular-nums; flex: none; }
+
+  /* ---------- memórias (presets do rádio do carro) ---------- */
+  .mem-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .mem-head h2 { margin: 0; font: 700 12px Oswald, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: var(--fg); }
+  .mem-head span { font-size: 11px; color: var(--muted); }
+  .presets { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .preset {
+    position: relative; overflow: hidden;
+    aspect-ratio: 1.35; border-radius: 14px; border: 1px solid var(--ring);
+    background: rgba(0,0,0,.28); color: var(--muted);
+    font: 700 18px Oswald, sans-serif; cursor: pointer;
+    display: grid; place-items: center; padding: 0;
+    user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; touch-action: manipulation;
+    transition: background .15s, border-color .15s, transform .1s;
+  }
+  .preset:hover { background: rgba(255,255,255,.08); }
+  .preset:active { transform: scale(.97); }
+  .preset.light { background: #e9e9ee; }
+  .preset.empty { border-style: dashed; color: rgba(255,255,255,.3); }
+  .preset img {
+    position: absolute; left: 14%; right: 14%; top: 16%; bottom: 16%;
+    width: 72%; height: 68%;
+    object-fit: contain; pointer-events: none;
+  }
+  .preset .num {
+    position: absolute; left: 7px; top: 5px; font: 700 10px Inter, sans-serif; color: var(--muted);
+  }
+  .preset.on { border-color: var(--c1); background: color-mix(in srgb, var(--c1) 16%, transparent); box-shadow: inset 0 0 0 1px var(--c1); }
+  .preset.on .num { color: var(--c1); }
+  .preset .fill {
+    position: absolute; inset: 0; background: color-mix(in srgb, var(--c1) 45%, transparent);
+    transform: scaleX(0); transform-origin: left; pointer-events: none;
+  }
+  .preset.holding .fill { transform: scaleX(1); transition: transform .7s linear; }
+  .preset.saved { animation: saved .6s; }
+  @keyframes saved { 30% { background: var(--c1); } }
+  .toast {
+    position: fixed; left: 50%; bottom: max(24px, env(safe-area-inset-bottom)); transform: translate(-50%, 20px);
+    background: #fff; color: #111; font: 600 13px Inter, sans-serif; padding: 10px 16px; border-radius: 999px;
+    opacity: 0; transition: opacity .2s, transform .2s; pointer-events: none; z-index: 20;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  
+  /* ---------- tela inicial ---------- */
+  .start {
+    position: fixed; inset: 0; z-index: 10;
+    display: grid; place-items: center;
+    background: rgba(5,5,8,.82); backdrop-filter: blur(8px);
+  }
+  .start button {
+    display: block; margin: 0 auto;
+    font: 700 22px Oswald, sans-serif; letter-spacing: .1em; text-transform: uppercase;
+    padding: 18px 34px; border-radius: 999px; border: 0; cursor: pointer;
+    background: linear-gradient(135deg, var(--c1), var(--c2)); color: #111;
+    box-shadow: 0 10px 40px color-mix(in srgb, var(--c1) 50%, transparent);
+  }
+  .start p { color: var(--muted); text-align: center; margin-top: 14px; font-size: 13px; }
+  .start[hidden] { display: none; }
+  .langbtn {
+    font: 700 12px Oswald, sans-serif; letter-spacing: .1em; text-decoration: none;
+    color: var(--fg); background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14);
+    padding: 6px 10px; border-radius: 999px;
+  }
+  .langbtn:hover, .langbtn:focus-visible { background: rgba(255,255,255,.16); }
+
+  /* celular estreito: memórias em 3 colunas, volume embaixo do transporte */
+  @media (max-width: 480px) {
+    .presets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .preset { aspect-ratio: 1.8; }
+    .deck { flex-direction: column; align-items: stretch; gap: 10px; }
+    .transport { justify-content: center; }
+    main { --wheel: clamp(240px, min(calc(100vw - 32px), calc(100dvh - 500px)), 520px); }
+  }
+  /* telas largas ou paisagem: roda à esquerda, painel à direita */
+  @media (min-width: 900px) and (min-aspect-ratio: 5/4), (orientation: landscape) and (max-height: 560px) {
+    main {
+      grid-template-areas: "header header header header" ". wheel panel .";
+      grid-template-columns: 1fr auto minmax(300px, 420px) 1fr;
+      grid-template-rows: auto 1fr;
+      align-items: center;
+      column-gap: 0;
+      --panel-w: 100%;
+      --wheel: clamp(240px, min(calc(100dvh - 215px), calc(100vw - 520px)), 680px);
+    }
+    main > .wheel { margin-right: clamp(24px, 4vw, 64px); margin-bottom: 0; }
+    header { grid-template-areas: "title sel lang" ". dots ."; column-gap: 16px; row-gap: 6px; }
+    .presets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .deck { flex-direction: column; align-items: stretch; gap: 12px; }
+    .transport { justify-content: center; }
+  }
+  /* paisagem baixa (celular deitado): compacta tudo */
+  @media (orientation: landscape) and (max-height: 560px) {
+    main { --wheel: clamp(150px, calc(100dvh - 84px), 460px); --gap: 8px; padding-top: max(8px, env(safe-area-inset-top)); padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+    .bar { max-height: calc(100dvh - 84px); overflow-y: auto; }
+    .presets { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+    .preset { aspect-ratio: 1.15; }
+    .mem-head span { display: none; }
+    h1 { font-size: 18px; }
+    .dots { display: none; }
+    .gametitle .glogo { width: 56px; height: 40px; }
+    .gamesel .arrow { width: 34px; height: 34px; }
+    .bar { padding: 12px; gap: 10px; }
+    .btn { width: 40px; height: 40px; }
+    .btn.power { width: 46px; height: 46px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body class="off">
+<div class="glow"></div>
+<main>
+  <header>
+    <h1>Rádio <span>Wheel</span></h1>
+    <a class="langbtn" id="langBtn" href="?lang=en" hreflang="en" lang="en" aria-label="English version">EN</a>
+    <div class="gamesel">
+      <button class="arrow" id="gPrev" aria-label="Jogo anterior" data-i18n-aria="prevGame"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="gametitle" id="gTitle" aria-haspopup="dialog" aria-label="Escolher jogo" data-i18n-aria="pickGame">
+        <img class="glogo" id="gLogo" alt="" hidden>
+        <span class="mark" id="gMark"></span>
+        <span class="txt"><span class="name" id="gName"></span><span class="meta" id="gMeta"></span></span>
+      </button>
+      <button class="arrow" id="gNext" aria-label="Próximo jogo" data-i18n-aria="nextGame"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
+    <div class="dots" id="gDots" aria-hidden="true"></div>
+  </header>
+
+  <div class="wheel" id="wheel">
+    <div class="center">
+      <img class="logo" id="stLogo" alt="" hidden>
+      <div class="name" id="stName" data-i18n="radioOff">Rádio desligada</div>
+      <div class="genre" id="stGenre" data-i18n="pickStation">Escolha uma estação</div>
+      <div class="song" id="song"></div>
+    </div>
+  </div>
+
+  <section class="bar" aria-label="Controles" data-i18n-aria="controls">
+    <div class="deck">
+      <div class="transport">
+        <button class="btn" id="prev" aria-label="Estação anterior" data-i18n-aria="prevSt"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg></button>
+        <button class="btn power" id="power" aria-label="Ligar/desligar rádio" data-i18n-aria="power"><svg viewBox="0 0 24 24"><path d="M12 3v8"/><path d="M6.4 6.6a8 8 0 1 0 11.2 0"/></svg></button>
+        <button class="btn" id="next" aria-label="Próxima estação" data-i18n-aria="nextSt"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg></button>
+        <a class="btn spotify" id="spotify" target="_blank" rel="noopener" aria-label="Abrir a música atual no Spotify para salvar" data-i18n-aria="spotifyAria" title="Abrir no Spotify para salvar" data-i18n-title="spotifyTitle" hidden>
+          <svg viewBox="0 0 24 24"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm4.8 15.2a.65.65 0 0 1-.9.2c-2.5-1.5-5.6-1.9-9.3-1a.65.65 0 1 1-.3-1.3c4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.3-2.9a.8.8 0 0 1-1.1.3c-2.8-1.7-7.2-2.2-10.5-1.2a.8.8 0 1 1-.5-1.6c3.8-1.1 8.6-.6 11.8 1.4.4.2.5.7.3 1.1zm.1-3c-3.4-2-9-2.2-12.2-1.2a1 1 0 1 1-.6-1.9c3.7-1.1 9.9-.9 13.8 1.4a1 1 0 0 1-1 1.7z"/></svg>
+        </a>
+      </div>
+      <div class="volume">
+        <button class="mute" id="mute" aria-label="Silenciar"><svg viewBox="0 0 24 24" id="volIcon"></svg></button>
+        <input type="range" id="vol" min="0" max="100" value="80" aria-label="Volume">
+        <span class="vol-val" id="volVal">80</span>
+      </div>
+    </div>
+    <div class="mem-head"><h2 data-i18n="presets">Memórias</h2><span data-i18n="presetsHint">toque sintoniza · segure salva</span></div>
+    <div class="presets" id="presets"></div>
+    <div class="yt" id="yt" data-size="mini" aria-label="Player do YouTube" data-i18n-aria="ytPlayer">
+      <div class="yt-frame"><div id="player"></div></div>
+      <div class="yt-info">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15V9l5.5 3-5.5 3z"/></svg>
+        <span class="yt-title" id="ytTitle">YouTube</span>
+      </div>
+      <button class="yt-btn" id="ytSize" aria-label="Expandir player"><svg viewBox="0 0 24 24" id="ytSizeIco"></svg></button>
+      <button class="yt-btn" id="ytHide" aria-label="Ocultar vídeo"><svg viewBox="0 0 24 24" id="ytHideIco"></svg></button>
+    </div>
+  </section>
+
+</main>
+
+<div class="picker" id="picker" role="dialog" aria-modal="true" aria-label="Escolher jogo" data-i18n-aria="pickGame">
+  <div class="sheet">
+    <div class="head"><h2 data-i18n="pickGameTitle">Escolha o jogo</h2><button class="close" id="pClose" aria-label="Fechar" data-i18n-aria="close">✕</button></div>
+    <div class="covers" id="covers"></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<div class="start" id="start">
+  <div>
+    <button id="startBtn" data-i18n="start">Ligar o rádio</button>
+    <p data-i18n-html="startNote">Ouça as rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III ao vivo, como no carro.<br>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.</p>
+  </div>
+</div>
+
+<script src="stations.js"></script>
+<script src="tracks.js"></script>
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const wheel = $('wheel');
+  const LS = {
+    get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} },
+  };
+
+  // ---------- idioma (pt / en) ----------
+  const I18N = {
+    pt: {
+      docTitle: 'Rádio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)',
+      docDesc: 'Ouça as 109 rádios de GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando.',
+      prevGame: 'Jogo anterior', pickGame: 'Escolher jogo', nextGame: 'Próximo jogo',
+      radioOff: 'Rádio desligada', pickStation: 'Escolha uma estação', controls: 'Controles',
+      prevSt: 'Estação anterior', power: 'Ligar/desligar rádio', nextSt: 'Próxima estação',
+      spotifyAria: 'Abrir a música atual no Spotify para salvar', spotifyTitle: 'Abrir no Spotify para salvar',
+      mute: 'Silenciar', unmute: 'Ativar som',
+      presets: 'Memórias', presetsHint: 'toque sintoniza · segure salva',
+      ytPlayer: 'Player do YouTube', expand: 'Expandir player', minimize: 'Minimizar player',
+      hideVideo: 'Ocultar vídeo', showVideo: 'Mostrar vídeo',
+      pickGameTitle: 'Escolha o jogo', close: 'Fechar', start: 'Ligar o rádio',
+      startNote: 'Ouça as rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III ao vivo, como no carro.<br>Áudio das transmissões completas publicadas no YouTube.<br>Projeto de fã, sem afiliação com a Rockstar Games.',
+      stations: (n) => `${n} rádios`,
+      unavailable: 'Transmissão indisponível agora',
+      needTune: 'Sintonize uma rádio antes de salvar',
+      saved: (name, k) => `${name} salva na memória ${k}`,
+      emptyRecall: (k) => `Memória ${k} vazia: segure para salvar`,
+      presetTitle: (k, name) => `${k}: ${name} (segure para trocar)`,
+      presetAria: (k, name) => `Memória ${k}: ${name}`,
+      presetEmptyTitle: (k) => `Memória ${k} vazia: segure para salvar a rádio atual`,
+      presetEmptyAria: (k) => `Memória ${k} vazia`,
+      langOther: 'en', langOtherLabel: 'EN', langOtherAria: 'English version',
+    },
+    en: {
+      docTitle: 'Rádio Wheel — GTA Radio Stations Live (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)',
+      docDesc: 'Listen to all 109 radio stations from GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and GTA III in your browser, live and synced like in the game, with the radio wheel, presets and the name of the song playing.',
+      prevGame: 'Previous game', pickGame: 'Choose game', nextGame: 'Next game',
+      radioOff: 'Radio off', pickStation: 'Pick a station', controls: 'Controls',
+      prevSt: 'Previous station', power: 'Turn radio on/off', nextSt: 'Next station',
+      spotifyAria: 'Open the current song on Spotify to save it', spotifyTitle: 'Open on Spotify to save',
+      mute: 'Mute', unmute: 'Unmute',
+      presets: 'Presets', presetsHint: 'tap to tune · hold to save',
+      ytPlayer: 'YouTube player', expand: 'Expand player', minimize: 'Minimize player',
+      hideVideo: 'Hide video', showVideo: 'Show video',
+      pickGameTitle: 'Choose the game', close: 'Close', start: 'Turn on the radio',
+      startNote: 'Listen to the GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and III radio stations live, just like in the car.<br>Audio from full station broadcasts published on YouTube.<br>Fan project, not affiliated with Rockstar Games.',
+      stations: (n) => `${n} stations`,
+      unavailable: 'Broadcast unavailable right now',
+      needTune: 'Tune in to a station before saving',
+      saved: (name, k) => `${name} saved to preset ${k}`,
+      emptyRecall: (k) => `Preset ${k} is empty: hold to save`,
+      presetTitle: (k, name) => `${k}: ${name} (hold to replace)`,
+      presetAria: (k, name) => `Preset ${k}: ${name}`,
+      presetEmptyTitle: (k) => `Preset ${k} is empty: hold to save the current station`,
+      presetEmptyAria: (k) => `Preset ${k} empty`,
+      langOther: 'pt', langOtherLabel: 'PT', langOtherAria: 'Versão em português',
+    },
+  };
+  // gêneros: as estações guardam o texto em português; aqui fica a versão em inglês
+  const GENRE_EN = {
+    'Pop & New Wave dos anos 80': '80s Pop & New Wave', 'Hip-hop dos anos 80': '80s hip-hop', 'Anos 80': '80s hits', 'Baladas dos anos 80': '80s ballads',
+    'Bem-estar (falada)': 'Wellness (talk)', 'Country clássico': 'Classic country', 'Disco & funk': 'Disco & funk',
+    'Eletrônica': 'Electronic', 'Funk & soul raro': 'Rare funk & soul', 'Hip-hop & eletrônica': 'Hip-hop & electronic',
+    'Hip-hop clássico': 'Classic hip-hop', 'Hip-hop da Costa Oeste': 'West Coast hip-hop', 'Hip-hop de NY': 'NY hip-hop',
+    'Hip-hop moderno': 'Modern hip-hop', 'IDM & hip-hop alternativo': 'IDM & alternative hip-hop',
+    'Indie & alternativo': 'Indie & alternative', 'Indie dance & eletrônica': 'Indie dance & electronic',
+    'Latina': 'Latin', 'Música mexicana': 'Mexican music', 'Música russa': 'Russian music',
+    'Rock alternativo & grunge': 'Alternative rock & grunge', 'Rock clássico': 'Classic rock', 'Rádio falada': 'Talk radio',
+    'Afrobeats & música africana': 'Afrobeats & African music', 'Música clássica': 'Classical music',
+    'House & eletrônica': 'House & electronic', 'Rock experimental': 'Experimental rock',
+    'Pop experimental & reggaeton': 'Experimental pop & reggaeton',
+    'Rádio pública (falada)': 'Public radio (talk)', 'Soft rock & baladas': 'Soft rock & ballads', 'Ópera & clássica': 'Opera & classical',
+  };
+  const BOT = /bot|crawl|spider|slurp|lighthouse|headless/i.test(navigator.userAgent);
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  let lang = urlLang === 'en' || urlLang === 'pt' ? urlLang
+    : LS.get('lang', null) || (!BOT && !(navigator.languages || [navigator.language]).some((l) => /^pt/i.test(l)) ? 'en' : 'pt');
+  if (!I18N[lang]) lang = 'pt';
+  const t = (k, ...a) => { const v = I18N[lang][k] ?? I18N.pt[k]; return typeof v === 'function' ? v(...a) : v; };
+  const genre = (st) => (lang === 'en' && GENRE_EN[st.genre]) || st.genre;
+  const pageUrl = (l) => { const u = new URL(location.href); u.hash = ''; if (l === 'en') u.searchParams.set('lang', 'en'); else u.searchParams.delete('lang'); return u.href; };
+  function applyStaticLang() {
+    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+    document.title = t('docTitle');
+    document.querySelector('meta[name="description"]').content = t('docDesc');
+    let canon = document.querySelector('link[rel="canonical"]');
+    if (!canon) { canon = document.createElement('link'); canon.rel = 'canonical'; document.head.appendChild(canon); }
+    canon.href = pageUrl(lang).replace(/\?$/, '');
+    document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.dataset.i18nHtml); });
+    document.querySelectorAll('[data-i18n-aria]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    document.querySelectorAll('[data-i18n-title]').forEach((el) => { el.title = t(el.dataset.i18nTitle); });
+    const lb = $('langBtn'), other = t('langOther');
+    lb.textContent = t('langOtherLabel'); lb.lang = other === 'en' ? 'en' : 'pt-BR'; lb.hreflang = lb.lang;
+    lb.setAttribute('aria-label', t('langOtherAria'));
+    lb.href = pageUrl(other);
+  }
+  applyStaticLang();
+  if (urlLang !== lang && (lang === 'en' || urlLang)) history.replaceState(null, '', pageUrl(lang));
+
+  const GAME_KEYS = Object.keys(window.GAMES);
+  let game = LS.get('game', 'gta6');
+  if (!window.STATIONS[game]) game = 'gta6';
+  let current = -1;            // índice da estação tocando (-1 = desligada)
+  let hover = -1;              // índice destacado (teclado/rodinha)
+  let volume = LS.get('vol', 80);
+  let player, playerReady = false, started = false;
+  let tuneTimer = null, fadeTimer = null, pendingId = null;
+
+  // ---------- "ao vivo": posição derivada do relógio ----------
+  // Cada estação tem um deslocamento fixo para que não comecem todas sincronizadas.
+  const seedOf = (id) => [...id].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7) % 100000;
+  const durations = LS.get('durs', {});
+  const durOf = (st) => st.dur || durations[st.id] || 0;
+  const livePos = (st) => {
+    const dur = durOf(st);
+    if (!dur) return 0;
+    return ((Date.now() / 1000) + seedOf(st.id)) % (dur - 5);
+  };
+
+  // ---------- som de sintonia (Web Audio) ----------
+  // sounds/sintonia.m4a: ~50 s de rádio FM sintonizando. Baixa já no carregamento da página e,
+  // a cada troca, toca a partir de um ponto aleatório (cada sintonia soa diferente, como girar o dial).
+  const tuneData = fetch('sounds/sintonia.m4a').then((r) => (r.ok ? r.arrayBuffer() : null)).catch(() => null);
+  let ac, tuneBuf;
+  function initAudio() {
+    if (ac) return;
+    ac = new (window.AudioContext || window.webkitAudioContext)();
+    tuneData.then((d) => d && ac.decodeAudioData(d)).then((b) => { if (b) tuneBuf = b; }).catch(() => {});
+  }
+  let staticNodes = null;
+  function startStatic() {
+    if (!ac || !tuneBuf) return;
+    stopStatic(0);
+    const t = ac.currentTime;
+    const src = ac.createBufferSource();
+    src.buffer = tuneBuf; src.loop = true;
+    const out = ac.createGain();
+    const lvl = 0.8 * (volume / 100);
+    out.gain.setValueAtTime(0.0001, t);
+    out.gain.exponentialRampToValueAtTime(Math.max(lvl, 0.0002), t + 0.04);
+    src.connect(out).connect(ac.destination);
+    src.start(t, Math.random() * Math.max(0, tuneBuf.duration - 5));
+    staticNodes = { src, out };
+  }
+  function stopStatic(fade = 0.35) {
+    if (!staticNodes || !ac) return;
+    const { src, out } = staticNodes; staticNodes = null;
+    const t = ac.currentTime;
+    out.gain.cancelScheduledValues(t);
+    out.gain.setValueAtTime(out.gain.value, t);
+    out.gain.exponentialRampToValueAtTime(0.0001, t + Math.max(fade, 0.01));
+    src.stop(t + fade + 0.05);
+  }
+
+  // ---------- roda ----------
+  const list = () => window.STATIONS[game];
+  const shortName = (n) => {
+    const words = n.replace(/[-.]/g, ' ').split(/\s+/).filter(Boolean);
+    const num = n.match(/\d+(\.\d+)?/);
+    if (words.length === 1) return n.slice(0, 5).toUpperCase();
+    const ini = words.filter((w) => /^[A-Za-z]/.test(w) && !/^(the|fm|radio)$/i.test(w)).map((w) => w[0].toUpperCase()).join('').slice(0, 3);
+    return num ? (ini.slice(0, 2) + '\n' + num[0]) : (ini || words[0].slice(0, 4).toUpperCase());
+  };
+
+  function buildWheel() {
+    wheel.querySelectorAll('.slot').forEach((s) => s.remove());
+    const sts = list();
+    const n = sts.length + 1; // +1 = desligar (no topo, como no jogo)
+    const size = wheel.clientWidth;
+    wheel.classList.toggle('compact', size < 380);
+    const r = size * 0.39;
+    const b = Math.min(size * 0.16, (2 * Math.PI * r / n) * 0.86);
+    wheel.style.setProperty('--b', b + 'px');
+    for (let i = -1; i < sts.length; i++) {
+      const a = ((i + 1) / n) * Math.PI * 2 - Math.PI / 2;
+      const el = document.createElement('button');
+      el.className = 'slot' + (i === -1 ? ' offslot' : '');
+      el.style.setProperty('--x', Math.cos(a) * r + 'px');
+      el.style.setProperty('--y', Math.sin(a) * r + 'px');
+      el.dataset.i = i;
+      el.dataset.angle = (a * 180 / Math.PI + 90).toFixed(1);
+      if (i >= 0 && sts[i].light) el.classList.add('light');
+      if (i === -1) {
+        el.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v8"/><path d="M6.4 6.6a8 8 0 1 0 11.2 0"/></svg>';
+        el.title = t('radioOff');
+      } else {
+        const st = sts[i];
+        el.style.setProperty('--s1', st.c[0]);
+        el.style.setProperty('--s2', st.c[1]);
+        if (st.logo) {
+          const img = new Image(); img.src = st.logo; img.alt = ''; img.decoding = 'async';
+          el.appendChild(img);
+        } else {
+          el.classList.add('badge');
+          el.textContent = st.short || shortName(st.name);
+        }
+        el.title = st.name;
+        el.setAttribute('aria-label', st.name);
+      }
+      el.addEventListener('click', () => select(i));
+      el.addEventListener('mouseenter', () => preview(i));
+      wheel.appendChild(el);
+    }
+    paint();
+  }
+
+  function paint() {
+    wheel.querySelectorAll('.slot').forEach((el) => {
+      const i = +el.dataset.i;
+      el.classList.toggle('active', i === current);
+      el.classList.toggle('hover', i === hover && hover !== current);
+    });
+  }
+
+  function preview(i) {
+    hover = i;
+    showInfo(i);
+    paint();
+  }
+
+  function showInfo(i) {
+    const st = list()[i];
+    $('stName').textContent = st ? st.name : t('radioOff');
+    $('stGenre').textContent = st ? genre(st) : t('pickStation');
+    const lg = $('stLogo');
+    if (st && st.logo) { lg.src = st.logo; lg.hidden = false; } else lg.hidden = true;
+    lg.classList.toggle('light', !!(st && st.light));
+    $('stName').hidden = !!(st && st.logo);
+  }
+
+  let tuning = false;
+  function setLive(state) {
+    tuning = state === 'tuning';
+    $('song').classList.toggle('tuning', tuning);
+    if (state === 'off') $('song').textContent = '';
+    updateSong();
+  }
+
+  // música atual = última faixa da tracklist cujo início já passou
+  let lastSong = '';
+  function currentTrack(st) {
+    const list = (window.TRACKS || {})[st.id] || [];
+    if (!list.length) return '';
+    let pos = livePos(st);
+    if (playerReady && !tuning && player.getPlayerState && player.getPlayerState() === 1) pos = player.getCurrentTime();
+    let t = list[0][1];
+    for (const [s, name] of list) { if (s <= pos) t = name; else break; }
+    return t;
+  }
+  function updateSong() {
+    const st = list()[current];
+    const txt = st ? currentTrack(st) : '';
+    if (txt === lastSong && $('song').textContent === txt) return;
+    lastSong = txt;
+    $('song').textContent = txt;
+    // busca a música no Spotify (no celular, abre o app); lá é só tocar no coração para salvar
+    const q = txt.replace(/\(\d{4}\)|\[[^\]]*\]|["“”]/g, ' ').replace(/\s+[-–—]\s+/g, ' ').replace(/\s+/g, ' ').trim();
+    $('spotify').hidden = !q || /^(intro|ident|commercial|dj |news|ad )/i.test(q);
+    $('spotify').href = 'https://open.spotify.com/search/' + encodeURIComponent(q);
+    if (st && 'mediaSession' in navigator && txt) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: txt, artist: st.name, album: window.GAMES[game].full,
+        artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
+      });
+    }
+  }
+
+  function applyTheme(st) {
+    const root = document.documentElement.style;
+    if (st) { root.setProperty('--c1', st.c[0]); root.setProperty('--c2', st.c[1]); }
+    document.body.classList.toggle('off', !st);
+  }
+
+  // ---------- trocar estação ----------
+  function select(i) {
+    if (!started) return;
+    initAudio();
+    if (ac.state === 'suspended') ac.resume();
+    hover = i;
+    if (i === current) { paint(); return; }
+    current = i;
+    LS.set('last_' + game, i);
+    if (i >= 0) LS.set('lastOn_' + game, i);
+    paint();
+    if (typeof markPresets === 'function') markPresets();
+    showInfo(i);
+    const st = list()[i];
+    applyTheme(st);
+    if (st) $('ytTitle').textContent = `${st.name} · ${window.GAMES[game].label}`;
+    clearTimeout(tuneTimer); clearInterval(fadeTimer);
+
+    if (!st) { // desligar
+      stopStatic(0.05);
+      startStaticShort();
+      if (playerReady) { player.setVolume(0); player.pauseVideo(); }
+      keepAlive.pause();
+      pendingId = null;
+      setLive('off');
+      updateMediaSession(null);
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+      return;
+    }
+
+    startStatic();
+    setLive('tuning');
+    if (playerReady) player.setVolume(0);
+    pendingId = st.id;
+    const tunedAt = performance.now();
+    tuneTimer = setTimeout(() => {
+      if (!playerReady) return;
+      player.loadVideoById({ videoId: st.id, startSeconds: Math.floor(livePos(st)), suggestedQuality: 'small' });
+    }, 120);
+    select.tunedAt = tunedAt;
+    updateMediaSession(st);
+    if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+    if (started) keepPlay();
+  }
+  function startStaticShort() { startStatic(); setTimeout(() => stopStatic(0.2), 220); }
+
+  function onPlaying() {
+    const st = list()[current];
+    if (!st || pendingId !== st.id) return;
+    // grava a duração real (corrige a estimativa e cobre estações sem duração)
+    const real = Math.floor(player.getDuration() || 0);
+    if (real > 60 && durations[st.id] !== real) { durations[st.id] = real; LS.set('durs', durations); }
+    if (!st.dur && real > 60) st.dur = real;
+    // corrige deriva (tempo de buffer, duração desconhecida)
+    const want = livePos(st);
+    if (Math.abs(player.getCurrentTime() - want) > 4) player.seekTo(want, true);
+    pendingId = null;
+    // garante que o chiado dure ao menos ~0,5 s, como no jogo
+    const wait = Math.max(0, 500 - (performance.now() - (select.tunedAt || 0)));
+    setTimeout(() => {
+      stopStatic(0.35);
+      fadeIn();
+      setLive('on');
+    }, wait);
+  }
+
+  function fadeIn() {
+    clearInterval(fadeTimer);
+    let v = 0;
+    player.setVolume(0);
+    fadeTimer = setInterval(() => {
+      v = Math.min(volume, v + volume / 8);
+      player.setVolume(v);
+      if (v >= volume) clearInterval(fadeTimer);
+    }, 50);
+  }
+
+  const step = (dir) => {
+    const n = list().length;
+    let i = (hover === -1 && current === -1) ? -1 : hover;
+    i = ((i + 1 + dir) % (n + 1) + (n + 1)) % (n + 1) - 1;
+    preview(i);
+    // como no jogo: gira a roda e sintoniza quando você para
+    clearTimeout(step.t);
+    step.t = setTimeout(() => select(i), 380);
+  };
+
+  // ---------- player visível: minimizado por padrão ----------
+  const SIZE_ICO = {
+    mini: '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>',   // expandir
+    big: '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/>',   // minimizar
+  };
+  function setPlayerSize(size) {
+    $('yt').dataset.size = size;
+    $('ytSizeIco').innerHTML = SIZE_ICO[size];
+    $('ytSize').setAttribute('aria-label', size === 'mini' ? t('expand') : t('minimize'));
+    LS.set('ytSize', size);
+  }
+  setPlayerSize(LS.get('ytSize', 'mini'));
+
+  const HIDE_ICO = {
+    shown: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path d="M3 3l18 18"/>', // ocultar
+    hidden: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',                  // mostrar
+  };
+  function setPlayerHidden(hidden) {
+    $('yt').dataset.hidden = hidden ? '1' : '0';
+    $('ytHideIco').innerHTML = HIDE_ICO[hidden ? 'hidden' : 'shown'];
+    $('ytHide').setAttribute('aria-label', hidden ? t('showVideo') : t('hideVideo'));
+    $('ytHide').title = hidden ? t('showVideo') : t('hideVideo');
+    LS.set('ytHidden', hidden);
+  }
+  setPlayerHidden(LS.get('ytHidden', false));
+  $('ytHide').addEventListener('click', () => setPlayerHidden($('yt').dataset.hidden !== '1'));
+  $('ytSize').addEventListener('click', () => setPlayerSize($('yt').dataset.size === 'mini' ? 'big' : 'mini'));
+
+  // ---------- YouTube ----------
+  window.onYouTubeIframeAPIReady = () => {
+    player = new YT.Player('player', {
+      host: 'https://www.youtube-nocookie.com',
+      playerVars: { autoplay: 0, controls: 0, disablekb: 1, playsinline: 1, rel: 0, modestbranding: 1, iv_load_policy: 3 },
+      events: {
+        onReady: () => { playerReady = true; player.setVolume(0); if (started && current >= 0) { const c = current; current = -2; select(c); } },
+        onStateChange: (e) => {
+          if (e.data === YT.PlayerState.PLAYING) onPlaying();
+          if (e.data === YT.PlayerState.ENDED && current >= 0) { // fim do vídeo: volta ao começo, a rádio nunca para
+            player.seekTo(0, true); player.playVideo();
+          }
+        },
+        onError: (e) => {
+          const st = list()[current];
+          console.warn('Erro no player', e.data, st && st.name);
+          stopStatic(0.2);
+          $('stGenre').textContent = t('unavailable');
+          setLive('off');
+        },
+      },
+    });
+  };
+  const tag = document.createElement('script');
+  tag.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+
+  // ---------- áudio silencioso: faz o Chrome mandar as teclas de mídia para a página ----------
+  // Sem isso, quem "toca" é o iframe do YouTube e as teclas vão para ele (que não tem próxima/anterior).
+  const keepAlive = (() => {
+    const rate = 8000, secs = 10, n = rate * secs; // > 5 s, senão o Chrome ignora para a media session
+    const buf = new Uint8Array(44 + n), dv = new DataView(buf.buffer);
+    const w = (o, str) => [...str].forEach((c, k) => buf[o + k] = c.charCodeAt(0));
+    w(0, 'RIFF'); dv.setUint32(4, 36 + n, true); w(8, 'WAVEfmt ');
+    dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 1, true);
+    dv.setUint32(24, rate, true); dv.setUint32(28, rate, true); dv.setUint16(32, 1, true); dv.setUint16(34, 8, true);
+    w(36, 'data'); dv.setUint32(40, n, true); buf.fill(128, 44); // 8 bits: 128 = silêncio
+    const a = new Audio(URL.createObjectURL(new Blob([buf], { type: 'audio/wav' })));
+    a.loop = true;
+    return a;
+  })();
+  const keepPlay = () => keepAlive.play().catch(() => {});
+
+  // ---------- ligar/desligar ----------
+  function powerOff() { if (started && current !== -1) select(-1); }
+  function powerOn() {
+    if (!started) { $('startBtn').click(); return; }
+    if (current !== -1) return;
+    const n = list().length;
+    const last = LS.get('lastOn_' + game, 0);
+    select(last >= 0 && last < n ? last : 0); // recarrega o vídeo em livePos(): ressincroniza o tempo
+  }
+
+  // ---------- Media Session (fone/volante/tela de bloqueio) ----------
+  function updateMediaSession(st) {
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.metadata = st ? new MediaMetadata({
+      title: st.name, artist: st.genre, album: window.GAMES[game].full,
+      artwork: st.logo ? [{ src: new URL(st.logo, location.href).href, sizes: '256x256' }] : [],
+    }) : null;
+  }
+  if ('mediaSession' in navigator) {
+    navigator.mediaSession.setActionHandler('nexttrack', () => step(1));
+    navigator.mediaSession.setActionHandler('previoustrack', () => step(-1));
+    // alguns teclados mandam avançar/retroceder em vez de próxima/anterior
+    for (const [act, dir] of [['seekforward', 1], ['seekbackward', -1]]) {
+      try { navigator.mediaSession.setActionHandler(act, () => step(dir)); } catch {}
+    }
+    // play/pause do teclado: desliga; ao dar play volta à última estação, já no ponto "ao vivo"
+    navigator.mediaSession.setActionHandler('pause', () => powerOff());
+    navigator.mediaSession.setActionHandler('stop', () => powerOff());
+    navigator.mediaSession.setActionHandler('play', () => powerOn());
+  }
+
+  // ---------- controles ----------
+  $('startBtn').addEventListener('click', () => {
+    started = true;
+    keepPlay();
+    document.body.classList.add('started');
+    initAudio();
+    $('start').hidden = true;
+    const last = LS.get('last_' + game, 0);
+    select(last >= 0 ? last : 0);
+  });
+  $('prev').addEventListener('click', () => step(-1));
+  $('next').addEventListener('click', () => step(1));
+  $('power').addEventListener('click', () => (current === -1 ? powerOn() : powerOff()));
+  const VOL_ICONS = {
+    mute: 'M3 9v6h4l5 5V4L7 9H3zm13.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z',
+    low: 'M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4z',
+    high: 'M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z',
+  };
+  let lastVol = volume || 80;
+  function setVolume(v, save = true) {
+    volume = Math.max(0, Math.min(100, Math.round(v)));
+    if (volume > 0) lastVol = volume;
+    if (save) LS.set('vol', volume);
+    const r = $('vol');
+    r.value = volume; r.style.setProperty('--v', volume + '%');
+    $('volVal').textContent = volume;
+    $('volIcon').innerHTML = `<path d="${VOL_ICONS[volume === 0 ? 'mute' : volume < 50 ? 'low' : 'high']}"/>`;
+    $('mute').setAttribute('aria-label', volume === 0 ? t('unmute') : t('mute'));
+    clearInterval(fadeTimer);
+    if (playerReady && current >= 0 && !tuning) player.setVolume(volume);
+  }
+  $('vol').addEventListener('input', (e) => setVolume(+e.target.value));
+  $('mute').addEventListener('click', () => setVolume(volume === 0 ? lastVol : 0));
+  setVolume(volume, false);
+  function switchGame(g, idx) {
+    if (current >= 0) LS.set('lastOn_' + game, current);
+    game = g; LS.set('game', game);
+    renderGameSel();
+    current = -2; hover = -1;
+    buildWheel();
+    const last = idx ?? LS.get('last_' + game, 0);
+    if (started) select(last >= 0 ? last : 0); else { current = -1; preview(-1); }
+  }
+  // ---------- seletor de jogo ----------
+  const PIN = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+  function renderGameSel() {
+    const G = window.GAMES[game];
+    const root = document.documentElement.style;
+    root.setProperty('--gc1', G.color); root.setProperty('--gc2', G.color2);
+    if (G.logo) { $('gLogo').src = G.logo; $('gLogo').alt = G.full; }
+    $('gLogo').hidden = !G.logo; $('gMark').hidden = !!G.logo;
+    $('gMark').textContent = G.mark;
+    $('gName').textContent = G.label;
+    $('gMeta').innerHTML = `${PIN}${G.place} · ${G.year} · ${t('stations', window.STATIONS[game].length)}`;
+    $('gDots').innerHTML = GAME_KEYS.map((k) => `<i class="${k === game ? 'on' : ''}"></i>`).join('');
+    document.querySelectorAll('.cover').forEach((c) => c.classList.toggle('on', c.dataset.game === game));
+  }
+  function cycleGame(dir) {
+    const i = GAME_KEYS.indexOf(game);
+    switchGame(GAME_KEYS[(i + dir + GAME_KEYS.length) % GAME_KEYS.length]);
+  }
+  $('gPrev').addEventListener('click', () => cycleGame(-1));
+  $('gNext').addEventListener('click', () => cycleGame(1));
+
+  // grade de "capas"
+  function buildCovers() {
+  $('covers').innerHTML = '';
+  for (const k of GAME_KEYS) {
+    const G = window.GAMES[k];
+    const c = document.createElement('button');
+    c.className = 'cover'; c.dataset.game = k;
+    c.style.setProperty('--gc1', G.color); c.style.setProperty('--gc2', G.color2);
+    const logos = window.STATIONS[k].filter((s) => s.logo).slice(0, 3).map((s) => `<img src="${s.logo}" alt="" loading="lazy"${s.light ? ' class="light"' : ''}>`).join('');
+    c.innerHTML = `${G.logo ? `<img class="big" src="${G.logo}" alt="">` : `<span class="bigtxt">${G.mark}</span>`}
+      <span class="foot"><span class="s">${G.place} · ${G.year}<br>${t('stations', window.STATIONS[k].length)}</span><span class="logos">${logos}</span></span>`;
+    c.setAttribute('aria-label', `${G.full}, ${t('stations', window.STATIONS[k].length)}`);
+    c.addEventListener('click', () => { closePicker(); if (k !== game) switchGame(k); });
+    $('covers').appendChild(c);
+  }
+  }
+  buildCovers();
+  const openPicker = () => { $('picker').classList.add('open'); document.querySelector('.cover.on')?.focus(); };
+  const closePicker = () => { $('picker').classList.remove('open'); };
+  $('gTitle').addEventListener('click', openPicker);
+  $('pClose').addEventListener('click', closePicker);
+  $('picker').addEventListener('click', (e) => { if (e.target.id === 'picker') closePicker(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePicker(); });
+
+  // deslizar o dedo no título troca de jogo
+  let swipeX = null;
+  $('gTitle').addEventListener('touchstart', (e) => { swipeX = e.touches[0].clientX; }, { passive: true });
+  $('gTitle').addEventListener('touchend', (e) => {
+    if (swipeX === null) return;
+    const dx = e.changedTouches[0].clientX - swipeX; swipeX = null;
+    if (Math.abs(dx) > 40) { e.preventDefault(); cycleGame(dx < 0 ? 1 : -1); }
+  });
+
+  // ---------- memórias: toque sintoniza, segurar ~0,7 s salva a estação atual ----------
+  let presets = LS.get('presets', [null, null, null, null, null, null]);  const findStation = (p) => {
+    if (!p) return null;
+    const i = (window.STATIONS[p.g] || []).findIndex((s) => s.name === p.name);
+    return i < 0 ? null : { g: p.g, i, st: window.STATIONS[p.g][i] };
+  };
+  let toastT;
+  function toast(msg) {
+    const t = $('toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1600);
+  }
+  function renderPresets() {
+    const box = $('presets');
+    box.innerHTML = '';
+    presets.forEach((p, k) => {
+      const f = findStation(p);
+      const b = document.createElement('button');
+      b.className = 'preset';
+      b.dataset.k = k;
+      b.innerHTML = '<span class="fill"></span>';
+      if (f) {
+        b.insertAdjacentHTML('beforeend', `<span class="num">${k + 1}</span>`);
+        if (f.st.logo) { const img = new Image(); img.src = f.st.logo; img.alt = ''; b.appendChild(img); if (f.st.light) b.classList.add('light'); }
+        else { b.classList.add('badge'); b.style.background = `linear-gradient(135deg, ${f.st.c[0]}, ${f.st.c[1]})`; b.appendChild(document.createTextNode(f.st.short || shortName(f.st.name))); }
+        b.title = t('presetTitle', k + 1, f.st.name);
+        b.setAttribute('aria-label', t('presetAria', k + 1, f.st.name));
+      } else {
+        b.classList.add('empty');
+        b.appendChild(document.createTextNode(k + 1));
+        b.title = t('presetEmptyTitle', k + 1);
+        b.setAttribute('aria-label', t('presetEmptyAria', k + 1));
+      }
+      let holdT = null, held = false;
+      const start = (e) => {
+        if (e.button > 0) return;
+        held = false;
+        b.classList.add('holding');
+        holdT = setTimeout(() => { held = true; b.classList.remove('holding'); save(k); }, 700);
+      };
+      const cancel = () => { clearTimeout(holdT); b.classList.remove('holding'); };
+      b.addEventListener('pointerdown', start);
+      b.addEventListener('pointerup', () => { cancel(); if (!held) recall(k); });
+      b.addEventListener('pointerleave', cancel);
+      b.addEventListener('pointercancel', cancel);
+      b.addEventListener('contextmenu', (e) => e.preventDefault());
+      b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); recall(k); } });
+      box.appendChild(b);
+    });
+    markPresets();
+  }
+  function markPresets() {
+    const st = list()[current];
+    document.querySelectorAll('.preset').forEach((b) => {
+      const p = presets[+b.dataset.k];
+      b.classList.toggle('on', !!(st && p && p.g === game && p.name === st.name));
+    });
+  }
+  function save(k) {
+    const st = list()[current];
+    if (!st) { toast(t('needTune')); return; }
+    presets[k] = { g: game, name: st.name };
+    LS.set('presets', presets);
+    renderPresets();
+    const b = document.querySelector(`.preset[data-k="${k}"]`);
+    b.classList.add('saved');
+    if (navigator.vibrate) navigator.vibrate(30);
+    toast(t('saved', st.name, k + 1));
+  }
+  function recall(k) {
+    if (!started) return;
+    const f = findStation(presets[k]);
+    if (!f) { toast(t('emptyRecall', k + 1)); return; }
+    if (f.g !== game) switchGame(f.g, f.i); else select(f.i);
+  }
+  document.addEventListener('keydown', (e) => {
+    if (!started || e.target.tagName === 'INPUT') return;
+    if (/^[1-6]$/.test(e.key)) recall(+e.key - 1);
+  });
+  renderPresets();
+  wheel.addEventListener('mouseleave', () => { hover = current; showInfo(current); paint(); });
+  wheel.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (Math.abs(e.deltaY) < 4) return;
+    const now = performance.now();
+    if (now - (wheel._last || 0) < 120) return;
+    wheel._last = now;
+    step(e.deltaY > 0 ? 1 : -1);
+  }, { passive: false });
+
+  // arrastar o dedo em volta da roda (celular)
+  let dragging = false;
+  const angleIndex = (x, y) => {
+    const r = wheel.getBoundingClientRect();
+    const dx = x - (r.left + r.width / 2), dy = y - (r.top + r.height / 2);
+    if (Math.hypot(dx, dy) < r.width * 0.2) return null;
+    const n = list().length + 1;
+    let a = Math.atan2(dy, dx) + Math.PI / 2;
+    if (a < 0) a += Math.PI * 2;
+    return Math.round(a / (Math.PI * 2 / n)) % n - 1;
+  };
+  wheel.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse') return;
+    dragging = true;
+    const i = angleIndex(e.clientX, e.clientY);
+    if (i !== null) preview(i);
+  });
+  wheel.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const i = angleIndex(e.clientX, e.clientY);
+    if (i !== null && i !== hover) { preview(i); if (navigator.vibrate) navigator.vibrate(8); }
+  });
+  const endDrag = () => { if (dragging) { dragging = false; select(hover); } };
+  wheel.addEventListener('pointerup', endDrag);
+  wheel.addEventListener('pointercancel', () => { dragging = false; });
+
+  document.addEventListener('keydown', (e) => {
+    if (!started) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); step(1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); step(-1); }
+    if (e.key === ' ') { e.preventDefault(); $('power').click(); }
+    if (e.key === 'MediaTrackNext') { e.preventDefault(); step(1); }
+    if (e.key === 'MediaTrackPrevious') { e.preventDefault(); step(-1); }
+  });
+
+  setInterval(updateSong, 1000);
+
+  let rz; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(buildWheel, 120); });
+
+  $('langBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    lang = t('langOther'); LS.set('lang', lang);
+    history.replaceState(null, '', pageUrl(lang));
+    applyStaticLang();
+    buildCovers(); renderGameSel(); buildWheel(); renderPresets();
+    showInfo(hover);
+    setPlayerSize($('yt').dataset.size); setPlayerHidden($('yt').dataset.hidden === '1');
+    $('mute').setAttribute('aria-label', volume === 0 ? t('unmute') : t('mute'));
+  });
+
+  renderGameSel();
+  buildWheel();
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => {});
+})();
+</script>
+</body>
+</html>

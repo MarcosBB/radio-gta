@@ -1,0 +1,106 @@
+[
+  {
+    "id": "gta6",
+    "label": "GTA VI",
+    "mark": "VI",
+    "full_name": "Grand Theft Auto VI",
+    "place": "Leonida",
+    "year": 2026,
+    "colors": [
+      "#ff3d8b",
+      "#ffb03a"
+    ],
+    "logo": "logos/games/gta6.png"
+  },
+  {
+    "id": "gta5",
+    "label": "GTA V",
+    "mark": "V",
+    "full_name": "Grand Theft Auto V",
+    "place": "Los Santos",
+    "year": 2013,
+    "colors": [
+      "#2bb673",
+      "#1f6fd1"
+    ],
+    "logo": "logos/games/gta5.png"
+  },
+  {
+    "id": "gta4",
+    "label": "GTA IV",
+    "mark": "IV",
+    "full_name": "Grand Theft Auto IV",
+    "place": "Liberty City",
+    "year": 2008,
+    "colors": [
+      "#c9a14a",
+      "#5a6170"
+    ],
+    "logo": "logos/games/gta4.png"
+  },
+  {
+    "id": "gtavcs",
+    "label": "Vice City Stories",
+    "mark": "VCS",
+    "full_name": "GTA: Vice City Stories",
+    "place": "Vice City",
+    "year": 2006,
+    "colors": [
+      "#ff6fb5",
+      "#3fd0c9"
+    ],
+    "logo": "logos/games/gtavcs.png"
+  },
+  {
+    "id": "gtalcs",
+    "label": "Liberty City Stories",
+    "mark": "LCS",
+    "full_name": "GTA: Liberty City Stories",
+    "place": "Liberty City",
+    "year": 2005,
+    "colors": [
+      "#d32f2f",
+      "#e8e8e8"
+    ],
+    "logo": "logos/games/gtalcs.png"
+  },
+  {
+    "id": "gtasa",
+    "label": "San Andreas",
+    "mark": "SA",
+    "full_name": "GTA: San Andreas",
+    "place": "San Andreas",
+    "year": 2004,
+    "colors": [
+      "#3fbf3f",
+      "#e0b13a"
+    ],
+    "logo": "logos/games/gtasa.png"
+  },
+  {
+    "id": "gtavc",
+    "label": "Vice City",
+    "mark": "VC",
+    "full_name": "GTA: Vice City",
+    "place": "Vice City",
+    "year": 2002,
+    "colors": [
+      "#ff4fa3",
+      "#2ad1e0"
+    ],
+    "logo": "logos/games/gtavc.png"
+  },
+  {
+    "id": "gta3",
+    "label": "GTA III",
+    "mark": "III",
+    "full_name": "Grand Theft Auto III",
+    "place": "Liberty City",
+    "year": 2001,
+    "colors": [
+      "#e8e8e8",
+      "#d32f2f"
+    ],
+    "logo": "logos/games/gta3.png"
+  }
+]

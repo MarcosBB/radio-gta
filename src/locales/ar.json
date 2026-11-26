@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "title": "Radio Wheel — محطات راديو GTA مباشرة (GTA VI وV وIV وVCS وLCS وSan Andreas وVice City وIII)",
+    "description": "استمع إلى جميع محطات الراديو الـ109 من GTA VI وGTA V وGTA IV وVice City Stories وLiberty City Stories وSan Andreas وVice City وGTA III في متصفحك، مباشرة ومتزامنة كما في اللعبة، مع عجلة الراديو والمحطات المحفوظة واسم الأغنية التي تُذاع الآن.",
+    "ogTitle": "Radio Wheel — محطات راديو GTA مباشرة",
+    "ogDescription": "محطات راديو GTA VI وV وIV وVice City Stories وLiberty City Stories وSan Andreas وVice City وIII تُذاع مباشرة، مع عجلة الراديو من اللعبة.",
+    "ogImageAlt": "عجلة الراديو في Radio Wheel مع محطات GTA VI"
+  },
+  "start": {
+    "button": "شغّل الراديو",
+    "note": "استمع إلى محطات راديو GTA VI وV وIV وVice City Stories وLiberty City Stories وSan Andreas وVice City وIII مباشرة، كما في السيارة.",
+    "audio": "الصوت من البث الكامل للمحطات المنشور على YouTube.",
+    "disclaimer": "مشروع من المعجبين، لا علاقة له بـ Rockstar Games."
+  },
+  "station": {
+    "off": "الراديو مطفأ",
+    "offHint": "اسحب العجلة أو المس محطة",
+    "unavailable": "البث غير متاح الآن",
+    "fallback": "بث احتياطي"
+  },
+  "wheel": {
+    "label": "عجلة المحطات",
+    "dialHint": "اسحب لأعلى أو لأسفل",
+    "turnOff": "أطفئ الراديو"
+  },
+  "controls": {
+    "label": "التحكم",
+    "prev": "المحطة السابقة",
+    "next": "المحطة التالية",
+    "power": "تشغيل الراديو أو إطفاؤه",
+    "spotify": "افتح الأغنية في Spotify",
+    "mute": "كتم الصوت",
+    "unmute": "إلغاء كتم الصوت",
+    "volume": "مستوى الصوت",
+    "keyboard": "← → لتدوير العجلة · 1–6 المحطات المحفوظة · المسافة للتشغيل والإطفاء"
+  },
+  "game": {
+    "label": "اللعبة",
+    "prev": "اللعبة السابقة",
+    "next": "اللعبة التالية",
+    "pick": "اختر اللعبة",
+    "pickTitle": "اختر اللعبة",
+    "stations_zero": "لا توجد محطات",
+    "stations_one": "محطة واحدة",
+    "stations_two": "محطتان",
+    "stations_few": "{{count}} محطات",
+    "stations_many": "{{count}} محطة",
+    "stations_other": "{{count}} محطة"
+  },
+  "presets": {
+    "title": "المحطات المحفوظة",
+    "hintTouch": "المس للاستماع · اضغط مطولًا للحفظ",
+    "hintMouse": "انقر للاستماع · اضغط مطولًا للحفظ",
+    "needTune": "اختر محطة قبل الحفظ",
+    "saved": "حُفظت {{name}} في الخانة {{n}}",
+    "empty": "الخانة {{n}} فارغة: اضغط مطولًا للحفظ",
+    "aria": "الخانة {{n}}: {{name}}",
+    "emptyAria": "الخانة {{n}} فارغة",
+    "holdToReplace": "{{n}}: {{name}} (اضغط مطولًا للاستبدال)"
+  },
+  "favorites": {
+    "add": "أضف إلى المفضلة",
+    "remove": "أزل من المفضلة",
+    "added": "أُضيفت {{name}} إلى المفضلة",
+    "removed": "أُزيلت {{name}} من المفضلة"
+  },
+  "player": {
+    "label": "مشغل YouTube",
+    "expand": "تكبير المشغل",
+    "minimize": "تصغير المشغل",
+    "hide": "إخفاء الفيديو",
+    "show": "إظهار الفيديو",
+    "live": "مباشر"
+  },
+  "sheet": {
+    "open": "افتح اللوحة كاملة",
+    "close": "اطوِ اللوحة"
+  },
+  "language": {
+    "label": "اللغة"
+  },
+  "close": "إغلاق"
+}

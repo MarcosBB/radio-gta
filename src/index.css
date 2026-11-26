@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "./App.css";
+
+:root {
+  --c1: #ff3d8b;
+  --c2: #ffb03a;
+  color-scheme: dark;
+}
+
+* { -webkit-tap-highlight-color: transparent; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+input[type=range] {
+  --v: 80%;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 28px;
+  background: none;
+  cursor: pointer;
+  margin: 0;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--c1) var(--v), rgb(255 255 255 / 0.14) var(--v));
+}
+input[type=range]::-moz-range-track { height: 6px; border-radius: 99px; background: rgb(255 255 255 / 0.14); }
+input[type=range]::-moz-range-progress { height: 6px; border-radius: 99px; background: var(--c1); }
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-top: -6px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.5);
+}
+input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 0; border-radius: 50%; background: #fff; }
+
+.player-frame iframe { width: 100%; height: 100%; display: block; border: 0; }

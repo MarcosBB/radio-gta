@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Radio Wheel — GTA के रेडियो स्टेशन लाइव (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)",
+    "description": "GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City और GTA III के सभी 109 रेडियो स्टेशन अपने ब्राउज़र में सुनें, गेम की तरह लाइव और सिंक, रेडियो व्हील, प्रीसेट और अभी चल रहे गाने के नाम के साथ।",
+    "ogTitle": "Radio Wheel — GTA के रेडियो स्टेशन लाइव",
+    "ogDescription": "GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City और III के रेडियो स्टेशन लाइव, गेम वाले रेडियो व्हील के साथ।",
+    "ogImageAlt": "GTA VI के स्टेशनों के साथ Radio Wheel का रेडियो व्हील"
+  },
+  "start": {
+    "button": "रेडियो चालू करें",
+    "note": "GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City और III के रेडियो स्टेशन लाइव सुनें, बिल्कुल कार की तरह।",
+    "audio": "ऑडियो YouTube पर प्रकाशित पूरे स्टेशन प्रसारणों से आता है।",
+    "disclaimer": "फ़ैन प्रोजेक्ट, Rockstar Games से कोई संबंध नहीं।"
+  },
+  "station": {
+    "off": "रेडियो बंद है",
+    "offHint": "व्हील घुमाएँ या किसी स्टेशन पर टैप करें",
+    "unavailable": "प्रसारण अभी उपलब्ध नहीं है",
+    "fallback": "बैकअप प्रसारण"
+  },
+  "wheel": {
+    "label": "स्टेशन व्हील",
+    "dialHint": "ऊपर या नीचे खींचें",
+    "turnOff": "रेडियो बंद करें"
+  },
+  "controls": {
+    "label": "कंट्रोल",
+    "prev": "पिछला स्टेशन",
+    "next": "अगला स्टेशन",
+    "power": "रेडियो चालू या बंद करें",
+    "spotify": "गाना Spotify पर खोलें",
+    "mute": "म्यूट करें",
+    "unmute": "आवाज़ चालू करें",
+    "volume": "वॉल्यूम",
+    "keyboard": "← → व्हील घुमाते हैं · 1–6 प्रीसेट · Space रेडियो चालू/बंद करता है"
+  },
+  "game": {
+    "label": "गेम",
+    "prev": "पिछला गेम",
+    "next": "अगला गेम",
+    "pick": "गेम चुनें",
+    "pickTitle": "गेम चुनें",
+    "stations_one": "{{count}} स्टेशन",
+    "stations_other": "{{count}} स्टेशन"
+  },
+  "presets": {
+    "title": "प्रीसेट",
+    "hintTouch": "सुनने के लिए टैप करें · सेव करने के लिए दबाकर रखें",
+    "hintMouse": "सुनने के लिए क्लिक करें · सेव करने के लिए दबाकर रखें",
+    "needTune": "सेव करने से पहले कोई स्टेशन चुनें",
+    "saved": "{{name}} प्रीसेट {{n}} में सेव हुआ",
+    "empty": "प्रीसेट {{n}} खाली है: सेव करने के लिए दबाकर रखें",
+    "aria": "प्रीसेट {{n}}: {{name}}",
+    "emptyAria": "प्रीसेट {{n}} खाली",
+    "holdToReplace": "{{n}}: {{name}} (बदलने के लिए दबाकर रखें)"
+  },
+  "favorites": {
+    "add": "पसंदीदा में जोड़ें",
+    "remove": "पसंदीदा से हटाएँ",
+    "added": "{{name}} पसंदीदा में जोड़ा गया",
+    "removed": "{{name}} पसंदीदा से हटाया गया"
+  },
+  "player": {
+    "label": "YouTube प्लेयर",
+    "expand": "प्लेयर बड़ा करें",
+    "minimize": "प्लेयर छोटा करें",
+    "hide": "वीडियो छिपाएँ",
+    "show": "वीडियो दिखाएँ",
+    "live": "लाइव"
+  },
+  "sheet": {
+    "open": "पूरा पैनल खोलें",
+    "close": "पैनल समेटें"
+  },
+  "language": {
+    "label": "भाषा"
+  },
+  "close": "बंद करें"
+}

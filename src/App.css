@@ -1,0 +1,13 @@
+@theme {
+  --color-bg: #0b0b10;
+  --color-fg: #f4f4f6;
+  --color-muted: #9a9aa8;
+  --color-soft: #b4b4c2;
+  --color-panel: rgb(20 20 28 / 0.86);
+  --color-ring: rgb(255 255 255 / 0.1);
+  --color-star: #ffd23f;
+  --color-spotify: #1ed760;
+  --font-display: Oswald, system-ui, sans-serif;
+  --font-sans: Inter, system-ui, sans-serif;
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);
+}

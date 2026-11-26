@@ -1,0 +1,2008 @@
+[
+  {
+    "id": "gta6-vice-city-fm",
+    "game": "gta6",
+    "name": "Vice City FM",
+    "short": "VICE\nCITY",
+    "logo": "logos/vice-city-fm.png",
+    "light": false,
+    "genre": "80s-pop-new-wave",
+    "colors": [
+      "#ff3d8b",
+      "#ffb03a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ZF_ae0Nyb5A",
+        "duration": "6:08:56"
+      }
+    ]
+  },
+  {
+    "id": "gta6-flash-fm",
+    "game": "gta6",
+    "name": "Flash FM",
+    "short": "FLASH",
+    "logo": "logos/flash-fm.png",
+    "light": false,
+    "genre": "pop-r-b-dance",
+    "colors": [
+      "#ffe14d",
+      "#ff5a1f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "153QBwfwKLU",
+        "duration": "2:14:48"
+      }
+    ]
+  },
+  {
+    "id": "gta6-emotion-98-3",
+    "game": "gta6",
+    "name": "Emotion 98.3",
+    "short": "EMO\n98.3",
+    "logo": "logos/emotion-983.png",
+    "light": false,
+    "genre": "soft-rock-ballads",
+    "colors": [
+      "#f06bd8",
+      "#7b5cff"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Hr4UgN6UbSw",
+        "duration": "3:02:41"
+      }
+    ]
+  },
+  {
+    "id": "gta6-v-rock",
+    "game": "gta6",
+    "name": "V-Rock",
+    "short": "V-ROCK",
+    "logo": "logos/v-rock.png",
+    "light": false,
+    "genre": "classic-rock",
+    "colors": [
+      "#e8e8e8",
+      "#d11f2a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "-RwK09PE-lw",
+        "duration": "5:20:36"
+      }
+    ]
+  },
+  {
+    "id": "gta6-vice-city-rap-radio",
+    "game": "gta6",
+    "name": "Vice City Rap Radio",
+    "short": "VCRR",
+    "logo": "logos/vcrr.png",
+    "light": false,
+    "genre": "modern-hip-hop",
+    "colors": [
+      "#ff7a1a",
+      "#2b2b2b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "LxdLqlBJIV0",
+        "duration": "4:28:27"
+      }
+    ]
+  },
+  {
+    "id": "gta6-cocoteo-fm",
+    "game": "gta6",
+    "name": "Cocoteo FM",
+    "short": "COCO\nTEO",
+    "logo": "logos/cocoteo-fm.png",
+    "light": false,
+    "genre": "reggaeton-latin",
+    "colors": [
+      "#2bd9a5",
+      "#ffde59"
+    ],
+    "videos": [
+      {
+        "youtube_id": "qtrFpZpj13g",
+        "duration": "1:49:08"
+      }
+    ]
+  },
+  {
+    "id": "gta6-la-ola",
+    "game": "gta6",
+    "name": "La Ola",
+    "short": "LA\nOLA",
+    "logo": "logos/radio-la-ola.png",
+    "light": false,
+    "genre": "latin",
+    "colors": [
+      "#1fb6ff",
+      "#ff4d6d"
+    ],
+    "videos": [
+      {
+        "youtube_id": "GqLYAUj9Gco",
+        "duration": "2:10:52"
+      }
+    ]
+  },
+  {
+    "id": "gta6-dirty-south-classics",
+    "game": "gta6",
+    "name": "Dirty South Classics",
+    "short": "DIRTY\nSOUTH",
+    "logo": "logos/dirty-south-classics.png",
+    "light": false,
+    "genre": "southern-hip-hop",
+    "colors": [
+      "#b4ff39",
+      "#6b2bd9"
+    ],
+    "videos": [
+      {
+        "youtube_id": "6x0mbfqxkJU",
+        "duration": "2:47:56"
+      }
+    ]
+  },
+  {
+    "id": "gta6-back-country-radio",
+    "game": "gta6",
+    "name": "Back Country Radio",
+    "short": "BACK\nCNTRY",
+    "logo": "logos/back-country-radio.png",
+    "light": false,
+    "genre": "country",
+    "colors": [
+      "#d9a35a",
+      "#5a3a1f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "zraN7Fv0GJM",
+        "duration": "1:23:05"
+      }
+    ]
+  },
+  {
+    "id": "gta6-circoloco-records",
+    "game": "gta6",
+    "name": "Circoloco Records",
+    "short": "CIRCO\nLOCO",
+    "logo": "logos/circoloco-records-radio.png",
+    "light": false,
+    "genre": "house-techno",
+    "colors": [
+      "#ffffff",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Kvarw9q9Zh4",
+        "duration": "1:47:24"
+      }
+    ]
+  },
+  {
+    "id": "gta6-stockyard-fm",
+    "game": "gta6",
+    "name": "Stockyard FM",
+    "short": "STOCK\nYARD",
+    "logo": "logos/stockyard-fm.png",
+    "light": false,
+    "genre": "pop-indie-dance",
+    "colors": [
+      "#ff9ec7",
+      "#3a2bd9"
+    ],
+    "videos": [
+      {
+        "youtube_id": "4ToXOuSdW98",
+        "duration": "2:05:08"
+      }
+    ]
+  },
+  {
+    "id": "gta6-the-chamber-106-6",
+    "game": "gta6",
+    "name": "The Chamber 106.6",
+    "short": "CHMBR\n106.6",
+    "logo": "logos/the-chamber-1066.png",
+    "light": false,
+    "genre": "metal",
+    "colors": [
+      "#9a9a9a",
+      "#3d0000"
+    ],
+    "videos": [
+      {
+        "youtube_id": "CGDc8K1IrIk",
+        "duration": "1:46:31"
+      }
+    ]
+  },
+  {
+    "id": "gta6-radio-on-u",
+    "game": "gta6",
+    "name": "Radio On-U",
+    "short": "ON-U",
+    "logo": "logos/radio-on-u.png",
+    "light": false,
+    "genre": "reggae-dub",
+    "colors": [
+      "#2ecc40",
+      "#ffdc00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "M6SXpme0Byg",
+        "duration": "59:48"
+      }
+    ]
+  },
+  {
+    "id": "gta6-the-wipe",
+    "game": "gta6",
+    "name": "The Wipe",
+    "short": "WIPE",
+    "logo": "logos/the-wipe.png",
+    "light": false,
+    "genre": "hip-hop",
+    "colors": [
+      "#00e5ff",
+      "#ff2bd6"
+    ],
+    "videos": [
+      {
+        "youtube_id": "k3dThJPb15c",
+        "duration": "1:05:58"
+      }
+    ]
+  },
+  {
+    "id": "gta6-worldwide-fm",
+    "game": "gta6",
+    "name": "WorldWide FM",
+    "short": "WORLD\nWIDE",
+    "logo": "logos/worldwide-fm.png",
+    "light": false,
+    "genre": "gilles-peterson",
+    "colors": [
+      "#f5f5f5",
+      "#ff6a00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "jsJOI56-FhY",
+        "duration": "1:58:00"
+      }
+    ]
+  },
+  {
+    "id": "gta6-afrobank-fm",
+    "game": "gta6",
+    "name": "AfroBank FM",
+    "short": "AFRO\nBANK",
+    "logo": "logos/afrobank-fm.png",
+    "light": false,
+    "genre": "afrobeats-african-music",
+    "colors": [
+      "#2e9e4f",
+      "#f2c230"
+    ],
+    "videos": [
+      {
+        "youtube_id": "gYU6LoX2MAw",
+        "duration": "2:25:54"
+      }
+    ]
+  },
+  {
+    "id": "gta6-gloriana-blues-radio",
+    "game": "gta6",
+    "name": "Gloriana Blues Radio",
+    "short": "BLUES",
+    "logo": "logos/gloriana-blues-radio.png",
+    "light": false,
+    "genre": "blues",
+    "colors": [
+      "#2a7fd1",
+      "#f2c46a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "-P5WQoSdhHg",
+        "duration": "1:29:43"
+      }
+    ]
+  },
+  {
+    "id": "gta6-honey-fm",
+    "game": "gta6",
+    "name": "Honey FM",
+    "short": "HONEY",
+    "logo": "logos/honey-fm.png",
+    "light": false,
+    "genre": "r-b",
+    "colors": [
+      "#f5a623",
+      "#3a2a1f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "W_e5eUNgIqE",
+        "duration": "5:29:37"
+      }
+    ]
+  },
+  {
+    "id": "gta6-kaleidoscope-fm",
+    "game": "gta6",
+    "name": "Kaleidoscope FM",
+    "short": "KALEIDO",
+    "logo": "logos/kaleidoscope-fm.png",
+    "light": false,
+    "genre": "world-music",
+    "colors": [
+      "#8f2bff",
+      "#f2e64a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "vSgT06Fwrb4",
+        "duration": "1:27:45"
+      }
+    ]
+  },
+  {
+    "id": "gta6-leonida-jazz-radio",
+    "game": "gta6",
+    "name": "Leonida Jazz Radio",
+    "short": "LJR",
+    "logo": "logos/leonida-jazz-radio.png",
+    "light": false,
+    "genre": "jazz-fusion",
+    "colors": [
+      "#2a8fd9",
+      "#f5a04a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "13V3vbCH4cw",
+        "duration": "2:59:44"
+      }
+    ]
+  },
+  {
+    "id": "gta6-symphony-fm",
+    "game": "gta6",
+    "name": "Symphony FM",
+    "short": "SYMPH\nFM",
+    "logo": "logos/symphony-fm.png",
+    "light": false,
+    "genre": "classical-music",
+    "colors": [
+      "#d6263a",
+      "#2b2b2b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "gY0oBi1zE5A",
+        "duration": "2:34:31"
+      }
+    ]
+  },
+  {
+    "id": "gta6-the-vault-radio",
+    "game": "gta6",
+    "name": "The Vault Radio",
+    "short": "THE\nVAULT",
+    "light": false,
+    "genre": "house-electronic",
+    "colors": [
+      "#d11f2a",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "R9HOfEzzufY",
+        "duration": "2:02:33"
+      }
+    ]
+  },
+  {
+    "id": "gta5-non-stop-pop-fm",
+    "game": "gta5",
+    "name": "Non-Stop-Pop FM",
+    "short": "NON\nSTOP",
+    "logo": "logos/gta5-nonstop.svg",
+    "light": false,
+    "genre": "pop-dance",
+    "colors": [
+      "#ff4fa3",
+      "#ffd23f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "lxr8moPqn74",
+        "duration": "2:46:46"
+      }
+    ]
+  },
+  {
+    "id": "gta5-los-santos-rock-radio",
+    "game": "gta5",
+    "name": "Los Santos Rock Radio",
+    "short": "LS\nROCK",
+    "logo": "logos/gta5-lsrr.svg",
+    "light": false,
+    "genre": "classic-rock",
+    "colors": [
+      "#ff6b1a",
+      "#1a1a1a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "SUVpIy7nr6c",
+        "duration": "2:35:23"
+      }
+    ]
+  },
+  {
+    "id": "gta5-radio-los-santos",
+    "game": "gta5",
+    "name": "Radio Los Santos",
+    "short": "RADIO\nLS",
+    "logo": "logos/gta5-rls.svg",
+    "light": false,
+    "genre": "modern-hip-hop",
+    "colors": [
+      "#ffd700",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "UulQJTQG5AU",
+        "duration": "1:51:32"
+      }
+    ]
+  },
+  {
+    "id": "gta5-west-coast-classics",
+    "game": "gta5",
+    "name": "West Coast Classics",
+    "short": "WC\nCLSCS",
+    "logo": "logos/gta5-wcc.svg",
+    "light": false,
+    "genre": "classic-hip-hop",
+    "colors": [
+      "#e23b3b",
+      "#1f3fbf"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Njo2bg10Npc",
+        "duration": "3:04:07"
+      }
+    ]
+  },
+  {
+    "id": "gta5-channel-x",
+    "game": "gta5",
+    "name": "Channel X",
+    "short": "CH X",
+    "logo": "logos/gta5-chx.svg",
+    "light": false,
+    "genre": "punk",
+    "colors": [
+      "#ffffff",
+      "#e0001b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "AI9lEoEl7Yw",
+        "duration": "47:08"
+      }
+    ]
+  },
+  {
+    "id": "gta5-rebel-radio",
+    "game": "gta5",
+    "name": "Rebel Radio",
+    "short": "REBEL",
+    "logo": "logos/gta5-rebel.svg",
+    "light": false,
+    "genre": "classic-country",
+    "colors": [
+      "#c8a165",
+      "#5b2a12"
+    ],
+    "videos": [
+      {
+        "youtube_id": "-JPol5USdz0",
+        "duration": "57:38"
+      }
+    ]
+  },
+  {
+    "id": "gta5-soulwax-fm",
+    "game": "gta5",
+    "name": "Soulwax FM",
+    "short": "SOUL\nWAX",
+    "logo": "logos/gta5-soulwax.svg",
+    "light": false,
+    "genre": "electronic",
+    "colors": [
+      "#ffffff",
+      "#000000"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Ed02_acbI2o",
+        "duration": "42:47"
+      }
+    ]
+  },
+  {
+    "id": "gta5-east-los-fm",
+    "game": "gta5",
+    "name": "East Los FM",
+    "short": "EAST\nLOS",
+    "logo": "logos/gta5-eastlos.svg",
+    "light": false,
+    "genre": "mexican-music",
+    "colors": [
+      "#2bbf5a",
+      "#e8312f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "FGxPtCVSUDo",
+        "duration": "41:06"
+      }
+    ]
+  },
+  {
+    "id": "gta5-blue-ark",
+    "game": "gta5",
+    "name": "Blue Ark",
+    "short": "BLUE\nARK",
+    "logo": "logos/gta5-blueark.svg",
+    "light": false,
+    "genre": "reggae-dancehall",
+    "colors": [
+      "#1f9bff",
+      "#0b2a66"
+    ],
+    "videos": [
+      {
+        "youtube_id": "cyALuo0_aRg",
+        "duration": "1:19:51"
+      }
+    ]
+  },
+  {
+    "id": "gta5-flylo-fm",
+    "game": "gta5",
+    "name": "FlyLo FM",
+    "short": "FLYLO",
+    "logo": "logos/gta5-flylo.svg",
+    "light": false,
+    "genre": "idm-alternative-hip-hop",
+    "colors": [
+      "#ff3d3d",
+      "#ffd23f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "5j51XYTN4Q8",
+        "duration": "1:11:39"
+      }
+    ]
+  },
+  {
+    "id": "gta5-the-lowdown-91-1",
+    "game": "gta5",
+    "name": "The Lowdown 91.1",
+    "short": "LOW\n91.1",
+    "logo": "logos/gta5-lowdown.svg",
+    "light": false,
+    "genre": "soul-funk",
+    "colors": [
+      "#ffb347",
+      "#6b2d8f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "3eiDjAIdsco",
+        "duration": "1:12:53"
+      }
+    ]
+  },
+  {
+    "id": "gta5-radio-mirror-park",
+    "game": "gta5",
+    "name": "Radio Mirror Park",
+    "short": "MIRROR\nPARK",
+    "logo": "logos/gta5-mirror.svg",
+    "light": false,
+    "genre": "indie-synthpop",
+    "colors": [
+      "#7ae0ff",
+      "#ff7ad1"
+    ],
+    "videos": [
+      {
+        "youtube_id": "gXJCnLt1v44",
+        "duration": "2:32:41"
+      }
+    ]
+  },
+  {
+    "id": "gta5-space-103-2",
+    "game": "gta5",
+    "name": "Space 103.2",
+    "short": "SPACE\n103.2",
+    "logo": "logos/gta5-space.svg",
+    "light": false,
+    "genre": "funk-boogie",
+    "colors": [
+      "#b45cff",
+      "#ff4f9a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "mTBcsx7H4SQ",
+        "duration": "1:34:14"
+      }
+    ]
+  },
+  {
+    "id": "gta5-vinewood-boulevard",
+    "game": "gta5",
+    "name": "Vinewood Boulevard",
+    "short": "VINE\nWOOD",
+    "logo": "logos/gta5-vinewood.svg",
+    "light": false,
+    "genre": "garage-rock",
+    "colors": [
+      "#ffe066",
+      "#c0392b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "xD47-I43zsg",
+        "duration": "1:05:58"
+      }
+    ]
+  },
+  {
+    "id": "gta5-blonded-los-santos",
+    "game": "gta5",
+    "name": "blonded Los Santos",
+    "short": "blonded",
+    "logo": "logos/gta5-blonded.svg",
+    "light": false,
+    "genre": "frank-ocean",
+    "colors": [
+      "#f2f2f2",
+      "#ff8a00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "AiIVpr_Smyo",
+        "duration": "1:42:20"
+      }
+    ]
+  },
+  {
+    "id": "gta5-ls-underground-radio",
+    "game": "gta5",
+    "name": "LS Underground Radio",
+    "short": "LSUR",
+    "logo": "logos/gta5-lsur.svg",
+    "light": false,
+    "genre": "house-techno",
+    "colors": [
+      "#00ffa3",
+      "#101010"
+    ],
+    "videos": [
+      {
+        "youtube_id": "QQ5rIoXlqnc",
+        "duration": "4:38:51"
+      }
+    ]
+  },
+  {
+    "id": "gta5-the-lab",
+    "game": "gta5",
+    "name": "The Lab",
+    "short": "THE\nLAB",
+    "logo": "logos/gta5-lab.svg",
+    "light": false,
+    "genre": "hip-hop-electronic",
+    "colors": [
+      "#39ff14",
+      "#0a3d0a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ZOR6_EtRg5I",
+        "duration": "57:36"
+      }
+    ]
+  },
+  {
+    "id": "gta5-worldwide-fm",
+    "game": "gta5",
+    "name": "WorldWide FM",
+    "short": "WORLD\nWIDE",
+    "logo": "logos/gta5-worldwide.svg",
+    "light": true,
+    "genre": "gilles-peterson",
+    "colors": [
+      "#0f4c5c",
+      "#f5f5f5"
+    ],
+    "videos": [
+      {
+        "youtube_id": "r9F7DQJ8eIg",
+        "duration": "2:00:32"
+      }
+    ]
+  },
+  {
+    "id": "gta5-ifruit-radio",
+    "game": "gta5",
+    "name": "iFruit Radio",
+    "short": "iFRUIT",
+    "logo": "logos/gta5-ifruit.svg",
+    "light": false,
+    "genre": "modern-hip-hop",
+    "colors": [
+      "#ffffff",
+      "#1a1a1a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "fpvJaphZ2_g",
+        "duration": "1:26:41"
+      }
+    ]
+  },
+  {
+    "id": "gta5-still-slipping-los-santos",
+    "game": "gta5",
+    "name": "Still Slipping Los Santos",
+    "short": "STILL\nSLIP",
+    "logo": "logos/gta5-stillslipping.svg",
+    "light": false,
+    "genre": "house-techno",
+    "colors": [
+      "#ffe600",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "FwbNs4oMmF8",
+        "duration": "1:15:12"
+      }
+    ]
+  },
+  {
+    "id": "gta5-kult-fm-99-1",
+    "game": "gta5",
+    "name": "Kult FM 99.1",
+    "short": "KULT\n99.1",
+    "logo": "logos/gta5-kult.png",
+    "light": false,
+    "genre": "experimental-rock",
+    "colors": [
+      "#f2f2f2",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "9cL6IDCtuzs",
+        "duration": "2:20:11"
+      }
+    ]
+  },
+  {
+    "id": "gta5-the-music-locker",
+    "game": "gta5",
+    "name": "The Music Locker",
+    "short": "MUSIC\nLOCKER",
+    "logo": "logos/gta5-musiclocker.svg",
+    "light": false,
+    "genre": "house-disco",
+    "colors": [
+      "#ffffff",
+      "#2b2b2b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "dBvMBYbUZFc",
+        "duration": "7:34:06"
+      }
+    ]
+  },
+  {
+    "id": "gta5-motomami-los-santos",
+    "game": "gta5",
+    "name": "MOTOMAMI Los Santos",
+    "short": "MOTO\nMAMI",
+    "logo": "logos/gta5-motomami.png",
+    "light": false,
+    "genre": "experimental-pop-reggaeton",
+    "colors": [
+      "#ff4136",
+      "#ffffff"
+    ],
+    "videos": [
+      {
+        "youtube_id": "30uA_Hppzpc",
+        "duration": "3:15:59"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-flash-fm",
+    "game": "gtavcs",
+    "name": "Flash FM",
+    "logo": "logos/vc-flash.png",
+    "light": false,
+    "genre": "80s-pop",
+    "colors": [
+      "#ffd23f",
+      "#ff3d8b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "lcktJMlVx1I",
+        "duration": "1:04:50"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-v-rock",
+    "game": "gtavcs",
+    "name": "V-Rock",
+    "logo": "logos/vc-vrock.svg",
+    "light": false,
+    "genre": "heavy-metal",
+    "colors": [
+      "#e8312f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "L0ejZEUwSeg",
+        "duration": "59:40"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-paradise-fm",
+    "game": "gtavcs",
+    "name": "Paradise FM",
+    "logo": "logos/vcs-paradise.png",
+    "light": true,
+    "genre": "disco-funk",
+    "colors": [
+      "#ff8a3d",
+      "#2aa7a0"
+    ],
+    "videos": [
+      {
+        "youtube_id": "zHWQii6yE-w",
+        "duration": "41:17"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-wave-103",
+    "game": "gtavcs",
+    "name": "Wave 103",
+    "logo": "logos/vc-wave.svg",
+    "light": true,
+    "genre": "new-wave",
+    "colors": [
+      "#ff3d8b",
+      "#2ecc40"
+    ],
+    "videos": [
+      {
+        "youtube_id": "NDnVROj95lM",
+        "duration": "1:00:00"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-fresh-105-fm",
+    "game": "gtavcs",
+    "name": "Fresh 105 FM",
+    "logo": "logos/vcs-fresh.svg",
+    "light": true,
+    "genre": "80s-hip-hop",
+    "colors": [
+      "#e8312f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Zx7xfaa4agM",
+        "duration": "29:44"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-radio-espantoso",
+    "game": "gtavcs",
+    "name": "Radio Espantoso",
+    "logo": "logos/vcs-espantoso.png",
+    "light": true,
+    "genre": "latin",
+    "colors": [
+      "#3fc9c9",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "DIJ_3iN_Uzg",
+        "duration": "30:32"
+      }
+    ]
+  },
+  {
+    "id": "gtavcs-emotion-98-3",
+    "game": "gtavcs",
+    "name": "Emotion 98.3",
+    "logo": "logos/vcs-emotion.png",
+    "light": false,
+    "genre": "80s-ballads",
+    "colors": [
+      "#e8312f",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "nlwauathOI0",
+        "duration": "1:09:07"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-head-radio",
+    "game": "gtalcs",
+    "name": "Head Radio",
+    "logo": "logos/lcs-head.png",
+    "light": true,
+    "genre": "pop-rock",
+    "colors": [
+      "#9fc6d6",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "birGWVDfQ74",
+        "duration": "26:37"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-double-clef-fm",
+    "game": "gtalcs",
+    "name": "Double Clef FM",
+    "logo": "logos/lcs-doubleclef.svg",
+    "light": true,
+    "genre": "opera-classical",
+    "colors": [
+      "#2a2a2a",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "4ArVN_C6ac8",
+        "duration": "26:33"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-k-jah",
+    "game": "gtalcs",
+    "name": "K-Jah",
+    "logo": "logos/lcs-kjah.png",
+    "light": false,
+    "genre": "reggae-dub",
+    "colors": [
+      "#2ecc40",
+      "#ffdc00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "95OGLvqstGI",
+        "duration": "28:48"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-rise-fm",
+    "game": "gtalcs",
+    "name": "Rise FM",
+    "logo": "logos/lcs-rise.png",
+    "light": true,
+    "genre": "trance-house",
+    "colors": [
+      "#9a9a9a",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "QmtD4z6Oo2Y",
+        "duration": "42:19"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-lips-106",
+    "game": "gtalcs",
+    "name": "Lips 106",
+    "logo": "logos/iii-lips.png",
+    "light": false,
+    "genre": "pop",
+    "colors": [
+      "#e8312f",
+      "#2a5bd7"
+    ],
+    "videos": [
+      {
+        "youtube_id": "M2Xw4fXTL0c",
+        "duration": "27:59"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-radio-del-mundo",
+    "game": "gtalcs",
+    "name": "Radio Del Mundo",
+    "logo": "logos/lcs-delmundo.png",
+    "light": true,
+    "genre": "world-music",
+    "colors": [
+      "#e8312f",
+      "#6bbf3a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "_CgRA14tgwI",
+        "duration": "33:36"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-msx-98",
+    "game": "gtalcs",
+    "name": "MSX 98",
+    "logo": "logos/lcs-msx98.png",
+    "light": true,
+    "genre": "drum-and-bass",
+    "colors": [
+      "#111111",
+      "#ffd23f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "PQiuB-0gSv4",
+        "duration": "38:47"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-flashback-fm",
+    "game": "gtalcs",
+    "name": "Flashback FM",
+    "logo": "logos/lcs-flashback.png",
+    "light": true,
+    "genre": "80s-pop",
+    "colors": [
+      "#2a5bd7",
+      "#ffd23f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "HaLOIiZBAlg",
+        "duration": "28:57"
+      }
+    ]
+  },
+  {
+    "id": "gtalcs-the-liberty-jam",
+    "game": "gtalcs",
+    "name": "The Liberty Jam",
+    "logo": "logos/lcs-libertyjam.png",
+    "light": false,
+    "genre": "hip-hop",
+    "colors": [
+      "#c0392b",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ClnjMBaFUKE",
+        "duration": "47:43"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-radio-los-santos",
+    "game": "gtasa",
+    "name": "Radio Los Santos",
+    "logo": "logos/sa-rls.png",
+    "light": false,
+    "genre": "west-coast-hip-hop",
+    "colors": [
+      "#3fbf3f",
+      "#c8a040"
+    ],
+    "videos": [
+      {
+        "youtube_id": "5HayDCSiD4k",
+        "duration": "1:11:23"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-playback-fm",
+    "game": "gtasa",
+    "name": "Playback FM",
+    "logo": "logos/sa-playback.svg",
+    "light": false,
+    "genre": "classic-hip-hop",
+    "colors": [
+      "#d93a3a",
+      "#3aa04a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "B0hXp0pALmA",
+        "duration": "47:47"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-k-dst",
+    "game": "gtasa",
+    "name": "K-DST",
+    "logo": "logos/sa-kdst.png",
+    "light": false,
+    "genre": "classic-rock",
+    "colors": [
+      "#c0392b",
+      "#1a1a1a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "B58OpZ6xe1k",
+        "duration": "1:05:36"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-bounce-fm",
+    "game": "gtasa",
+    "name": "Bounce FM",
+    "logo": "logos/sa-bounce.png",
+    "light": false,
+    "genre": "funk",
+    "colors": [
+      "#2aa7e0",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "iqTrkEqjCEU",
+        "duration": "1:03:03"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-sf-ur",
+    "game": "gtasa",
+    "name": "SF-UR",
+    "logo": "logos/sa-sfur.png",
+    "light": false,
+    "genre": "house",
+    "colors": [
+      "#2a7fff",
+      "#d32f2f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "BKBGFzsmzW4",
+        "duration": "2:33:06"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-radio-x",
+    "game": "gtasa",
+    "name": "Radio X",
+    "logo": "logos/sa-radiox.png",
+    "light": false,
+    "genre": "alternative-rock-grunge",
+    "colors": [
+      "#1e40ff",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "7CxPY0pG8e4",
+        "duration": "57:51"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-csr-103-9",
+    "game": "gtasa",
+    "name": "CSR 103.9",
+    "logo": "logos/sa-csr.png",
+    "light": false,
+    "genre": "new-jack-swing",
+    "colors": [
+      "#ff3d9a",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "E9hPnGYFsog",
+        "duration": "2:25:00"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-k-jah-west",
+    "game": "gtasa",
+    "name": "K-Jah West",
+    "logo": "logos/sa-kjahwest.png",
+    "light": false,
+    "genre": "reggae-dub",
+    "colors": [
+      "#2ecc40",
+      "#ffdc00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "SxuQlTk9ruk",
+        "duration": "58:06"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-master-sounds-98-3",
+    "game": "gtasa",
+    "name": "Master Sounds 98.3",
+    "logo": "logos/sa-mastersounds.png",
+    "light": false,
+    "genre": "rare-funk-soul",
+    "colors": [
+      "#ff7a00",
+      "#222222"
+    ],
+    "videos": [
+      {
+        "youtube_id": "wlG-3wYJO2I",
+        "duration": "1:03:23"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-k-rose",
+    "game": "gtasa",
+    "name": "K-Rose",
+    "logo": "logos/sa-krose.svg",
+    "light": false,
+    "genre": "classic-country",
+    "colors": [
+      "#e8312f",
+      "#f2d95c"
+    ],
+    "videos": [
+      {
+        "youtube_id": "gODKFHEnIVY",
+        "duration": "1:49:53"
+      }
+    ]
+  },
+  {
+    "id": "gtasa-wctr",
+    "game": "gtasa",
+    "name": "WCTR",
+    "logo": "logos/sa-wctr.png",
+    "light": false,
+    "genre": "talk-radio",
+    "colors": [
+      "#c13fff",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ZgeHsKbGJbU",
+        "duration": "2:05:46"
+      }
+    ]
+  },
+  {
+    "id": "gta4-the-beat-102-7",
+    "game": "gta4",
+    "name": "The Beat 102.7",
+    "logo": "logos/iv-beat.png",
+    "light": false,
+    "genre": "ny-hip-hop",
+    "colors": [
+      "#e8312f",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "VLVFEzzeIcE",
+        "duration": "2:20:20"
+      }
+    ]
+  },
+  {
+    "id": "gta4-liberty-rock-radio",
+    "game": "gta4",
+    "name": "Liberty Rock Radio",
+    "logo": "logos/iv-lrr.png",
+    "light": false,
+    "genre": "classic-rock",
+    "colors": [
+      "#d32f2f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ymZygLynw2k",
+        "duration": "2:50:37"
+      }
+    ]
+  },
+  {
+    "id": "gta4-vladivostok-fm",
+    "game": "gta4",
+    "name": "Vladivostok FM",
+    "logo": "logos/iv-vladivostok.png",
+    "light": false,
+    "genre": "russian-music",
+    "colors": [
+      "#2a5bd7",
+      "#f28c28"
+    ],
+    "videos": [
+      {
+        "youtube_id": "MCVPpfFeXRA",
+        "duration": "2:44:40"
+      }
+    ]
+  },
+  {
+    "id": "gta4-electro-choc",
+    "game": "gta4",
+    "name": "Electro-Choc",
+    "logo": "logos/iv-electrochoc.png",
+    "light": false,
+    "genre": "electro",
+    "colors": [
+      "#ff3da5",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "WUBN69zlapI",
+        "duration": "28:23"
+      }
+    ]
+  },
+  {
+    "id": "gta4-radio-broker",
+    "game": "gta4",
+    "name": "Radio Broker",
+    "logo": "logos/iv-broker.png",
+    "light": false,
+    "genre": "indie-alternative",
+    "colors": [
+      "#e05a2a",
+      "#1f2f4f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "4DZwPIDTcow",
+        "duration": "1:57:56"
+      }
+    ]
+  },
+  {
+    "id": "gta4-the-classics-104-1",
+    "game": "gta4",
+    "name": "The Classics 104.1",
+    "logo": "logos/iv-classics.svg",
+    "light": true,
+    "genre": "classic-hip-hop",
+    "colors": [
+      "#d32f2f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "fqzavF4DNXE",
+        "duration": "28:56"
+      }
+    ]
+  },
+  {
+    "id": "gta4-the-journey",
+    "game": "gta4",
+    "name": "The Journey",
+    "logo": "logos/iv-journey.png",
+    "light": false,
+    "genre": "ambient",
+    "colors": [
+      "#ffd23f",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "DeYE72NnaZo",
+        "duration": "29:14"
+      }
+    ]
+  },
+  {
+    "id": "gta4-fusion-fm",
+    "game": "gta4",
+    "name": "Fusion FM",
+    "logo": "logos/iv-fusion.png",
+    "light": false,
+    "genre": "jazz-fusion-funk",
+    "colors": [
+      "#ff7ad1",
+      "#3fbfff"
+    ],
+    "videos": [
+      {
+        "youtube_id": "Yg3oTYNdFYE",
+        "duration": "45:09"
+      }
+    ]
+  },
+  {
+    "id": "gta4-jazz-nation-radio",
+    "game": "gta4",
+    "name": "Jazz Nation Radio",
+    "logo": "logos/iv-jazz.png",
+    "light": false,
+    "genre": "jazz",
+    "colors": [
+      "#f28c28",
+      "#2aa75a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "o5xpyNWM8wI",
+        "duration": "39:20"
+      }
+    ]
+  },
+  {
+    "id": "gta4-k109-the-studio",
+    "game": "gta4",
+    "name": "K109 The Studio",
+    "logo": "logos/iv-k109.png",
+    "light": false,
+    "genre": "disco",
+    "colors": [
+      "#d9a35a",
+      "#3a2a10"
+    ],
+    "videos": [
+      {
+        "youtube_id": "i-uLAuj4KUg",
+        "duration": "3:00:12"
+      }
+    ]
+  },
+  {
+    "id": "gta4-massive-b-soundsystem",
+    "game": "gta4",
+    "name": "Massive B Soundsystem",
+    "logo": "logos/iv-massiveb.png",
+    "light": false,
+    "genre": "dancehall",
+    "colors": [
+      "#ffd700",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "BhB5Cb3UbW4",
+        "duration": "32:40"
+      }
+    ]
+  },
+  {
+    "id": "gta4-san-juan-sounds",
+    "game": "gta4",
+    "name": "San Juan Sounds",
+    "logo": "logos/iv-sanjuan.png",
+    "light": false,
+    "genre": "reggaeton",
+    "colors": [
+      "#e8312f",
+      "#2a5bd7"
+    ],
+    "videos": [
+      {
+        "youtube_id": "xdbIlsXzROA",
+        "duration": "1:00:41"
+      }
+    ]
+  },
+  {
+    "id": "gta4-tuff-gong-radio",
+    "game": "gta4",
+    "name": "Tuff Gong Radio",
+    "logo": "logos/iv-tuffgong.png",
+    "light": false,
+    "genre": "reggae-bob-marley",
+    "colors": [
+      "#2ecc40",
+      "#ffdc00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ld0K6hBzyWY",
+        "duration": "47:08"
+      }
+    ]
+  },
+  {
+    "id": "gta4-the-vibe-98-8",
+    "game": "gta4",
+    "name": "The Vibe 98.8",
+    "logo": "logos/iv-vibe.png",
+    "light": false,
+    "genre": "r-b",
+    "colors": [
+      "#d9b26a",
+      "#2a1f10"
+    ],
+    "videos": [
+      {
+        "youtube_id": "ANWzX2_dXuI",
+        "duration": "1:16:10"
+      }
+    ]
+  },
+  {
+    "id": "gta4-if99",
+    "game": "gta4",
+    "name": "IF99",
+    "logo": "logos/iv-if99.png",
+    "light": false,
+    "genre": "funk",
+    "colors": [
+      "#ff8a00",
+      "#3a1f00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "9PeksOl7P_Y",
+        "duration": "57:37"
+      }
+    ]
+  },
+  {
+    "id": "gta4-vice-city-fm",
+    "game": "gta4",
+    "name": "Vice City FM",
+    "logo": "logos/iv-vcfm.png",
+    "light": false,
+    "genre": "80s-hits",
+    "colors": [
+      "#ff6a3d",
+      "#2aa7e0"
+    ],
+    "videos": [
+      {
+        "youtube_id": "2Vi4VGmrPpg",
+        "duration": "2:00:01"
+      }
+    ]
+  },
+  {
+    "id": "gta4-liberty-city-hardcore",
+    "game": "gta4",
+    "name": "Liberty City Hardcore",
+    "logo": "logos/iv-lchc.png",
+    "light": false,
+    "genre": "hardcore-punk",
+    "colors": [
+      "#c0392b",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "HTqQebusLhI",
+        "duration": "1:01:40"
+      }
+    ]
+  },
+  {
+    "id": "gta4-self-actualization-fm",
+    "game": "gta4",
+    "name": "Self-Actualization FM",
+    "logo": "logos/iv-saf.png",
+    "light": false,
+    "genre": "wellness-talk",
+    "colors": [
+      "#f2f2f2",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "q5p6VVCVQno",
+        "duration": "1:16:20"
+      }
+    ]
+  },
+  {
+    "id": "gta4-wktt",
+    "game": "gta4",
+    "name": "WKTT",
+    "logo": "logos/iv-wktt.png",
+    "light": false,
+    "genre": "talk-radio",
+    "colors": [
+      "#e8312f",
+      "#1e40ff"
+    ],
+    "videos": [
+      {
+        "youtube_id": "eZD9d23m2g8",
+        "duration": "56:23"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-flash-fm",
+    "game": "gtavc",
+    "name": "Flash FM",
+    "logo": "logos/vc-flash.png",
+    "light": false,
+    "genre": "80s-pop",
+    "colors": [
+      "#ffd23f",
+      "#ff3d8b"
+    ],
+    "videos": [
+      {
+        "youtube_id": "pF-a1W2fTtE",
+        "duration": "1:03:04"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-v-rock",
+    "game": "gtavc",
+    "name": "V-Rock",
+    "logo": "logos/vc-vrock.svg",
+    "light": false,
+    "genre": "heavy-metal",
+    "colors": [
+      "#e8312f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "wxaNN-hNcnM",
+        "duration": "1:09:26"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-wildstyle",
+    "game": "gtavc",
+    "name": "Wildstyle",
+    "logo": "logos/vc-wildstyle.png",
+    "light": false,
+    "genre": "electro-hip-hop",
+    "colors": [
+      "#ffd23f",
+      "#555555"
+    ],
+    "videos": [
+      {
+        "youtube_id": "0SXR99_ShJs",
+        "duration": "1:08:28"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-fever-105",
+    "game": "gtavc",
+    "name": "Fever 105",
+    "logo": "logos/vc-fever.png",
+    "light": false,
+    "genre": "disco-funk",
+    "colors": [
+      "#e8312f",
+      "#ffb03a"
+    ],
+    "videos": [
+      {
+        "youtube_id": "B8wt7p9LHOw",
+        "duration": "1:03:15"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-emotion-98-3",
+    "game": "gtavc",
+    "name": "Emotion 98.3",
+    "logo": "logos/vc-emotion.svg",
+    "light": true,
+    "genre": "80s-ballads",
+    "colors": [
+      "#e8312f",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "EXfZXC8L7Q4",
+        "duration": "59:07"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-wave-103",
+    "game": "gtavc",
+    "name": "Wave 103",
+    "logo": "logos/vc-wave.svg",
+    "light": true,
+    "genre": "new-wave",
+    "colors": [
+      "#ff3d8b",
+      "#2ecc40"
+    ],
+    "videos": [
+      {
+        "youtube_id": "h89GrZ9ackg",
+        "duration": "1:06:07"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-radio-espantoso",
+    "game": "gtavc",
+    "name": "Radio Espantoso",
+    "logo": "logos/vc-espantoso.svg",
+    "light": true,
+    "genre": "latin",
+    "colors": [
+      "#e8312f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "SE85hOYePOU",
+        "duration": "1:01:39"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-vcpr",
+    "game": "gtavc",
+    "name": "VCPR",
+    "logo": "logos/vc-vcpr.svg",
+    "light": true,
+    "genre": "public-radio-talk",
+    "colors": [
+      "#1f6f8b",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "OsDuQFfwnhg",
+        "duration": "1:26:26"
+      }
+    ]
+  },
+  {
+    "id": "gtavc-k-chat",
+    "game": "gtavc",
+    "name": "K-Chat",
+    "logo": "logos/vc-kchat.svg",
+    "light": true,
+    "genre": "talk-radio",
+    "colors": [
+      "#3fbfff",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "uL-Jh05sPSY",
+        "duration": "1:43:56"
+      }
+    ]
+  },
+  {
+    "id": "gta3-head-radio",
+    "game": "gta3",
+    "name": "Head Radio",
+    "logo": "logos/iii-head.png",
+    "light": false,
+    "genre": "pop-rock",
+    "colors": [
+      "#2aa7a0",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "7jHUddL3xfg",
+        "duration": "23:26"
+      }
+    ]
+  },
+  {
+    "id": "gta3-double-clef-fm",
+    "game": "gta3",
+    "name": "Double Clef FM",
+    "logo": "logos/iii-doubleclef.svg",
+    "light": true,
+    "genre": "opera-classical",
+    "colors": [
+      "#2a5b6b",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "sM3Yre0SUI4",
+        "duration": "22:45"
+      }
+    ]
+  },
+  {
+    "id": "gta3-k-jah",
+    "game": "gta3",
+    "name": "K-Jah",
+    "logo": "logos/iii-kjah.svg",
+    "light": false,
+    "genre": "reggae-dub",
+    "colors": [
+      "#2ecc40",
+      "#ffdc00"
+    ],
+    "videos": [
+      {
+        "youtube_id": "7waWcyCIYis",
+        "duration": "19:04"
+      }
+    ]
+  },
+  {
+    "id": "gta3-rise-fm",
+    "game": "gta3",
+    "name": "Rise FM",
+    "logo": "logos/iii-rise.png",
+    "light": false,
+    "genre": "trance-house",
+    "colors": [
+      "#9a9a9a",
+      "#111111"
+    ],
+    "videos": [
+      {
+        "youtube_id": "6b9m3PpgIHk",
+        "duration": "26:09"
+      }
+    ]
+  },
+  {
+    "id": "gta3-lips-106",
+    "game": "gta3",
+    "name": "Lips 106",
+    "logo": "logos/iii-lips.png",
+    "light": false,
+    "genre": "pop",
+    "colors": [
+      "#e8312f",
+      "#2a5bd7"
+    ],
+    "videos": [
+      {
+        "youtube_id": "69IbON3B7lo",
+        "duration": "21:55"
+      }
+    ]
+  },
+  {
+    "id": "gta3-game-radio-fm",
+    "game": "gta3",
+    "name": "Game Radio FM",
+    "logo": "logos/iii-game.png",
+    "light": false,
+    "genre": "hip-hop",
+    "colors": [
+      "#2aa75a",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "HsU7Yi6qxe4",
+        "duration": "15:45"
+      }
+    ]
+  },
+  {
+    "id": "gta3-msx-fm",
+    "game": "gta3",
+    "name": "MSX FM",
+    "logo": "logos/iii-msx.svg",
+    "light": true,
+    "genre": "drum-and-bass",
+    "colors": [
+      "#1f2f6f",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "EI3tV6EhUjU",
+        "duration": "25:01"
+      }
+    ]
+  },
+  {
+    "id": "gta3-flashback-95-6",
+    "game": "gta3",
+    "name": "Flashback 95.6",
+    "logo": "logos/iii-flashback.png",
+    "light": false,
+    "genre": "80s-pop",
+    "colors": [
+      "#2a5bd7",
+      "#ffd23f"
+    ],
+    "videos": [
+      {
+        "youtube_id": "T-yh-XrefcE",
+        "duration": "18:46"
+      }
+    ]
+  },
+  {
+    "id": "gta3-chatterbox-fm",
+    "game": "gta3",
+    "name": "Chatterbox FM",
+    "logo": "logos/iii-chatterbox.svg",
+    "light": true,
+    "genre": "talk-radio",
+    "colors": [
+      "#3a8f80",
+      "#f2f2f2"
+    ],
+    "videos": [
+      {
+        "youtube_id": "hufTHaezLps",
+        "duration": "58:05"
+      }
+    ]
+  }
+]

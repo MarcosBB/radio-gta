@@ -1,0 +1,951 @@
+[
+  {
+    "id": "80s-ballads",
+    "name": {
+      "en": "80s ballads",
+      "pt": "Baladas dos anos 80",
+      "es": "Baladas de los 80",
+      "fr": "Ballades des années 80",
+      "zh": "80年代抒情歌",
+      "hi": "80 के दशक के बैलेड",
+      "ar": "أغانٍ هادئة من الثمانينيات",
+      "ru": "Баллады 80-х"
+    }
+  },
+  {
+    "id": "80s-hip-hop",
+    "name": {
+      "en": "80s hip-hop",
+      "pt": "Hip-hop dos anos 80",
+      "es": "Hip-hop de los 80",
+      "fr": "Hip-hop des années 80",
+      "zh": "80年代嘻哈",
+      "hi": "80 के दशक का हिप-हॉप",
+      "ar": "هيب هوب الثمانينيات",
+      "ru": "Хип-хоп 80-х"
+    }
+  },
+  {
+    "id": "80s-hits",
+    "name": {
+      "en": "80s hits",
+      "pt": "Anos 80",
+      "es": "Éxitos de los 80",
+      "fr": "Tubes des années 80",
+      "zh": "80年代金曲",
+      "hi": "80 के दशक के हिट",
+      "ar": "أغاني الثمانينيات",
+      "ru": "Хиты 80-х"
+    }
+  },
+  {
+    "id": "80s-pop",
+    "name": {
+      "en": "80s pop",
+      "pt": "Pop dos anos 80",
+      "es": "Pop de los 80",
+      "fr": "Pop des années 80",
+      "zh": "80年代流行",
+      "hi": "80 के दशक का पॉप",
+      "ar": "بوب الثمانينيات",
+      "ru": "Поп 80-х"
+    }
+  },
+  {
+    "id": "80s-pop-new-wave",
+    "name": {
+      "en": "80s Pop & New Wave",
+      "pt": "Pop & New Wave dos anos 80",
+      "es": "Pop y new wave de los 80",
+      "fr": "Pop et new wave des années 80",
+      "zh": "80年代流行与新浪潮",
+      "hi": "80 के दशक का पॉप और न्यू वेव",
+      "ar": "بوب ونيو ويف الثمانينيات",
+      "ru": "Поп и нью-вейв 80-х"
+    }
+  },
+  {
+    "id": "afrobeats-african-music",
+    "name": {
+      "en": "Afrobeats & African music",
+      "pt": "Afrobeats & música africana",
+      "es": "Afrobeats y música africana",
+      "fr": "Afrobeats et musique africaine",
+      "zh": "非洲节拍与非洲音乐",
+      "hi": "एफ्रोबीट्स और अफ्रीकी संगीत",
+      "ar": "أفروبيتس وموسيقى أفريقية",
+      "ru": "Афробитс и африканская музыка"
+    }
+  },
+  {
+    "id": "alternative-rock-grunge",
+    "name": {
+      "en": "Alternative rock & grunge",
+      "pt": "Rock alternativo & grunge",
+      "es": "Rock alternativo y grunge",
+      "fr": "Rock alternatif et grunge",
+      "zh": "另类摇滚与垃圾摇滚",
+      "hi": "अल्टरनेटिव रॉक और ग्रंज",
+      "ar": "روك بديل وغرنج",
+      "ru": "Альтернативный рок и гранж"
+    }
+  },
+  {
+    "id": "ambient",
+    "name": {
+      "en": "Ambient",
+      "pt": "Ambient",
+      "es": "Ambient",
+      "fr": "Ambient",
+      "zh": "氛围音乐",
+      "hi": "एम्बिएंट",
+      "ar": "أمبينت",
+      "ru": "Эмбиент"
+    }
+  },
+  {
+    "id": "blues",
+    "name": {
+      "en": "Blues",
+      "pt": "Blues",
+      "es": "Blues",
+      "fr": "Blues",
+      "zh": "布鲁斯",
+      "hi": "ब्लूज़",
+      "ar": "بلوز",
+      "ru": "Блюз"
+    }
+  },
+  {
+    "id": "classic-country",
+    "name": {
+      "en": "Classic country",
+      "pt": "Country clássico",
+      "es": "Country clásico",
+      "fr": "Country classique",
+      "zh": "经典乡村",
+      "hi": "क्लासिक कंट्री",
+      "ar": "كانتري كلاسيكي",
+      "ru": "Классическое кантри"
+    }
+  },
+  {
+    "id": "classic-hip-hop",
+    "name": {
+      "en": "Classic hip-hop",
+      "pt": "Hip-hop clássico",
+      "es": "Hip-hop clásico",
+      "fr": "Hip-hop classique",
+      "zh": "经典嘻哈",
+      "hi": "क्लासिक हिप-हॉप",
+      "ar": "هيب هوب كلاسيكي",
+      "ru": "Классический хип-хоп"
+    }
+  },
+  {
+    "id": "classic-rock",
+    "name": {
+      "en": "Classic rock",
+      "pt": "Rock clássico",
+      "es": "Rock clásico",
+      "fr": "Rock classique",
+      "zh": "经典摇滚",
+      "hi": "क्लासिक रॉक",
+      "ar": "روك كلاسيكي",
+      "ru": "Классический рок"
+    }
+  },
+  {
+    "id": "classical-music",
+    "name": {
+      "en": "Classical music",
+      "pt": "Música clássica",
+      "es": "Música clásica",
+      "fr": "Musique classique",
+      "zh": "古典音乐",
+      "hi": "शास्त्रीय संगीत",
+      "ar": "موسيقى كلاسيكية",
+      "ru": "Классическая музыка"
+    }
+  },
+  {
+    "id": "country",
+    "name": {
+      "en": "Country",
+      "pt": "Country",
+      "es": "Country",
+      "fr": "Country",
+      "zh": "乡村音乐",
+      "hi": "कंट्री",
+      "ar": "كانتري",
+      "ru": "Кантри"
+    }
+  },
+  {
+    "id": "dancehall",
+    "name": {
+      "en": "Dancehall",
+      "pt": "Dancehall",
+      "es": "Dancehall",
+      "fr": "Dancehall",
+      "zh": "舞厅雷鬼",
+      "hi": "डांसहॉल",
+      "ar": "دانسهول",
+      "ru": "Дэнсхолл"
+    }
+  },
+  {
+    "id": "disco",
+    "name": {
+      "en": "Disco",
+      "pt": "Disco",
+      "es": "Disco",
+      "fr": "Disco",
+      "zh": "迪斯科",
+      "hi": "डिस्को",
+      "ar": "ديسكو",
+      "ru": "Диско"
+    }
+  },
+  {
+    "id": "disco-funk",
+    "name": {
+      "en": "Disco & funk",
+      "pt": "Disco & funk",
+      "es": "Disco y funk",
+      "fr": "Disco et funk",
+      "zh": "迪斯科与放克",
+      "hi": "डिस्को और फ़ंक",
+      "ar": "ديسكو وفانك",
+      "ru": "Диско и фанк"
+    }
+  },
+  {
+    "id": "drum-and-bass",
+    "name": {
+      "en": "Drum and bass",
+      "pt": "Drum and bass",
+      "es": "Drum and bass",
+      "fr": "Drum and bass",
+      "zh": "鼓打贝斯",
+      "hi": "ड्रम एंड बेस",
+      "ar": "درام أند بيس",
+      "ru": "Драм-н-бейс"
+    }
+  },
+  {
+    "id": "electro",
+    "name": {
+      "en": "Electro",
+      "pt": "Electro",
+      "es": "Electro",
+      "fr": "Électro",
+      "zh": "电气舞曲",
+      "hi": "इलेक्ट्रो",
+      "ar": "إلكترو",
+      "ru": "Электро"
+    }
+  },
+  {
+    "id": "electro-hip-hop",
+    "name": {
+      "en": "Electro & hip-hop",
+      "pt": "Electro & hip-hop",
+      "es": "Electro y hip-hop",
+      "fr": "Électro et hip-hop",
+      "zh": "电气舞曲与嘻哈",
+      "hi": "इलेक्ट्रो और हिप-हॉप",
+      "ar": "إلكترو وهيب هوب",
+      "ru": "Электро и хип-хоп"
+    }
+  },
+  {
+    "id": "electronic",
+    "name": {
+      "en": "Electronic",
+      "pt": "Eletrônica",
+      "es": "Electrónica",
+      "fr": "Électro",
+      "zh": "电子音乐",
+      "hi": "इलेक्ट्रॉनिक",
+      "ar": "إلكترونية",
+      "ru": "Электроника"
+    }
+  },
+  {
+    "id": "experimental-pop-reggaeton",
+    "name": {
+      "en": "Experimental pop & reggaeton",
+      "pt": "Pop experimental & reggaeton",
+      "es": "Pop experimental y reguetón",
+      "fr": "Pop expérimentale et reggaeton",
+      "zh": "实验流行与雷鬼动",
+      "hi": "एक्सपेरिमेंटल पॉप और रेगेटन",
+      "ar": "بوب تجريبي وريغيتون",
+      "ru": "Экспериментальный поп и реггетон"
+    }
+  },
+  {
+    "id": "experimental-rock",
+    "name": {
+      "en": "Experimental rock",
+      "pt": "Rock experimental",
+      "es": "Rock experimental",
+      "fr": "Rock expérimental",
+      "zh": "实验摇滚",
+      "hi": "एक्सपेरिमेंटल रॉक",
+      "ar": "روك تجريبي",
+      "ru": "Экспериментальный рок"
+    }
+  },
+  {
+    "id": "frank-ocean",
+    "name": {
+      "en": "Frank Ocean",
+      "pt": "Frank Ocean",
+      "es": "Frank Ocean",
+      "fr": "Frank Ocean",
+      "zh": "Frank Ocean",
+      "hi": "Frank Ocean",
+      "ar": "Frank Ocean",
+      "ru": "Frank Ocean"
+    }
+  },
+  {
+    "id": "funk",
+    "name": {
+      "en": "Funk",
+      "pt": "Funk",
+      "es": "Funk",
+      "fr": "Funk",
+      "zh": "放克",
+      "hi": "फ़ंक",
+      "ar": "فانك",
+      "ru": "Фанк"
+    }
+  },
+  {
+    "id": "funk-boogie",
+    "name": {
+      "en": "Funk & boogie",
+      "pt": "Funk & boogie",
+      "es": "Funk y boogie",
+      "fr": "Funk et boogie",
+      "zh": "放克与布吉",
+      "hi": "फ़ंक और बूगी",
+      "ar": "فانك وبوغي",
+      "ru": "Фанк и буги"
+    }
+  },
+  {
+    "id": "garage-rock",
+    "name": {
+      "en": "Garage rock",
+      "pt": "Garage rock",
+      "es": "Garage rock",
+      "fr": "Garage rock",
+      "zh": "车库摇滚",
+      "hi": "गैराज रॉक",
+      "ar": "غراج روك",
+      "ru": "Гаражный рок"
+    }
+  },
+  {
+    "id": "gilles-peterson",
+    "name": {
+      "en": "Gilles Peterson",
+      "pt": "Gilles Peterson",
+      "es": "Gilles Peterson",
+      "fr": "Gilles Peterson",
+      "zh": "Gilles Peterson",
+      "hi": "Gilles Peterson",
+      "ar": "Gilles Peterson",
+      "ru": "Gilles Peterson"
+    }
+  },
+  {
+    "id": "hardcore-punk",
+    "name": {
+      "en": "Hardcore punk",
+      "pt": "Hardcore punk",
+      "es": "Hardcore punk",
+      "fr": "Punk hardcore",
+      "zh": "硬核朋克",
+      "hi": "हार्डकोर पंक",
+      "ar": "هاردكور بانك",
+      "ru": "Хардкор-панк"
+    }
+  },
+  {
+    "id": "heavy-metal",
+    "name": {
+      "en": "Heavy metal",
+      "pt": "Heavy metal",
+      "es": "Heavy metal",
+      "fr": "Heavy metal",
+      "zh": "重金属",
+      "hi": "हेवी मेटल",
+      "ar": "هيفي ميتال",
+      "ru": "Хеви-метал"
+    }
+  },
+  {
+    "id": "hip-hop",
+    "name": {
+      "en": "Hip-hop",
+      "pt": "Hip-hop",
+      "es": "Hip-hop",
+      "fr": "Hip-hop",
+      "zh": "嘻哈",
+      "hi": "हिप-हॉप",
+      "ar": "هيب هوب",
+      "ru": "Хип-хоп"
+    }
+  },
+  {
+    "id": "hip-hop-electronic",
+    "name": {
+      "en": "Hip-hop & electronic",
+      "pt": "Hip-hop & eletrônica",
+      "es": "Hip-hop y electrónica",
+      "fr": "Hip-hop et électro",
+      "zh": "嘻哈与电子",
+      "hi": "हिप-हॉप और इलेक्ट्रॉनिक",
+      "ar": "هيب هوب وإلكترونية",
+      "ru": "Хип-хоп и электроника"
+    }
+  },
+  {
+    "id": "house",
+    "name": {
+      "en": "House",
+      "pt": "House",
+      "es": "House",
+      "fr": "House",
+      "zh": "浩室",
+      "hi": "हाउस",
+      "ar": "هاوس",
+      "ru": "Хаус"
+    }
+  },
+  {
+    "id": "house-disco",
+    "name": {
+      "en": "House & disco",
+      "pt": "House & disco",
+      "es": "House y disco",
+      "fr": "House et disco",
+      "zh": "浩室与迪斯科",
+      "hi": "हाउस और डिस्को",
+      "ar": "هاوس وديسكو",
+      "ru": "Хаус и диско"
+    }
+  },
+  {
+    "id": "house-electronic",
+    "name": {
+      "en": "House & electronic",
+      "pt": "House & eletrônica",
+      "es": "House y electrónica",
+      "fr": "House et électro",
+      "zh": "浩室与电子",
+      "hi": "हाउस और इलेक्ट्रॉनिक",
+      "ar": "هاوس وإلكترونية",
+      "ru": "Хаус и электроника"
+    }
+  },
+  {
+    "id": "house-techno",
+    "name": {
+      "en": "House & techno",
+      "pt": "House & techno",
+      "es": "House y techno",
+      "fr": "House et techno",
+      "zh": "浩室与科技舞曲",
+      "hi": "हाउस और टेक्नो",
+      "ar": "هاوس وتكنو",
+      "ru": "Хаус и техно"
+    }
+  },
+  {
+    "id": "idm-alternative-hip-hop",
+    "name": {
+      "en": "IDM & alternative hip-hop",
+      "pt": "IDM & hip-hop alternativo",
+      "es": "IDM y hip-hop alternativo",
+      "fr": "IDM et hip-hop alternatif",
+      "zh": "IDM与另类嘻哈",
+      "hi": "आईडीएम और अल्टरनेटिव हिप-हॉप",
+      "ar": "آي دي إم وهيب هوب بديل",
+      "ru": "IDM и альтернативный хип-хоп"
+    }
+  },
+  {
+    "id": "indie-alternative",
+    "name": {
+      "en": "Indie & alternative",
+      "pt": "Indie & alternativo",
+      "es": "Indie y alternativo",
+      "fr": "Indie et alternatif",
+      "zh": "独立与另类",
+      "hi": "इंडी और अल्टरनेटिव",
+      "ar": "إندي وبديل",
+      "ru": "Инди и альтернатива"
+    }
+  },
+  {
+    "id": "indie-synthpop",
+    "name": {
+      "en": "Indie & synthpop",
+      "pt": "Indie & synthpop",
+      "es": "Indie y synthpop",
+      "fr": "Indie et synthpop",
+      "zh": "独立与合成器流行",
+      "hi": "इंडी और सिंथपॉप",
+      "ar": "إندي وسينث بوب",
+      "ru": "Инди и синти-поп"
+    }
+  },
+  {
+    "id": "jazz",
+    "name": {
+      "en": "Jazz",
+      "pt": "Jazz",
+      "es": "Jazz",
+      "fr": "Jazz",
+      "zh": "爵士乐",
+      "hi": "जैज़",
+      "ar": "جاز",
+      "ru": "Джаз"
+    }
+  },
+  {
+    "id": "jazz-fusion",
+    "name": {
+      "en": "Jazz fusion",
+      "pt": "Jazz fusion",
+      "es": "Jazz fusión",
+      "fr": "Jazz fusion",
+      "zh": "融合爵士",
+      "hi": "जैज़ फ़्यूज़न",
+      "ar": "جاز فيوجن",
+      "ru": "Джаз-фьюжн"
+    }
+  },
+  {
+    "id": "jazz-fusion-funk",
+    "name": {
+      "en": "Jazz fusion & funk",
+      "pt": "Jazz fusion & funk",
+      "es": "Jazz fusión y funk",
+      "fr": "Jazz fusion et funk",
+      "zh": "融合爵士与放克",
+      "hi": "जैज़ फ़्यूज़न और फ़ंक",
+      "ar": "جاز فيوجن وفانك",
+      "ru": "Джаз-фьюжн и фанк"
+    }
+  },
+  {
+    "id": "latin",
+    "name": {
+      "en": "Latin",
+      "pt": "Latina",
+      "es": "Latina",
+      "fr": "Latino",
+      "zh": "拉丁音乐",
+      "hi": "लैटिन",
+      "ar": "لاتيني",
+      "ru": "Латино"
+    }
+  },
+  {
+    "id": "metal",
+    "name": {
+      "en": "Metal",
+      "pt": "Metal",
+      "es": "Metal",
+      "fr": "Metal",
+      "zh": "金属乐",
+      "hi": "मेटल",
+      "ar": "ميتال",
+      "ru": "Метал"
+    }
+  },
+  {
+    "id": "mexican-music",
+    "name": {
+      "en": "Mexican music",
+      "pt": "Música mexicana",
+      "es": "Música mexicana",
+      "fr": "Musique mexicaine",
+      "zh": "墨西哥音乐",
+      "hi": "मैक्सिकन संगीत",
+      "ar": "موسيقى مكسيكية",
+      "ru": "Мексиканская музыка"
+    }
+  },
+  {
+    "id": "modern-hip-hop",
+    "name": {
+      "en": "Modern hip-hop",
+      "pt": "Hip-hop moderno",
+      "es": "Hip-hop moderno",
+      "fr": "Hip-hop moderne",
+      "zh": "现代嘻哈",
+      "hi": "मॉडर्न हिप-हॉप",
+      "ar": "هيب هوب حديث",
+      "ru": "Современный хип-хоп"
+    }
+  },
+  {
+    "id": "new-jack-swing",
+    "name": {
+      "en": "New jack swing",
+      "pt": "New jack swing",
+      "es": "New jack swing",
+      "fr": "New jack swing",
+      "zh": "新杰克摇摆",
+      "hi": "न्यू जैक स्विंग",
+      "ar": "نيو جاك سوينغ",
+      "ru": "Нью-джек-свинг"
+    }
+  },
+  {
+    "id": "new-wave",
+    "name": {
+      "en": "New wave",
+      "pt": "New wave",
+      "es": "New wave",
+      "fr": "New wave",
+      "zh": "新浪潮",
+      "hi": "न्यू वेव",
+      "ar": "نيو ويف",
+      "ru": "Нью-вейв"
+    }
+  },
+  {
+    "id": "ny-hip-hop",
+    "name": {
+      "en": "NY hip-hop",
+      "pt": "Hip-hop de NY",
+      "es": "Hip-hop de Nueva York",
+      "fr": "Hip-hop de New York",
+      "zh": "纽约嘻哈",
+      "hi": "न्यूयॉर्क हिप-हॉप",
+      "ar": "هيب هوب نيويورك",
+      "ru": "Нью-йоркский хип-хоп"
+    }
+  },
+  {
+    "id": "opera-classical",
+    "name": {
+      "en": "Opera & classical",
+      "pt": "Ópera & clássica",
+      "es": "Ópera y clásica",
+      "fr": "Opéra et classique",
+      "zh": "歌剧与古典",
+      "hi": "ओपेरा और शास्त्रीय",
+      "ar": "أوبرا وكلاسيكية",
+      "ru": "Опера и классика"
+    }
+  },
+  {
+    "id": "pop",
+    "name": {
+      "en": "Pop",
+      "pt": "Pop",
+      "es": "Pop",
+      "fr": "Pop",
+      "zh": "流行",
+      "hi": "पॉप",
+      "ar": "بوب",
+      "ru": "Поп"
+    }
+  },
+  {
+    "id": "pop-dance",
+    "name": {
+      "en": "Pop & dance",
+      "pt": "Pop & dance",
+      "es": "Pop y dance",
+      "fr": "Pop et dance",
+      "zh": "流行与舞曲",
+      "hi": "पॉप और डांस",
+      "ar": "بوب ودانس",
+      "ru": "Поп и дэнс"
+    }
+  },
+  {
+    "id": "pop-indie-dance",
+    "name": {
+      "en": "Pop & indie dance",
+      "pt": "Pop & indie dance",
+      "es": "Pop e indie dance",
+      "fr": "Pop et indie dance",
+      "zh": "流行与独立舞曲",
+      "hi": "पॉप और इंडी डांस",
+      "ar": "بوب وإندي دانس",
+      "ru": "Поп и инди-дэнс"
+    }
+  },
+  {
+    "id": "pop-r-b-dance",
+    "name": {
+      "en": "Pop, R&B & Dance",
+      "pt": "Pop, R&B & Dance",
+      "es": "Pop, R&B y dance",
+      "fr": "Pop, R&B et dance",
+      "zh": "流行、R&B与舞曲",
+      "hi": "पॉप, आर एंड बी और डांस",
+      "ar": "بوب وآر أند بي ودانس",
+      "ru": "Поп, R&B и дэнс"
+    }
+  },
+  {
+    "id": "pop-rock",
+    "name": {
+      "en": "Pop & rock",
+      "pt": "Pop & rock",
+      "es": "Pop y rock",
+      "fr": "Pop et rock",
+      "zh": "流行与摇滚",
+      "hi": "पॉप और रॉक",
+      "ar": "بوب وروك",
+      "ru": "Поп и рок"
+    }
+  },
+  {
+    "id": "public-radio-talk",
+    "name": {
+      "en": "Public radio (talk)",
+      "pt": "Rádio pública (falada)",
+      "es": "Radio pública (hablada)",
+      "fr": "Radio publique (parlée)",
+      "zh": "公共电台（谈话）",
+      "hi": "पब्लिक रेडियो (टॉक)",
+      "ar": "إذاعة عامة (حوارية)",
+      "ru": "Общественное радио (разговорное)"
+    }
+  },
+  {
+    "id": "punk",
+    "name": {
+      "en": "Punk",
+      "pt": "Punk",
+      "es": "Punk",
+      "fr": "Punk",
+      "zh": "朋克",
+      "hi": "पंक",
+      "ar": "بانك",
+      "ru": "Панк"
+    }
+  },
+  {
+    "id": "r-b",
+    "name": {
+      "en": "R&B",
+      "pt": "R&B",
+      "es": "R&B",
+      "fr": "R&B",
+      "zh": "R&B",
+      "hi": "आर एंड बी",
+      "ar": "آر أند بي",
+      "ru": "R&B"
+    }
+  },
+  {
+    "id": "rare-funk-soul",
+    "name": {
+      "en": "Rare funk & soul",
+      "pt": "Funk & soul raro",
+      "es": "Funk y soul raros",
+      "fr": "Funk et soul rares",
+      "zh": "稀有放克与灵魂乐",
+      "hi": "दुर्लभ फ़ंक और सोल",
+      "ar": "فانك وسول نادر",
+      "ru": "Редкий фанк и соул"
+    }
+  },
+  {
+    "id": "reggae-bob-marley",
+    "name": {
+      "en": "Reggae (Bob Marley)",
+      "pt": "Reggae (Bob Marley)",
+      "es": "Reggae (Bob Marley)",
+      "fr": "Reggae (Bob Marley)",
+      "zh": "雷鬼（Bob Marley）",
+      "hi": "रेगे (Bob Marley)",
+      "ar": "ريغي (Bob Marley)",
+      "ru": "Регги (Bob Marley)"
+    }
+  },
+  {
+    "id": "reggae-dancehall",
+    "name": {
+      "en": "Reggae & dancehall",
+      "pt": "Reggae & dancehall",
+      "es": "Reggae y dancehall",
+      "fr": "Reggae et dancehall",
+      "zh": "雷鬼与舞厅",
+      "hi": "रेगे और डांसहॉल",
+      "ar": "ريغي ودانسهول",
+      "ru": "Регги и дэнсхолл"
+    }
+  },
+  {
+    "id": "reggae-dub",
+    "name": {
+      "en": "Reggae & dub",
+      "pt": "Reggae & dub",
+      "es": "Reggae y dub",
+      "fr": "Reggae et dub",
+      "zh": "雷鬼与回响",
+      "hi": "रेगे और डब",
+      "ar": "ريغي وداب",
+      "ru": "Регги и даб"
+    }
+  },
+  {
+    "id": "reggaeton",
+    "name": {
+      "en": "Reggaeton",
+      "pt": "Reggaeton",
+      "es": "Reguetón",
+      "fr": "Reggaeton",
+      "zh": "雷鬼动",
+      "hi": "रेगेटन",
+      "ar": "ريغيتون",
+      "ru": "Реггетон"
+    }
+  },
+  {
+    "id": "reggaeton-latin",
+    "name": {
+      "en": "Reggaeton & Latin",
+      "pt": "Reggaeton & Latin",
+      "es": "Reguetón y latino",
+      "fr": "Reggaeton et latino",
+      "zh": "雷鬼动与拉丁",
+      "hi": "रेगेटन और लैटिन",
+      "ar": "ريغيتون ولاتيني",
+      "ru": "Реггетон и латино"
+    }
+  },
+  {
+    "id": "russian-music",
+    "name": {
+      "en": "Russian music",
+      "pt": "Música russa",
+      "es": "Música rusa",
+      "fr": "Musique russe",
+      "zh": "俄罗斯音乐",
+      "hi": "रूसी संगीत",
+      "ar": "موسيقى روسية",
+      "ru": "Русская музыка"
+    }
+  },
+  {
+    "id": "soft-rock-ballads",
+    "name": {
+      "en": "Soft rock & ballads",
+      "pt": "Soft rock & baladas",
+      "es": "Soft rock y baladas",
+      "fr": "Soft rock et ballades",
+      "zh": "软摇滚与抒情歌",
+      "hi": "सॉफ्ट रॉक और बैलेड",
+      "ar": "سوفت روك وأغانٍ هادئة",
+      "ru": "Софт-рок и баллады"
+    }
+  },
+  {
+    "id": "soul-funk",
+    "name": {
+      "en": "Soul & funk",
+      "pt": "Soul & funk",
+      "es": "Soul y funk",
+      "fr": "Soul et funk",
+      "zh": "灵魂乐与放克",
+      "hi": "सोल और फ़ंक",
+      "ar": "سول وفانك",
+      "ru": "Соул и фанк"
+    }
+  },
+  {
+    "id": "southern-hip-hop",
+    "name": {
+      "en": "Southern hip-hop",
+      "pt": "Southern hip-hop",
+      "es": "Hip-hop sureño",
+      "fr": "Hip-hop du Sud",
+      "zh": "南方嘻哈",
+      "hi": "सदर्न हिप-हॉप",
+      "ar": "هيب هوب جنوبي",
+      "ru": "Южный хип-хоп"
+    }
+  },
+  {
+    "id": "talk-radio",
+    "name": {
+      "en": "Talk radio",
+      "pt": "Rádio falada",
+      "es": "Radio hablada",
+      "fr": "Radio parlée",
+      "zh": "谈话电台",
+      "hi": "टॉक रेडियो",
+      "ar": "إذاعة حوارية",
+      "ru": "Разговорное радио"
+    }
+  },
+  {
+    "id": "trance-house",
+    "name": {
+      "en": "Trance & house",
+      "pt": "Trance & house",
+      "es": "Trance y house",
+      "fr": "Trance et house",
+      "zh": "迷幻舞曲与浩室",
+      "hi": "ट्रांस और हाउस",
+      "ar": "ترانس وهاوس",
+      "ru": "Транс и хаус"
+    }
+  },
+  {
+    "id": "wellness-talk",
+    "name": {
+      "en": "Wellness (talk)",
+      "pt": "Bem-estar (falada)",
+      "es": "Bienestar (hablada)",
+      "fr": "Bien-être (parlée)",
+      "zh": "健康（谈话）",
+      "hi": "वेलनेस (टॉक)",
+      "ar": "صحة وعافية (حوارية)",
+      "ru": "Здоровье (разговорное)"
+    }
+  },
+  {
+    "id": "west-coast-hip-hop",
+    "name": {
+      "en": "West Coast hip-hop",
+      "pt": "Hip-hop da Costa Oeste",
+      "es": "Hip-hop de la Costa Oeste",
+      "fr": "Hip-hop de la côte Ouest",
+      "zh": "西海岸嘻哈",
+      "hi": "वेस्ट कोस्ट हिप-हॉप",
+      "ar": "هيب هوب الساحل الغربي",
+      "ru": "Хип-хоп Западного побережья"
+    }
+  },
+  {
+    "id": "world-music",
+    "name": {
+      "en": "World music",
+      "pt": "World music",
+      "es": "Músicas del mundo",
+      "fr": "Musiques du monde",
+      "zh": "世界音乐",
+      "hi": "वर्ल्ड म्यूज़िक",
+      "ar": "موسيقى عالمية",
+      "ru": "World music"
+    }
+  }
+]

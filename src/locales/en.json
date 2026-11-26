@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "title": "Radio Wheel — GTA radio stations live (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)",
+    "description": "Listen to all 109 radio stations from GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and GTA III in your browser, live and synced like in the game, with the radio wheel, presets and the song playing now.",
+    "ogTitle": "Radio Wheel — GTA radio stations live",
+    "ogDescription": "The radio stations from GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and III playing live, with the game's radio wheel.",
+    "ogImageAlt": "Radio Wheel's radio wheel with the GTA VI stations"
+  },
+  "start": {
+    "button": "Turn on the radio",
+    "note": "Listen to the GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City and III radio stations live, just like in the car.",
+    "audio": "Audio from full station broadcasts published on YouTube.",
+    "disclaimer": "Fan project, not affiliated with Rockstar Games."
+  },
+  "station": {
+    "off": "Radio off",
+    "offHint": "Drag the wheel or tap a station",
+    "unavailable": "Broadcast unavailable right now",
+    "fallback": "Backup broadcast"
+  },
+  "wheel": {
+    "label": "Station wheel",
+    "dialHint": "drag up or down",
+    "turnOff": "Turn the radio off"
+  },
+  "controls": {
+    "label": "Controls",
+    "prev": "Previous station",
+    "next": "Next station",
+    "power": "Turn the radio on or off",
+    "spotify": "Open the song on Spotify",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "volume": "Volume",
+    "keyboard": "← → turn the wheel · 1–6 presets · Space turns the radio on and off"
+  },
+  "game": {
+    "label": "Game",
+    "prev": "Previous game",
+    "next": "Next game",
+    "pick": "Choose game",
+    "pickTitle": "Choose the game",
+    "stations_one": "{{count}} station",
+    "stations_other": "{{count}} stations"
+  },
+  "presets": {
+    "title": "Presets",
+    "hintTouch": "tap to tune · hold to save",
+    "hintMouse": "click to tune · hold to save",
+    "needTune": "Tune in to a station before saving",
+    "saved": "{{name}} saved to preset {{n}}",
+    "empty": "Preset {{n}} is empty: hold to save",
+    "aria": "Preset {{n}}: {{name}}",
+    "emptyAria": "Preset {{n}} empty",
+    "holdToReplace": "{{n}}: {{name}} (hold to replace)"
+  },
+  "favorites": {
+    "add": "Add to favorites",
+    "remove": "Remove from favorites",
+    "added": "{{name}} added to favorites",
+    "removed": "{{name}} removed from favorites"
+  },
+  "player": {
+    "label": "YouTube player",
+    "expand": "Expand player",
+    "minimize": "Minimize player",
+    "hide": "Hide video",
+    "show": "Show video",
+    "live": "live"
+  },
+  "sheet": {
+    "open": "Open the full panel",
+    "close": "Collapse the panel"
+  },
+  "language": {
+    "label": "Language"
+  },
+  "close": "Close"
+}

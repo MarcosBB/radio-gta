@@ -11,3 +11,4 @@ relatorio-videos.md
 .env
 __pycache__/
 *.pyc
+dist/

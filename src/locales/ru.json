@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "title": "Radio Wheel — радиостанции GTA в прямом эфире (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)",
+    "description": "Слушайте все 109 радиостанций GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City и GTA III в браузере, в прямом эфире и синхронно, как в игре, с колесом радио, пресетами и названием текущей песни.",
+    "ogTitle": "Radio Wheel — радиостанции GTA в прямом эфире",
+    "ogDescription": "Радиостанции GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City и III в прямом эфире, с колесом радио из игры.",
+    "ogImageAlt": "Колесо радио Radio Wheel со станциями GTA VI"
+  },
+  "start": {
+    "button": "Включить радио",
+    "note": "Слушайте радиостанции GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City и III в прямом эфире, как в машине.",
+    "audio": "Звук из полных записей эфиров, опубликованных на YouTube.",
+    "disclaimer": "Фанатский проект, не связан с Rockstar Games."
+  },
+  "station": {
+    "off": "Радио выключено",
+    "offHint": "Поверните колесо или нажмите на станцию",
+    "unavailable": "Эфир сейчас недоступен",
+    "fallback": "Резервный эфир"
+  },
+  "wheel": {
+    "label": "Колесо станций",
+    "dialHint": "тяните вверх или вниз",
+    "turnOff": "Выключить радио"
+  },
+  "controls": {
+    "label": "Управление",
+    "prev": "Предыдущая станция",
+    "next": "Следующая станция",
+    "power": "Включить или выключить радио",
+    "spotify": "Открыть песню в Spotify",
+    "mute": "Выключить звук",
+    "unmute": "Включить звук",
+    "volume": "Громкость",
+    "keyboard": "← → крутят колесо · 1–6 пресеты · Пробел включает и выключает"
+  },
+  "game": {
+    "label": "Игра",
+    "prev": "Предыдущая игра",
+    "next": "Следующая игра",
+    "pick": "Выбрать игру",
+    "pickTitle": "Выберите игру",
+    "stations_one": "{{count}} станция",
+    "stations_few": "{{count}} станции",
+    "stations_many": "{{count}} станций",
+    "stations_other": "{{count}} станции"
+  },
+  "presets": {
+    "title": "Пресеты",
+    "hintTouch": "нажмите, чтобы слушать · удерживайте, чтобы сохранить",
+    "hintMouse": "кликните, чтобы слушать · удерживайте, чтобы сохранить",
+    "needTune": "Сначала выберите станцию",
+    "saved": "{{name}} сохранена в пресет {{n}}",
+    "empty": "Пресет {{n}} пуст: удерживайте, чтобы сохранить",
+    "aria": "Пресет {{n}}: {{name}}",
+    "emptyAria": "Пресет {{n}} пуст",
+    "holdToReplace": "{{n}}: {{name}} (удерживайте, чтобы заменить)"
+  },
+  "favorites": {
+    "add": "Добавить в избранное",
+    "remove": "Убрать из избранного",
+    "added": "{{name}} в избранном",
+    "removed": "{{name}} убрана из избранного"
+  },
+  "player": {
+    "label": "Плеер YouTube",
+    "expand": "Развернуть плеер",
+    "minimize": "Свернуть плеер",
+    "hide": "Скрыть видео",
+    "show": "Показать видео",
+    "live": "в эфире"
+  },
+  "sheet": {
+    "open": "Открыть всю панель",
+    "close": "Свернуть панель"
+  },
+  "language": {
+    "label": "Язык"
+  },
+  "close": "Закрыть"
+}

@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Radio Wheel — Les radios de GTA en direct (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)",
+    "description": "Écoutez les 109 radios de GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City et GTA III dans votre navigateur, en direct et synchronisées comme dans le jeu, avec la roue des radios, les présélections et le titre en cours.",
+    "ogTitle": "Radio Wheel — Les radios de GTA en direct",
+    "ogDescription": "Les radios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City et III en direct, avec la roue des radios du jeu.",
+    "ogImageAlt": "La roue des radios de Radio Wheel avec les stations de GTA VI"
+  },
+  "start": {
+    "button": "Allumer la radio",
+    "note": "Écoutez les radios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City et III en direct, comme dans la voiture.",
+    "audio": "Audio des émissions complètes publiées sur YouTube.",
+    "disclaimer": "Projet de fan, sans lien avec Rockstar Games."
+  },
+  "station": {
+    "off": "Radio éteinte",
+    "offHint": "Faites tourner la roue ou touchez une station",
+    "unavailable": "Émission indisponible pour le moment",
+    "fallback": "Émission de secours"
+  },
+  "wheel": {
+    "label": "Roue des stations",
+    "dialHint": "faites glisser vers le haut ou le bas",
+    "turnOff": "Éteindre la radio"
+  },
+  "controls": {
+    "label": "Commandes",
+    "prev": "Station précédente",
+    "next": "Station suivante",
+    "power": "Allumer ou éteindre la radio",
+    "spotify": "Ouvrir le titre sur Spotify",
+    "mute": "Couper le son",
+    "unmute": "Activer le son",
+    "volume": "Volume",
+    "keyboard": "← → tournent la roue · 1–6 présélections · Espace allume et éteint"
+  },
+  "game": {
+    "label": "Jeu",
+    "prev": "Jeu précédent",
+    "next": "Jeu suivant",
+    "pick": "Choisir le jeu",
+    "pickTitle": "Choisissez le jeu",
+    "stations_one": "{{count}} station",
+    "stations_many": "{{count}} stations",
+    "stations_other": "{{count}} stations"
+  },
+  "presets": {
+    "title": "Présélections",
+    "hintTouch": "touchez pour écouter · maintenez pour enregistrer",
+    "hintMouse": "cliquez pour écouter · maintenez pour enregistrer",
+    "needTune": "Choisissez une station avant d'enregistrer",
+    "saved": "{{name}} enregistrée dans la présélection {{n}}",
+    "empty": "Présélection {{n}} vide : maintenez pour enregistrer",
+    "aria": "Présélection {{n}} : {{name}}",
+    "emptyAria": "Présélection {{n}} vide",
+    "holdToReplace": "{{n}} : {{name}} (maintenez pour remplacer)"
+  },
+  "favorites": {
+    "add": "Ajouter aux favoris",
+    "remove": "Retirer des favoris",
+    "added": "{{name}} ajoutée aux favoris",
+    "removed": "{{name}} retirée des favoris"
+  },
+  "player": {
+    "label": "Lecteur YouTube",
+    "expand": "Agrandir le lecteur",
+    "minimize": "Réduire le lecteur",
+    "hide": "Masquer la vidéo",
+    "show": "Afficher la vidéo",
+    "live": "en direct"
+  },
+  "sheet": {
+    "open": "Ouvrir le panneau complet",
+    "close": "Replier le panneau"
+  },
+  "language": {
+    "label": "Langue"
+  },
+  "close": "Fermer"
+}

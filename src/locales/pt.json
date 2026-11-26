@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "title": "Radio Wheel — Rádios do GTA ao vivo (GTA VI, V, IV, VCS, LCS, San Andreas, Vice City, III)",
+    "description": "Ouça as 109 rádios de GTA VI, GTA V, GTA IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e GTA III no navegador, ao vivo e sincronizadas como no jogo, com a roda de rádio, memórias e o nome da música tocando agora.",
+    "ogTitle": "Radio Wheel — Rádios do GTA ao vivo",
+    "ogDescription": "As rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III tocando ao vivo, com a roda de rádio do jogo.",
+    "ogImageAlt": "Roda de rádio do Radio Wheel com as estações do GTA VI"
+  },
+  "start": {
+    "button": "Ligar o rádio",
+    "note": "Ouça as rádios de GTA VI, V, IV, Vice City Stories, Liberty City Stories, San Andreas, Vice City e III ao vivo, como no carro.",
+    "audio": "Áudio das transmissões completas publicadas no YouTube.",
+    "disclaimer": "Projeto de fã, sem afiliação com a Rockstar Games."
+  },
+  "station": {
+    "off": "Rádio desligada",
+    "offHint": "Arraste a roda ou toque numa rádio",
+    "unavailable": "Transmissão indisponível agora",
+    "fallback": "Transmissão reserva"
+  },
+  "wheel": {
+    "label": "Roda de rádios",
+    "dialHint": "arraste para cima ou para baixo",
+    "turnOff": "Desligar o rádio"
+  },
+  "controls": {
+    "label": "Controles",
+    "prev": "Estação anterior",
+    "next": "Próxima estação",
+    "power": "Ligar ou desligar o rádio",
+    "spotify": "Abrir a música no Spotify",
+    "mute": "Silenciar",
+    "unmute": "Ativar som",
+    "volume": "Volume",
+    "keyboard": "← → giram a roda · 1–6 memórias · Espaço liga e desliga"
+  },
+  "game": {
+    "label": "Jogo",
+    "prev": "Jogo anterior",
+    "next": "Próximo jogo",
+    "pick": "Escolher jogo",
+    "pickTitle": "Escolha o jogo",
+    "stations_one": "{{count}} rádio",
+    "stations_many": "{{count}} rádios",
+    "stations_other": "{{count}} rádios"
+  },
+  "presets": {
+    "title": "Memórias",
+    "hintTouch": "toque sintoniza · segure salva",
+    "hintMouse": "clique sintoniza · segure salva",
+    "needTune": "Sintonize uma rádio antes de salvar",
+    "saved": "{{name}} salva na memória {{n}}",
+    "empty": "Memória {{n}} vazia: segure para salvar",
+    "aria": "Memória {{n}}: {{name}}",
+    "emptyAria": "Memória {{n}} vazia",
+    "holdToReplace": "{{n}}: {{name}} (segure para trocar)"
+  },
+  "favorites": {
+    "add": "Marcar como favorita",
+    "remove": "Remover das favoritas",
+    "added": "{{name}} marcada como favorita",
+    "removed": "{{name}} removida das favoritas"
+  },
+  "player": {
+    "label": "Player do YouTube",
+    "expand": "Expandir player",
+    "minimize": "Minimizar player",
+    "hide": "Ocultar vídeo",
+    "show": "Mostrar vídeo",
+    "live": "ao vivo"
+  },
+  "sheet": {
+    "open": "Abrir o painel completo",
+    "close": "Recolher o painel"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "close": "Fechar"
+}
