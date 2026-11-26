@@ -37,13 +37,15 @@ export default function Transport({ compact, className = '' }) {
 
   if (compact) {
     return (
-      <div className={`grid grid-cols-5 items-center justify-items-center ${className}`}>
+      <div className={`flex items-center justify-between ${className}`}>
         <button type="button" aria-label={muteLabel} title={muteLabel} onClick={toggleMute} className="grid size-11 cursor-pointer place-items-center rounded-full border border-ring bg-white/5 text-fg">
           <VolumeIcon volume={volume} />
         </button>
-        <IconButton icon="prev" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.prev')} onClick={() => step(-1)} />
-        {power}
-        <IconButton icon="next" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.next')} onClick={() => step(1)} />
+        <div className="flex items-center gap-4">
+          <IconButton icon="prev" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.prev')} onClick={() => step(-1)} />
+          {power}
+          <IconButton icon="next" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.next')} onClick={() => step(1)} />
+        </div>
         {spotifyButton}
       </div>
     )
