@@ -65,13 +65,13 @@ export default function PresetButton({ n, station, active, onRecall, onSave }) {
           transition={{ duration: 0.6 }}
         />
       )}
-      <span className={`absolute top-1 start-1.5 font-sans text-[10px] font-bold ${active ? 'text-[var(--c1)]' : 'text-muted'}`}>{n}</span>
+      <span className={`absolute top-1 start-1 z-10 grid h-4 min-w-4 place-items-center rounded-full bg-[#14141b]/85 px-1 font-sans text-[10px] leading-none font-bold ${active ? 'text-[var(--c1)]' : 'text-soft'}`}>{n}</span>
       {station ? (
         <span
           className="relative grid size-full place-items-center"
           style={!station.logo ? { background: `linear-gradient(135deg, ${station.colors[0]}, ${station.colors[1]})` } : undefined}
         >
-          <StationBadge station={station} className="max-h-[70%] max-w-[72%]" textClass="text-[12px]" />
+          <StationBadge station={station} className="max-h-[62%] max-w-[66%] translate-y-[6%]" textClass="text-[12px]" />
         </span>
       ) : (
         <span className="relative">{n}</span>
