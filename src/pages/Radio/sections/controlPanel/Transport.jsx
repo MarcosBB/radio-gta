@@ -41,10 +41,11 @@ export default function Transport({ compact, className = '' }) {
         <button type="button" aria-label={muteLabel} title={muteLabel} onClick={toggleMute} className="grid size-11 cursor-pointer place-items-center rounded-full border border-ring bg-white/5 text-fg">
           <VolumeIcon volume={volume} />
         </button>
-        <div className="flex items-center gap-4">
-          <IconButton icon="prev" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.prev')} onClick={() => step(-1)} />
+        {/* Media controls follow the direction of the tape, so they never mirror in RTL languages. */}
+        <div dir="ltr" className="flex items-center gap-4">
+          <IconButton icon="prev" size="lg" iconClass="size-[22px]" label={t('controls.prev')} onClick={() => step(-1)} />
           {power}
-          <IconButton icon="next" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.next')} onClick={() => step(1)} />
+          <IconButton icon="next" size="lg" iconClass="size-[22px]" label={t('controls.next')} onClick={() => step(1)} />
         </div>
         {spotifyButton}
       </div>
@@ -53,10 +54,12 @@ export default function Transport({ compact, className = '' }) {
 
   return (
     <div className={`flex flex-col gap-4 ${className}`}>
-      <div className="relative flex items-center justify-center gap-4">
-        <IconButton icon="prev" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.prev')} onClick={() => step(-1)} />
-        {power}
-        <IconButton icon="next" size="lg" iconClass="size-[22px] rtl:-scale-x-100" label={t('controls.next')} onClick={() => step(1)} />
+      <div className="relative flex items-center justify-center">
+        <div dir="ltr" className="flex items-center gap-4">
+          <IconButton icon="prev" size="lg" iconClass="size-[22px]" label={t('controls.prev')} onClick={() => step(-1)} />
+          {power}
+          <IconButton icon="next" size="lg" iconClass="size-[22px]" label={t('controls.next')} onClick={() => step(1)} />
+        </div>
         <span className="absolute end-0">{spotifyButton}</span>
       </div>
       <div className="flex items-center gap-2.5">
