@@ -21,7 +21,7 @@ window.STATIONS = {
     { name: 'Emotion 98.3', logo: 'logos/emotion-983.png', short: 'EMO\n98.3',           genre: 'Soft rock & baladas',       id: 'Hr4UgN6UbSw', dur: d('3:02:41'), c: ['#f06bd8', '#7b5cff'] },
     { name: 'V-Rock', logo: 'logos/v-rock.png', short: 'V-ROCK',                 genre: 'Rock clássico',             id: '-RwK09PE-lw', dur: d('5:20:36'), c: ['#e8e8e8', '#d11f2a'] },
     { name: 'Vice City Rap Radio', logo: 'logos/vcrr.png', short: 'VCRR',    genre: 'Hip-hop moderno',      id: 'LxdLqlBJIV0', dur: d('4:28:27'), c: ['#ff7a1a', '#2b2b2b'] },
-    { name: 'Cocoteo FM', logo: 'logos/cocoteo-fm.png', short: 'COCO\nTEO',             genre: 'Reggaeton & Latin',         id: '0VweYz7fELs', dur: d('1:34:26'), c: ['#2bd9a5', '#ffde59'] },
+    { name: 'Cocoteo FM', logo: 'logos/cocoteo-fm.png', short: 'COCO\nTEO',             genre: 'Reggaeton & Latin',         id: 'qtrFpZpj13g', dur: d('1:49:08'), c: ['#2bd9a5', '#ffde59'] },
     { name: 'La Ola', logo: 'logos/radio-la-ola.png', short: 'LA\nOLA',           genre: 'Latina',                    id: 'GqLYAUj9Gco', dur: d('2:10:52'), c: ['#1fb6ff', '#ff4d6d'] },
     { name: 'Dirty South Classics', logo: 'logos/dirty-south-classics.png', short: 'DIRTY\nSOUTH',   genre: 'Southern hip-hop',          id: '6x0mbfqxkJU', dur: d('2:47:56'), c: ['#b4ff39', '#6b2bd9'] },
     { name: 'Back Country Radio', logo: 'logos/back-country-radio.png', short: 'BACK\nCNTRY',     genre: 'Country',                   id: 'zraN7Fv0GJM', dur: d('1:23:05'), c: ['#d9a35a', '#5a3a1f'] },

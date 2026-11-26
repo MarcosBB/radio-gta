@@ -7,3 +7,7 @@ local.properties
 build/
 .idea/
 
+relatorio-videos.md
+.env
+__pycache__/
+*.pyc
