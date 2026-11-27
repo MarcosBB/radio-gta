@@ -65,7 +65,8 @@
     "minimize": "Minimizar player",
     "hide": "Ocultar vídeo",
     "show": "Mostrar vídeo",
-    "live": "ao vivo"
+    "live": "ao vivo",
+    "open": "Abrir no YouTube"
   },
   "sheet": {
     "open": "Abrir o painel completo",

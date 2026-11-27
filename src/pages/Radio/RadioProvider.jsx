@@ -31,6 +31,7 @@ export function RadioProvider({ children }) {
   const [previewId, setPreviewId] = useState(null)
   const [status, setStatus] = useState('off')
   const [usingFallback, setUsingFallback] = useState(false)
+  const [videoId, setVideoId] = useState(null)
   const [volume, setVolumeState] = useStoredState('vol', DEFAULT_VOLUME)
   const [lastStation, setLastStation] = useStoredState('lastStation', {})
   const [presets, setPresets] = useStoredState('presets', Array(PRESET_COUNT).fill(null))
@@ -106,6 +107,7 @@ export function RadioProvider({ children }) {
     pending.current = { stationId: station.id, tunedAt }
     playing.current = { station, video, idx }
     setUsingFallback(idx > 0)
+    setVideoId(video.id)
     clearTimeout(timers.current.load)
     clearTimeout(timers.current.timeout)
     timers.current.load = setTimeout(() => {
@@ -345,9 +347,18 @@ export function RadioProvider({ children }) {
     set('play', () => { if (!playing.current) actions.current.togglePower() })
   }, [])
 
+  // Link to the video that is playing, at the moment the radio is at.
+  const youtubeUrl = () => {
+    const p = playing.current
+    if (!p) return null
+    const pl = player.current
+    const pos = status === 'on' && pl?.getPlayerState?.() === YT_STATE.PLAYING ? pl.getCurrentTime() : livePosition(p.video.id, durationOf(p.video))
+    return `https://www.youtube.com/watch?v=${p.video.id}&t=${Math.floor(pos)}s`
+  }
+
   const value = {
     games, game, gameId, stations, started, currentId, currentStation, previewId, status, usingFallback,
-    volume, track, spotify: spotifyUrl(track), presets, favorites, ytSize, ytHidden, toastMsg, playerHostRef,
+    volume, track, spotify: spotifyUrl(track), videoId, youtubeUrl, presets, favorites, ytSize, ytHidden, toastMsg, playerHostRef,
     start, tune, step, togglePower, switchGame, cycleGame, setVolume, toggleMute, recallPreset, savePreset,
     toggleFavorite: toggleFavoriteStation, setYtSize, setYtHidden, toast,
   }

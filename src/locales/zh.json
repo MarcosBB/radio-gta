@@ -63,7 +63,8 @@
     "minimize": "缩小播放器",
     "hide": "隐藏视频",
     "show": "显示视频",
-    "live": "直播"
+    "live": "直播",
+    "open": "在 YouTube 上打开"
   },
   "sheet": {
     "open": "展开完整面板",

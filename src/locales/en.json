@@ -64,7 +64,8 @@
     "minimize": "Minimize player",
     "hide": "Hide video",
     "show": "Show video",
-    "live": "live"
+    "live": "live",
+    "open": "Open on YouTube"
   },
   "sheet": {
     "open": "Open the full panel",

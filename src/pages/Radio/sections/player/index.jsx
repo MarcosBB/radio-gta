@@ -7,7 +7,7 @@ import IconButton from '@/components/IconButton'
 // the music. "Hidden" moves it off-screen, where it keeps playing.
 export default function Player({ className = '' }) {
   const { t } = useTranslation()
-  const { playerHostRef, ytSize, ytHidden, setYtSize, setYtHidden, currentStation, game, started, usingFallback } = useRadio()
+  const { playerHostRef, ytSize, ytHidden, setYtSize, setYtHidden, currentStation, game, started, usingFallback, videoId, youtubeUrl } = useRadio()
   const big = ytSize === 'big' && !ytHidden
   const visible = started && !!currentStation
 
@@ -23,10 +23,19 @@ export default function Player({ className = '' }) {
         }`}
       />
       <div className="flex min-w-0 items-center gap-1.5 text-xs font-semibold text-muted">
-        <Icon name="youtube" className="size-3.5 text-[#ff0033]" />
-        <span className="truncate" dir="auto">
-          {currentStation ? `${currentStation.name} · ${game.label}` : 'YouTube'}
-        </span>
+        <a
+          href={videoId ? `https://www.youtube.com/watch?v=${videoId}` : undefined}
+          target="_blank"
+          rel="noopener"
+          title={t('player.open')}
+          onClick={(e) => { const url = youtubeUrl(); if (url) e.currentTarget.href = url }}
+          className="flex min-w-0 items-center gap-1.5 text-muted no-underline hover:text-fg"
+        >
+          <Icon name="youtube" className="size-3.5 shrink-0 text-[#ff0033]" />
+          <span className="truncate" dir="auto">
+            {currentStation ? `${currentStation.name} · ${game.label}` : 'YouTube'}
+          </span>
+        </a>
         <span
           title={usingFallback ? t('station.fallback') : undefined}
           className={`shrink-0 rounded-full px-1.5 py-0.5 text-[10px] tracking-wide uppercase ${usingFallback ? 'bg-amber-400/15 text-amber-300' : 'bg-white/8 text-soft'}`}

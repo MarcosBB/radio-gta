@@ -127,10 +127,71 @@ Adding a content type means: a JSON file in `contents/`, a `get*Data` function, 
 - `uv run tools/check_videos.py` — checks both videos of every station (removed, private, age-restricted, embedding blocked, blocked in Brazil, duration changed). A station with one failing video is a **warning**, with both failing an **error**. Writes `video-report.md` (not committed). Uses `YOUTUBE_API_KEY` from `.env` when present.
 - `python3 tools/find_fallback_videos.py` — searches YouTube (yt-dlp) for a second video of each station that has only one, checks it plays embedded, and adds the best match; candidates go to `fallback-report.md` (not committed). `--station <id> --replace` swaps a failing video.
 - `python3 tools/build_tracks.py` — reads every video description and regenerates `tracklists.json`; new tracklist lines become songs in `songs.json`, existing songs keep their Spotify data.
-- `python3 tools/build_spotify.py` — fills `spotify_id`, `title` and `artist` from the Spotify Web API (client credentials, `SPOTIFY_CLIENT_ID`/`SPOTIFY_CLIENT_SECRET` in `.env`; the app owner needs Spotify Premium). Low-confidence matches go to `spotify-report.md` for manual review. Requests are paced (one every 2 s, at most 600 per run, `--interval` and `--max-requests` change it) because Spotify answers bursts with a block of up to a day; on a 429 it waits and slows down, and on a development-mode quota block (`QUOTA_EXCEEDED`, about a day) it saves, writes the end of the block to `.spotify-blocked-until` and refuses to run until then, since requests during a block seem to restart it. Runs resume where the last one stopped.
+- `python3 tools/build_spotify.py` — fills `spotify_id`, `spotify_title` and `spotify_artist` from the Spotify Web API (client credentials, `SPOTIFY_CLIENT_ID`/`SPOTIFY_CLIENT_SECRET` in `.env`; the app owner needs Spotify Premium). Low-confidence matches go to `spotify-report.md` for manual review. Requests are paced (one every 2 s, at most 600 per run, `--interval` and `--max-requests` change it) because Spotify answers bursts with a block of up to a day; on a 429 it waits and slows down, and on a development-mode quota block (`QUOTA_EXCEEDED`, about a day) it saves, writes the end of the block to `.spotify-blocked-until` and refuses to run until then, since requests during a block seem to restart it. Runs resume where the last one stopped.
 - `stations-report.md` lists the stations that are missing and why; update it whenever a station is added or removed.
 
+- `uv run tools/logo_colors.py` — compares each station's `colors` with the colors of its logo and writes `logo-colors.html` (not committed); `--apply <id>` copies the logo colors into `stations.json`. Its suggestions can be dull, so look at the logo and pick by hand when they are.
+
 `.env` is never committed.
+
+## How to add or update stations
+
+Run every command from the project root. The tools that read YouTube need `YOUTUBE_API_KEY` in `.env`; `build_spotify.py` needs the Spotify keys.
+
+### Add a new station
+
+1. **Find the primary video**: a full recording of the station on YouTube (the whole station, not a playlist of the songs), public, embeddable, not age-restricted and not blocked in Brazil. Prefer one with a timestamped tracklist in the description, or the song name never shows. Note its id and length.
+2. **Logo** (optional): save it as `public/logos/<game>-<slug>.png` or `.svg`, square-ish with a transparent background. Without a logo, the station shows `short` on a gradient badge. Set `light: true` when the logo needs a light backdrop.
+3. **Genre**: use an existing `id` from `contents/genres.json`. A new genre needs its `name` in all 8 languages.
+4. **Add the entry** to `contents/stations.json`, at the position it should have on the wheel within its game:
+   ```json
+   {
+     "id": "gta5-new-station",
+     "game": "gta5",
+     "name": "New Station",
+     "short": "NEW\nSTATION",
+     "logo": "logos/gta5-new-station.png",
+     "light": false,
+     "genre": "classic-rock",
+     "colors": ["#d4232f", "#1e2d6b"],
+     "videos": [{ "youtube_id": "XXXXXXXXXXX", "duration": "1:23:45" }]
+   }
+   ```
+   The `id` is `<game>-<slug of the name>` and must never change afterwards: presets, favorites and the last station are stored by it. Pick `colors` from the logo (the first one tints the glow and the accents); `uv run tools/logo_colors.py` helps.
+5. **Fallback video**: `python3 tools/find_fallback_videos.py --station gta5-new-station`, then check the choice in `fallback-report.md` (it must be the same in-game station, not another one or a remix). To use a specific video instead, add it by hand as the second item of `videos`.
+6. **Tracklists**: `python3 tools/build_tracks.py --missing` reads the descriptions of the new videos and creates their tracklists and songs.
+7. **Spotify links**: `python3 tools/build_spotify.py` (see below).
+8. **Check**: `uv run tools/check_videos.py` (the new station must be OK) and `python3 scripts/check_content_assets.py`.
+9. **Update the texts**: the station count in `meta.description` of every `src/locales/*.json` ("109 stations"), and `stations-report.md`.
+10. **Try it**: `npm run dev`, tune in, check the logo, the colors, the song name and the Spotify button.
+
+### Update an existing station
+
+- **A video stopped working** (`check_videos.py` reports it): run `python3 tools/find_fallback_videos.py --station <id> --replace` to put a new video in the fallback slot, or edit `videos` by hand. To promote the fallback to primary, swap the two items. Then `python3 tools/build_tracks.py --missing`.
+- **The duration changed**: copy the new value that `check_videos.py` prints into that video's `duration`. A wrong duration makes the live position drift.
+- **Name, logo, genre or colors**: edit the entry. Keep the `id`, even when the name changes.
+- **Remove a station**: delete its entry and its logo, run `python3 tools/build_tracks.py` (it drops the tracklists and songs no station uses), and update the count in the locales and `stations-report.md`.
+
+### Tracklists
+
+- `tracklists.json` is generated from the timestamps in the video descriptions (`0:00 Artist - Title`, `[1:02:03] Title - Artist`, …). Never edit it by hand to fix a song name: fix the song in `songs.json`.
+- `python3 tools/build_tracks.py --missing` only fetches videos that have no tracklist yet. `python3 tools/build_tracks.py` (no flag) refetches every video and overwrites all tracklists.
+- A video with no timestamps has an empty tracklist, and the station plays without a song name. A tracklist written by hand for such a video survives `--missing`, but a full run overwrites it.
+- Every new line becomes a song with `kind` `song` or `other` (ads, news, talk, idents: no Spotify button). Fix a wrong `kind` by hand in `songs.json`.
+
+### Spotify links
+
+- `python3 tools/build_spotify.py` looks up every song not tried yet (`--retry` also retries the ones not found). It splits the tracklist line on the fly and tries both orders, because uploaders write "Title - Artist" or "Artist - Title". The development quota allows a few hundred songs a day, so run it once a day until it reports nothing left; it saves as it goes and refuses to run while Spotify is blocking the app.
+- Review `spotify-report.md`: "possible matches" are candidates below the confidence threshold, "not found" had no candidate.
+- **Fix a song by hand** in `contents/songs.json`: find the track on open.spotify.com, copy the id from `open.spotify.com/track/<id>`, and set
+  ```json
+  "spotify_id": "0aF9m87P8Tja3NUMv4DfHt",
+  "spotify_title": "Head Over Heels",
+  "spotify_artist": "Tears For Fears",
+  "spotify_checked": true
+  ```
+  `spotify_checked: true` stops the script from ever changing that song again. To leave a song without a link on purpose (not on Spotify), set `spotify_checked: true` and keep `spotify_id` `null`.
+- Without a Spotify match, the site shows the tracklist line as written and the button opens a Spotify search for it.
 
 ## Internationalization
 

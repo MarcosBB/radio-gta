@@ -65,7 +65,8 @@
     "minimize": "Réduire le lecteur",
     "hide": "Masquer la vidéo",
     "show": "Afficher la vidéo",
-    "live": "en direct"
+    "live": "en direct",
+    "open": "Ouvrir sur YouTube"
   },
   "sheet": {
     "open": "Ouvrir le panneau complet",

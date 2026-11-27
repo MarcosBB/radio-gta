@@ -49,9 +49,9 @@ export default function GameSelector({ className = '' }) {
           )}
           <span className="flex min-w-0 flex-col gap-0.5 overflow-hidden">
             <span className="line-clamp-2 font-display text-[19px] leading-tight font-bold tracking-[0.04em] uppercase">{game.label}</span>
-            <span className="flex flex-wrap items-center gap-x-1 text-xs text-muted">
-              <Icon name="pin" className="size-3" />
-              {game.place} · {game.year} · {t('game.stations', { count: game.stationCount })}
+            <span className="flex items-start gap-1 text-xs text-muted">
+              <Icon name="pin" className="mt-px size-3" />
+              <span>{game.place} · {game.year} · {t('game.stations', { count: game.stationCount })}</span>
             </span>
           </span>
         </button>
